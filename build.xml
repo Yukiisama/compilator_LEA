@@ -1,0 +1,61 @@
+<project name="Projet LEA" default="help">
+
+	<target name="jflextask" unless="jflex.available" description="creates JFlex Ant task">
+		<taskdef name="jflex" classname="jflex.anttask.JFlexTask" classpath="lib/jflex-full-1.7.0.jar" />
+		<property name="jflex.available" value="yes" />
+	</target>
+
+	<target name="beavertask" unless="beaver.available" description="creates Beaver Ant task">
+		<taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="lib/beaver-ant.jar" />
+		<property name="beaver.available" value="yes" />
+	</target>
+
+	<target name="help" description="show help message">
+		<echo message="Ant build file for Calculator example. Useful targets:" />
+		<echo message="" />
+		<echo message="clean: remove compiled files" />
+		<echo message="parser: executes beaver" />
+		<echo message="scanner: executes jflex" />
+		<echo message="compile: executes javac" />
+		<echo message="all: executes the program on exemples" />
+	</target>
+
+	<target name="parser" depends="beavertask" description="generate parser">
+		<beaver file="parser/Parser.grammar" destdir="src" compress="yes" exportTables="no" sortTerminals="no" terminalNames="yes" exportTerminals="yes" useSwitch="no" anonymousActions="yes" reportActions="no" />
+	</target>
+
+	<target name="scanner" depends="jflextask" description="generate scanner">
+		<jflex file="scanner/Scanner.jflex" destdir="src" nobak="yes" />
+	</target>
+
+	<target name="compile" depends="parser, scanner" description="compile all classes">
+		<mkdir dir="bin" />
+		<javac includeantruntime="false" srcdir="src" destdir="bin">
+			<classpath>
+				<pathelement location="lib/beaver-rt.jar" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="all" depends="compile" description="makes the example">
+		<path id="beaverclasspath">
+			<fileset dir="lib" includes="beaver-rt.jar" />
+			<fileset dir="lib" includes="jflex-full-1.7.0.jar" />
+		</path>
+		<java classname="ubordeaux.deptinfo.compilation.project.main.Main" classpath="bin" classpathref="beaverclasspath" output="data/output">
+			<arg value="data/progr1.lea" />
+			<arg value="-checkType" />
+			<arg value="data/progr2.lea" />
+		</java>
+	</target>
+
+	<target name="clean" description="remove compiled files">
+		<delete>
+			<fileset dir="src" includes="**/Parser.java,**/Scanner.java,**/Terminals.java" />
+			<fileset dir="bin" includes="**" />
+			<fileset dir="data" includes="output" />
+		</delete>
+	</target>
+
+</project>
+

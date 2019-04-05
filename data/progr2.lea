@@ -1,0 +1,23 @@
+//
+// gestion des variables statiques
+//
+var
+x, y : integer;
+b : boolean;
+c : string;
+d : array [ 1 .. 10 ] of string;
+begin
+   x = 1234564789; // 0x4995F6B5
+   y = 0x7FFFFFFF;
+   b = true;
+   c = "a";
+   d[1] = "A";
+   d[2] = "B";
+   d[3] = "C";
+   d[10] = "Z";
+   println x;
+   println y;
+   println b;
+   println c;
+   println d[2];
+end

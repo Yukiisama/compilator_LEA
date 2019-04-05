@@ -1,0 +1,140 @@
+/* **************************************************
+ ************************************************** */
+
+type
+
+chaine = string;
+entier = integer;
+booleen = boolean;
+
+named1 = chaine;
+//named2 = unknown; // error
+
+Months = (January, February, March, April, May, June, July, August, September, October, November, December);
+DaysOfWeek = (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
+//// xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); // error
+range1 = 64 .. 81;
+range2 = Monday .. Friday;
+//range3 = 81 .. 64; //error
+//range4 = Friday .. Unknown; // error
+//range5 = Friday .. Monday; // error
+//range6 = Monday .. December; //error
+//range7 = Friday .. Tuesday; // error "range not valid"
+//range8 = Monday .. April; // error "incoherent range"
+
+table1 = array [ 1 .. 32 ] of integer;
+table2 = array [ range1 ] of integer;
+table3 = array [ range2 ] of integer;
+table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+//table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; // error "Range type expected"
+//table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
+
+ptr1 = ^integer;
+ptr2 = ^array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+
+var
+
+x, y, z : integer;
+//x : boolean; // error "Variable x yet declared"
+b : boolean;
+z2 : array [ 1 .. 32] of integer;
+k : array [ range2 ] of integer;
+l : array [ range2 ] of boolean;
+m2 : array [ Monday .. Thursday ] of boolean;
+p : ptr1;
+m : Months;
+r1: range1;
+r2: range2;
+
+month : Months;
+
+function goo(i : integer, j : integer) : boolean;
+//function goo(i : integer, j : integer) : boolean; //error "procedure or function declared twice"
+
+function foo(i : integer, j : integer) : ^boolean
+var
+	result : ^boolean;
+begin
+	new result;
+	//result^ = hoo(i, j); // error "function not declared"
+	result^ = goo(i, j);
+	return result;
+end
+
+function goo(i : integer, j : integer) : boolean
+begin
+	return (i+j);
+end
+
+//function goo(i : integer, j : integer) : boolean { return false; } // error "function already defined"
+
+begin
+	b = false;
+	b = 2; // error "Type error in affectation"
+	l = m2; // error "Type error in affectation"
+	l = l;
+	
+	b = foo(3, 7)^;
+	b = goo(3, 7);
+	b = foo(3); // error "Type error in calling expression"
+	b = foo(3, false); // error "Type error in calling expression"
+	x = foo(3, 7); // error "Type error in calling expression"
+	
+	z2 [ Thursday ] = 36; // error "Type error in array access "
+	z2 [ 1 ] = 36;
+	x = z2 [ 1 ];
+	b = goo(z2 [ 1 ], 1);
+	y = z [ false ]; // error "Type error in array access"
+	y = z [ 4 ]; // error "Type error in affectation"
+	b = z [ 4 ]; // error "Type error in affectation"
+	z = k [ 4 ]; // error "Type error in affectation"
+	b = z2 [ Thursday ]; // error "Type error in affectation"
+	z2 = 36; // Accessible variable expected
+	
+
+	if (l [ Monday ]) then x = 1;
+	if (l [ Monday ]) then x = 1; else x = 2;
+	if (z2 [ 7 ]) then x = 1;
+	while (z2 [ 7 ]) do x = 1;
+	while (z2 [ 7 ]) do 
+		begin
+			if (l [ Monday ]) then x = 1; else x = 2;
+			println x;
+			readln y;
+		end
+		
+	switch (month) 
+		begin
+		case March, April, May:
+			println ("spring");
+		
+		case June, July, August:
+			println("summer");
+		
+		case September, October, November:
+			println("autumn");
+		
+		case February, December, January:
+			println("winter");
+			
+		default:
+			println("none");
+		end
+
+	x = -(36 + 45 / 7);
+	b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+	b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+	b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+
+	p = null;
+	p = 0; // error "Type error in affectation"
+	new p;
+	new x; // error "Type error in pointer access expression"
+	p^ = 36;
+	p^ = false;
+	x^ = null; // error "Type error in pointer access expression"
+	x = p^;
+	dispose p;
+	dispose x;  // error "Type error in pointer access expression"
+
+end

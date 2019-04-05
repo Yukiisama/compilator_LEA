@@ -1,0 +1,61 @@
+//
+// gestion complexe de la pile
+// 
+
+var
+x : integer;
+
+function fact1(k: integer): integer
+begin
+	if (k == 1) then
+		return (1);
+	else
+		return (k * fact1(k-1));
+end
+
+function fact2(k: integer): integer
+begin
+	if (k == 1) then
+		return (1);
+	else
+		return (fact2(k-1) * k);
+end
+
+procedure hanoi(a: string, b: string, c: string, k: integer)
+  begin
+  if (k>1) then hanoi(a, c, b, k-1);
+  print(a); print(">"); println(c);
+  if (k>1) then hanoi(b, a, c, k-1);
+end
+
+function impair(i : integer) : boolean;
+function pair(i : integer) : boolean
+var
+  b : boolean;
+begin
+if (i == 1) then
+	     b = false;
+ else if (i == 0) then
+		   b = true;
+ else
+ b = impair(i-1);
+return (b);
+ end
+
+function impair(i : integer) : boolean
+begin
+if (i == 1) then
+  return (true);
+ else if (i == 0) then
+  return (false);
+ else return (pair(i-1));
+ end
+
+begin
+
+println (fact1 (6));
+println (fact2 (6));
+hanoi("A", "B", "C", 4);
+println (pair(1001));
+println (pair(1000));
+end

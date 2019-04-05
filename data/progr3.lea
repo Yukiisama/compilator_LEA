@@ -1,0 +1,46 @@
+// gestion des variables statiques
+// gestion du tas et des pointeurs
+// 
+var
+x : integer;
+y : integer;
+b : boolean;
+c : string;
+d : array [1 .. 10] of string;
+p : ^integer;
+q : ^string;
+r : ^integer;
+begin
+   x = 1234564789; // 0x4995F6B5
+   y = 0x7FFFFFFF;
+   b = true;
+   c = "a";
+   d[1] = "A";
+   d[2] = "B";
+   d[3] = "C";
+   d[10] = "Z";
+   println (x);
+   println (y);
+   println (b);
+   println (c);
+   println (d[2]);
+
+   new q;
+   q^ = "A"; // 0x41
+   println q^;
+   
+   println p;
+   new p;
+   println p;
+   p^ = x;
+   println p^;
+   
+   new r; // resize the heap
+   r^ = 65536;
+   println(r^);
+   
+   dispose p;
+   println (p);
+   println (p^); // heap memory error
+   
+end

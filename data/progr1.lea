@@ -1,0 +1,11 @@
+var
+a: integer;
+
+begin
+a = 100;
+while (a >= 0) do
+	begin
+	println (a);
+	a = a - 1;
+	end
+end

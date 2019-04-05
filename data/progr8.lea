@@ -1,0 +1,26 @@
+//
+// tableaux et enumérés
+// 
+
+type
+days = (SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY);
+months = (JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER);
+
+var
+   d : SUNDAY .. SATURDAY;
+   week :  array [MONDAY .. FRIDAY] of string;
+   year : array [SUNDAY .. SATURDAY] of array [1 .. 31] of array [JANUARY .. DECEMBER] of string;
+   
+begin
+   week[MONDAY] = "M";
+   week[TUESDAY] = "T";
+   week[WEDNESDAY] = "W";
+
+   year [SATURDAY] [17] [MARCH] = "X";
+   year [SATURDAY] [1] [MARCH] = "V";
+   
+println(year [SATURDAY] [1] [MARCH]);
+println(year [SATURDAY] [17] [MARCH]);
+println(week[TUESDAY]);
+   
+end

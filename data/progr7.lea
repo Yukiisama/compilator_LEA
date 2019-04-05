@@ -1,0 +1,21 @@
+//
+// tableaux
+// 
+
+var
+   week : array [0 .. 6] of string;
+   year : array [1..7] of array [1 .. 31] of array [1..12] of string;
+   
+begin
+   week[0] = "M";
+   week[1] = "T";
+   week[2] = "W";
+
+   year [2] [17] [3] = "X";
+   year [4] [22] [7] = "V";
+   
+println(year [2] [17] [3]);
+println(year [2] [17] [4]);
+println(week[1]);
+   
+end
