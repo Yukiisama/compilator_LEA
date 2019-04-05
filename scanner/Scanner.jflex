@@ -25,13 +25,11 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "begin"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.BEGIN, yyline, yycolumn); }
 "end"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.END, yyline, yycolumn); }
 
-//TYPES
 "type"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.TYPE, yyline, yycolumn); }
 "string"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STR, yyline, yycolumn, yytext()); }
 "integer"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INT, yyline, yycolumn, new Integer(yytext())); }
 "boolean"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.BOOL, yyline, yycolumn, new Boolean(yytext())); }
 
-//
 ".."			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DOUBLE_DOT, yyline, yycolumn); }
 "array"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.ARRAY, yyline, yycolumn); }
 "of"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.OF, yyline, yycolumn); }
@@ -45,7 +43,6 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 {Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER, yyline, yycolumn); }
 {Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING, yyline, yycolumn); }
 
-//BRACKETS
 "(" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.LPAR, yyline, yycolumn); }
 ")" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.RPAR, yyline, yycolumn); }
 "{"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.LCURLY_BRACKET, yyline, yycolumn); }
@@ -53,7 +50,6 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "["				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.LBRACKET, yyline, yycolumn); }
 "]"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.RBRACKET, yyline, yycolumn); }
 
-//
 "Var"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.VAR, yyline, yycolumn); }
 "New"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NEW, yyline, yycolumn); }
 "Dispose"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DISPOSE, yyline, yycolumn); }
@@ -61,7 +57,6 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "readln"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.READLN, yyline, yycolumn); }
 "return"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.RETURN, yyline, yycolumn); }
 
-//
 "if"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.IF, yyline, yycolumn); }
 "then"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.THEN, yyline, yycolumn); }
 "else"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.ELSE, yyline, yycolumn); }
@@ -71,7 +66,6 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "case"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.CASE, yyline, yycolumn); }
 "default"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DEFAULT, yyline, yycolumn); }
 
-//Operations
 "+" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.PLUS, yyline, yycolumn); }
 "-" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.MINUS, yyline, yycolumn); }
 "*" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.TIMES, yyline, yycolumn); }

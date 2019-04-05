@@ -1,5 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.main;
 
+import java.util.Iterator;
 import ubordeaux.deptinfo.compilation.project.environment.*;
 import ubordeaux.deptinfo.compilation.project.type.*;
 import beaver.*;
@@ -82,7 +83,7 @@ public class Parser extends beaver.Parser {
 		}
 	};
  
-	static class Events extends beaver.Parser.events {
+	static class Events extends beaver.Parser.Events {
 		public void syntaxError(Symbol token) {
 			System.err.format("*** Erreur de syntaxe en ligne %d, colonne %d. Token inattendu: %s\n",
 				Symbol.getLine(token.getStart()),
@@ -92,7 +93,7 @@ public class Parser extends beaver.Parser {
 	}
 	
 	public void semanticError(String msg, Symbol token) {
-			Systemrr.format("*** " + msg + " ligne %d, colonne %d\n",
+			System.err.format("*** " + msg + " ligne %d, colonne %d\n",
 				Symbol.getLine(token.getStart()),
 				Symbol.getColumn(token.getStart()));
 		}
@@ -268,54 +269,13 @@ public class Parser extends beaver.Parser {
 			Action.RETURN,	// [86] variable_access = IDENTIFIER
 			RETURN4,	// [87] variable_access = variable_access LBRACKET expression RBRACKET; returns 'RBRACKET' although none is marked
 			RETURN2,	// [88] variable_access = expression CIRCUMFLEX; returns 'CIRCUMFLEX' although none is marked
-			new Action() {	// [89] expression = expression.e1 PLUS expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(0, e1, e2);
-				}
-			},
-			new Action() {	// [90] expression = expression.e1 MINUS expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(1, e1, e2);
-				}
-			},
-			new Action() {	// [91] expression = MINUS expression.e
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e = _symbols[offset + 2];
-					 return new Binop(e);
-				}
-			},
-			new Action() {	// [92] expression = expression.e1 TIMES expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(2, e1, e2);
-				}
-			},
-			new Action() {	// [93] expression = expression.e1 DIV expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(3, e1, e2);
-				}
-			},
-			new Action() {	// [94] expression = expression.e1 AND expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(4, e1, e2);
-				}
-			},
-			new Action() {	// [95] expression = expression.e1 OR expression.e2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e1 = _symbols[offset + 1];
-					final Symbol e2 = _symbols[offset + 3];
-					 return new Binop(5, e1, e2);
-				}
-			},
+			RETURN3,	// [89] expression = expression.e1 PLUS expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [90] expression = expression.e1 MINUS expression.e2; returns 'e2' although more are marked
+			RETURN2,	// [91] expression = MINUS expression.e
+			RETURN3,	// [92] expression = expression.e1 TIMES expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [93] expression = expression.e1 DIV expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [94] expression = expression.e1 AND expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [95] expression = expression.e1 OR expression.e2; returns 'e2' although more are marked
 			RETURN2,	// [96] expression = NOT expression.e
 			RETURN3,	// [97] expression = expression.e1 INFERIOR expression.e2; returns 'e2' although more are marked
 			RETURN3,	// [98] expression = expression.e1 INFERIOR_EQ expression.e2; returns 'e2' although more are marked
@@ -340,7 +300,7 @@ public class Parser extends beaver.Parser {
 		};
 
  
-	report = new MyEvents();
+	report = new Events();
 	}
 
 	protected Symbol invokeReduceAction(int rule_num, int offset) {
