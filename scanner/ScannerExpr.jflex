@@ -3,7 +3,7 @@ import beaver.Scanner;
 
 %%
 
-%class Scanner
+%class ScannerExpr
 %extends Scanner
 %function nextToken
 %type Symbol

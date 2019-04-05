@@ -21,11 +21,11 @@
 	</target>
 
 	<target name="parser" depends="beavertask" description="generate parser">
-		<beaver file="parser/Parser.grammar" destdir="src" compress="yes" exportTables="no" sortTerminals="no" terminalNames="yes" exportTerminals="yes" useSwitch="no" anonymousActions="yes" reportActions="no" />
+		<beaver file="parser/ParserExpr.grammar" destdir="src" compress="yes" exportTables="no" sortTerminals="no" terminalNames="yes" exportTerminals="yes" useSwitch="no" anonymousActions="yes" reportActions="no" />
 	</target>
 
 	<target name="scanner" depends="jflextask" description="generate scanner">
-		<jflex file="scanner/Scanner.jflex" destdir="src" nobak="yes" />
+		<jflex file="scanner/ScannerExpr.jflex" destdir="src" nobak="yes" />
 	</target>
 
 	<target name="compile" depends="parser, scanner" description="compile all classes">

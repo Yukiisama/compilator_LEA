@@ -13,8 +13,8 @@ public class Main {
 				if (arg.equals("-checkType"))
 					checksType = true;
 			} else {
-				Scanner input = new Scanner(new FileReader(arg));
-				Parser parser = new Parser();
+				ScannerExpr input = new ScannerExpr(new FileReader(arg));
+				ParserExpr parser = new ParserExpr();
 				try {
 					System.err.println("*** Fichier " + arg);
 					Node result = (Node) parser.parse(input);

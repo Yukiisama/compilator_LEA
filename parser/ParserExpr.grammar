@@ -1,5 +1,5 @@
 %package "ubordeaux.deptinfo.compilation.project.main";
-%class "Parser";
+%class "ParserExpr";
 %import "ubordeaux.deptinfo.compilation.project.node.*";
 %import "ubordeaux.deptinfo.compilation.project.type.*";
 %import "ubordeaux.deptinfo.compilation.project.environment.*";
@@ -52,7 +52,7 @@
 %terminals OR, AND, INFERIOR, INFERIOR_EQ, SUPERIOR;
 %terminals SUPERIOR_EQ, EQUALS, DIFF, TRUE, FALSE, NULL;
 %terminals SEMI, EQ, COMMA, NOT;
-%terminals INTEGER, STRING, IDENTIFIER;
+%terminals IDENTIFIER, INTEGER_LIT, STRING_LIT;
 
 %right UNARY_MINUS;
 %left TIMES, DIV;
@@ -64,11 +64,11 @@
 
 
 
-%goal program;
-
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
 ///////////////////////////////////////
+
+%goal program;
 
 program =
 	type_declaration_part
@@ -84,17 +84,21 @@ program =
 ////////////////////////////////////////////////
 
 type_declaration_part =
-
+	/* empty */
 	|TYPE type_declaration_list
 	;
 
 type_declaration_list =
-	type_declaration_list  type_declaration
+	type_declaration_list type_declaration
 	| type_declaration
 	;
 
 type_declaration =
-	IDENTIFIER EQ type SEMI
+	type_declaration_head EQ type SEMI
+	;
+	
+type_declaration_head =
+	IDENTIFIER
 	;
 
 ////////////////////////////////////////
@@ -126,11 +130,14 @@ index_type =
 	;
 
 enumerated_type =
-	LPAR identifier_list RPAR
+	init_enumerated_type LPAR identifier_list RPAR
+	;
+	
+init_enumerated_type =
 	;
 
 subrange_type =
-	INTEGER DOUBLE_DOT INTEGER
+	INTEGER_LIT DOUBLE_DOT INTEGER_LIT
 	| IDENTIFIER DOUBLE_DOT IDENTIFIER
 	;
 
@@ -166,7 +173,7 @@ feature_type =
 //////////////////////////////////////////////////////
 
 variable_declaration_part =
-
+	/* empty */ 
 	| VAR variable_declaration_list
 	;
 
@@ -193,8 +200,7 @@ procedure_definition_part =
 	;
 
 procedure_definition_list =
-	procedure_definition_list
-		procedure_definition
+	procedure_definition_list procedure_definition
 	| procedure_definition
 	;
 
@@ -205,11 +211,11 @@ procedure_definition =
 
 procedure_definition_head =
 	PROCEDURE IDENTIFIER LPAR argt_part RPAR
-	| FUNCTION IDENTIFIER LPAR argt_part.args RPAR COLON type
+	| FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type
 	;
 
 argt_part =
-
+	/* empty */ 
 	| argt_list
 	;
 
@@ -238,7 +244,7 @@ block=
 ////////////////////////////
 
 statement_list=
-	statement_list  statement
+	statement_list statement
 	| statement
 	;
 
@@ -266,10 +272,11 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER LPAR expression_part  RPAR
+	IDENTIFIER LPAR expression_part RPAR
 	;
 
 expression_part=
+	/* empty */ 
 	| expression_list
 	;
 
@@ -319,23 +326,27 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list  case_statement
+	case_statement_list case_statement case_default
 	| case_statement
 	;
 
 case_statement=
-	CASE IDENTIFIER COLON statement
+	CASE identifier_list COLON statement
+	;
+	
+case_default = 
+	/* empty */
 	| DEFAULT COLON statement
 	;
 
-variable_access=
+variable_access =
 	IDENTIFIER
 	| variable_access LBRACKET expression RBRACKET
 	| expression CIRCUMFLEX 	
 	;
 
 ///////////////////////////
-////    expressionS    ////
+////    EXPRESSIONS    ////
 ///////////////////////////
 
 expression =
@@ -364,8 +375,8 @@ expression =
 //////////////////////////////////////
 
 literal=
-	INTEGER
-	| STRING
+	INTEGER_LIT
+	| STRING_LIT
 	| TRUE
 	| FALSE
 	| NULL
