@@ -54,15 +54,23 @@
 %terminals SEMI, EQ, COMMA, NOT;
 %terminals IDENTIFIER, INTEGER_LIT, STRING_LIT;
 
-%right UNARY_MINUS;
-%left TIMES, DIV;
-%left PLUS, MINUS;
+//////////////////////////
+////    LEFT/RIGHT    ////
+//////////////////////////
+
+%right UNARY_MINUS, CIRCUMFLEX, NOT;
+%left TIMES, DIV, PLUS, MINUS, ELSE, IF, THEN;
+%left OR, AND, INFERIOR, INFERIOR_EQ, SUPERIOR, SUPERIOR_EQ, EQUALS, DIFF;
 
 /////////////////////
 ////   TYPEOF    ////
 /////////////////////
 
 
+%typeof program, statement_list, statement = "Node";
+%typeof structured_statement, if_statement, while_statement, switch_statement = "Node";
+%typeof simple_statement, assignment_statement, procedure_statement, new_statement, dispose_statement, println_statement, readln_statement, return_statement = "Node";
+%typeof	expression = "Node";
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -71,11 +79,11 @@
 %goal program;
 
 program =
-	type_declaration_part
-	variable_declaration_part
-	procedure_definition_part
+	type_declaration_part		
+	variable_declaration_part		
+	procedure_definition_part		
 	BEGIN
-	statement_list.stm
+	statement_list						
 	END
 	;
 
@@ -115,9 +123,9 @@ type=
 	;
 
 simple_type =
-	STR
-	| INT
-	| BOOL
+	STR				
+	| INT		
+	| BOOL		
 	;
 
 named_type =
@@ -152,7 +160,7 @@ range_type =
 	;
 
 pointer_type =
-	CIRCUMFLEX type
+	CIRCUMFLEX type.t
 	;
 
 structure_type =
@@ -209,7 +217,11 @@ procedure_definition =
 	| procedure_definition_head SEMI
 	;
 
-procedure_definition_head =
+procedure_definition_head=
+	procedure_head 
+	;
+
+procedure_head =
 	PROCEDURE IDENTIFIER LPAR argt_part RPAR
 	| FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type
 	;
@@ -244,31 +256,31 @@ block=
 ////////////////////////////
 
 statement_list=
-	statement_list statement
-	| statement
+	statement_list statement.stm
+	| statement.stm
 	;
 
 statement=
-	simple_statement
-	| structured_statement
+	simple_statement.stm		{: return stm; :}
+	| structured_statement.stm	{: return stm; :}
 	;
 
 simple_statement=
-	assignment_statement
-	| procedure_statement
-	| new_statement
-	| dispose_statement
-	| println_statement
-	| readln_statement
-	| return_statement
+	assignment_statement.stm	{: return stm; :}	
+	| procedure_statement.stm	{: return stm; :}
+	| new_statement.stm			{: return stm; :}
+	| dispose_statement.stm		{: return stm; :}
+	| println_statement.stm		{: return stm; :}
+	| readln_statement.stm		{: return stm; :}
+	| return_statement.stm		{: return stm; :}	
 	;
 
 assignment_statement=
-	variable_access EQ expression SEMI
+	variable_access.stm EQ expression.e SEMI
 	;
 
 procedure_statement=
-	procedure_expression SEMI
+	procedure_expression.e SEMI
 	;
 
 procedure_expression=
@@ -286,43 +298,43 @@ expression_list=
 	;
 
 new_statement=
-	NEW variable_access SEMI
+	NEW variable_access.stm SEMI		{: return new NodeNew(stm); :}
 	;
 
 dispose_statement=
-	DISPOSE variable_access SEMI
+	DISPOSE variable_access.stm SEMI	{: return new NodeDispose(stm); :}
 	;
 
-println_statement=
-	PRINTLN expression SEMI
+println_statement=		
+	PRINTLN expression.e SEMI			
 	;
 	
 readln_statement=
-	READLN expression SEMI
+	READLN expression.e SEMI
 	;
 	
 return_statement=
-	RETURN expression SEMI
+	RETURN expression.e SEMI			{: return new NodeReturn(e); :}
 	;
 	
-structured_statement=
-	block
-	| if_statement
-	| while_statement
-	| switch_statement
+structured_statement =
+	block.block													{: return block; :}
+	| if_statement.stm											{: return stm; :}
+	| while_statement.stm										{: return stm; :}
+	| switch_statement.stm										{: return stm; :}
 	;
 	
-if_statement=
-	IF expression THEN statement
-	| IF expression THEN statement ELSE statement
+if_statement =
+	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2	{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
-	WHILE expression DO statement
+	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
-	SWITCH expression BEGIN case_statement_list END
+	SWITCH expression.e BEGIN case_statement_list.stm END		{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=

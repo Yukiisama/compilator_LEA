@@ -15,49 +15,48 @@ import ubordeaux.deptinfo.compilation.project.node.*;
 public class ParserExpr extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjM6bu55KMFTLTYAAue7OI76HLI005OKGWW14m8W4HY2mY2OGb4713HN6TSOcAeYOYAgw" +
-		"i8ku6b4LGL52388YEpgYupI8pEkxCk70zLNsx#YNTNIdxCnz$x7otxdttdNVFs#gzMm7iFH" +
-		"YA20QX3uhG14zYFpJ2$ZW0ZN4W3iB1E0I7uZ0SZXFH1TsGZp$Y50p0gHY845v35VR14wY6Z" +
-		"KpqH0$qaPja9vx2J9oB4ap7QHY6Cp0AOp0bIOI6wNAJOoKvnk4FKLOSgUmxwPs9S03kyRWN" +
-		"L#96pCPbk09NuK$uCwv6BYFSnGWP2H7CdkxxAsOfndARmN8Uvf6d0NaU#SrvAWsUIqN8yo1" +
-		"vclhoJ4g3Pxx1ynYQAa#kBqzf6Zml63nFeueyUUGPxCipBGsULmsU8gmWJr$o5FloN9G6pn" +
-		"i6p#lOGfx9TUw3nrFoD4CBVGEQeZbQwlC8jCPHQ8jij4T778lEn6NXV1GezW8Vt0nSYExix" +
-		"SDu2CjIuXB7jv1$SzY#7qv2A#NfxSCp4cqKTJckzy6TYQCLTmDkzi6DHJl5tOAvFhWSFIdU" +
-		"mQryqrFXelvcwA0nNyGpc9WIVGvc4NkCOk$49IZpwK4dnTsDUt2V3#uunIt4$LZWW#kgk2L" +
-		"OBF$qmHqVYoV$mAC#k1DqXlwEPx7A1zTBuwt1UgppmPsikEVn4bxsmGt541Ut2QzWkozkk8" +
-		"lRZgtOveCReUFuFvnVQjnexHzySOaxFj5pLZoIh0tKudVFtlAKSut#ZKLOwbaLDQmxF6k3M" +
-		"XDqTIkm6ckvn3VXTbo3Qt5TOAiSwvrOyXUKongDEjMBUhPQCSR#c2LlaCSvUpQISJbEJnhr" +
-		"Oho9BIZ40tmFSsKhuh$DC7#vlA6TttCn1wDt9sDFrlJYMTs7ivJ7qxilp$3#V6lplRcocEk" +
-		"5cUCrOBRNqCrAnlEyBU8PFegdHOaNPJhlhAdC12VmBJg2kLapvcNDUKErJ1AXVThS4MPdcU" +
-		"IEjO$f2BsPZ1Q4ku1tws3UjqCufqDvwmxd$BLZ18iHEYH4IBUdoLZQSoT6tBvsgbUUjbpW2" +
-		"6#xJ6OEzSlJI7dQrIkFizyYn6LozUkJnuaHORQKoMTzyencPXFXUPJ#FWXvk6XkM3j3RA8v" +
-		"OeWpDih3TlF1JUHgPdczJOLB79$5lydqbZ7pZl5a#$OdXihWtHe4Pt5t1S5bCsjAZOkV59q" +
-		"PCHKkwe#ZEpApwveI7M767iUEOGvmV80Uj6MVmm5m5gEdxcaSPtCU$MOy7Y#R4Ul6PHCPf7" +
-		"zPn8q8DDwWyTe66g$5KpeZ0Au3lu2bRfo8BoxPZg$jCIAvir9tYzyzUyt3DN8yOpohaMcXr" +
-		"BD6g1K$QOinZiXM$3vemo#4emDRbli6s6wEaPKGDRwleumvV4kpoEESFMJagPAHDEeKznx9" +
-		"S7TSEwT5x8T9OlnOb#Fg7C#JnVnWnrLE5YZo6TLfG6WYzHBAUPGcb2#S#dI4lx6KBe3rNjm" +
-		"N8gVrBX2UJvkky78w$qLTHNycDJFJ47FKy4Rg5TJCPKElKhz3$JxrHzHVKU#YDA1yGs7Cy4" +
-		"#KZe3T8CfZ7yXo7dK6utvfz6aFVIqOmuxxh49YAwXdQDi5b6pw2fEFApo5sBwAFOwoJlsNq" +
-		"#v9sQnr$SZJHkr1j4zG#mpQ1SfzCH#BAKEqheXrnJGuHzPiIcFrbz9$0SjvMkRwX9nwzXjp" +
-		"DDO6rPmZwqATxrQKrZfspgazY#Niu6iOuXu83QlbS#Pv4pM$SaC3QL#fVRf6wxjHBgDHRhI" +
-		"Po$eRg9TeUGs5QsjNQtcRWLr9#T0eEtk2Nq6XJxIycuyVECPbDVjbBzHnzelxmWTGzcUTiv" +
-		"SQAcuBxHPQtvZbEGQ#AuLxrlwK#bWAvy#kCke7KCvKkpFhLb7dQzdZvVkqcigvUTPhcVE5q" +
-		"K7ct4yOPrVDCUCerTbHRUdyHlSyvogiEaDrUzMzLHUgBbEjQncgLBrKzHhLMsltAROkDNtM" +
-		"sbgOtK76vwnLhN9pm#vYsFc6FQrc6vxotZjXwrf1tmryh$xhj9yvMfxjwEWwMVErRe4ndh6" +
-		"AcnbxTpLUfo3ZgdlSrZeZPedgUN6VtTharVhgckNGfUbnXnPf7ofgnT#j$eB4DdRtMZ6gZN" +
-		"QI17##CLPZ7UrobakCkic9RR638VV8JdW$UKrUaKsoKLwMb#H5sI0loFFoj3mbJyeJKkaYr" +
-		"iiYFXTIU9hB0vJxAVTHxgNmzf6xANTHxgJCezn1uSqZzxZjvyhj6ccnLCWIrtB$QoAhvJQv" +
-		"LMwHENAph29g7NsLygnRLodFk7gb#rpXFgkqpzMg7wSyflQZteWUaOTakMijfNmWxwl$R$8" +
-		"$sItVotVohNmZNyjNygNyb$xFv0lvt9WHtg7ogTgVoCTgVQZwFvI$ohkklKi#KkzxgfV9my" +
-		"8xLjwcx90tlPZRtUSMzxbPNeVnasto5fy$oqzQvdaiFzAOWUdCiSRJ6i#SQv8h5ZCKcpcAn" +
-		"Q$Vv7Aw8OCeGrK6irq1dCmaxCemnfxiVcb6PJZZ5n9JIbtAyXZQlOZlnV8KLopcJJOpgR3x" +
-		"5LN2kXBggQoRIZsMsf4YdXb5p0oBMLzC$pZYnsacrfljHn8pakK#AYVwo4d4zoM#9$Kqnfj" +
-		"6NndZb57te#vFEPcIJpc5aaU$AGFORW37UIhrGFPh0Z4Jw1$5ifETJMIv1yizMExXVh#4LK" +
-		"pRpsUAvKbk4Zdx5$uOAcK=");
+		"U9pjLsTu5LKGFRlx04M8YcA84WL40mbDGLH4EYWglGGGec1G4bGisB1B2IZD058KAG6feg8" +
+		"8qWqe5Z1AKL0KmOQzOtSykvdTRDvkdadm#$p3Uz$PcJltt9cvktVlpWKYSz4L9w43ckCALC" +
+		"8pE1hbSGmge2BYS2oEm$4u0IUYCbgW8Sx5HJW75wCzBi6biXjRiG1bPL#m3xVX4Lo5wz09t" +
+		"T0JlT4N6QY22z24SInPm$xDM8LofOrD$WgKGV$ms2A1s47M09oCdSWh8ljj0G$#J8ygGQPL" +
+		"ysTTH9oJ$xCufnv6dAjB4AVQOSGPL88uDGuZphKbY5FpCEBSMe8uPyQCqpHcdAUAZ9E8cLY" +
+		"CXLY4Dv276vdlAJWDrR4Kf#CC9A4sKb0NzN4M4iYzJD$0OMY9yHxtZW0t4IREHorbTtIPyb" +
+		"20cQoSP$4SHxN6Iiwa3LhXIiHx$fi5HlKYjuwEN8hfkCcBi3h0lPpSUieTYflHrlFR9S1D8" +
+		"xU1Scz13dDnkLD3vdYsCdDmDqPxp341vZXo6obt0YPYeCST4k1E8RUnSgTZ6WPxt1aX6Pod" +
+		"pCVmEBDmcRD2c1SgSoxcumdlRdqMOCx4lNWG3#4kt8FxS3yUm73Fzd28RLA8xT4GMsw8xRK" +
+		"Gsri#Mt2T7x6Kr98bdygNc8UdgNtYQDd8GewdtU1gia#rThfIil4yzvKdCHQJCG8ZCQhOMX" +
+		"RkT7pDeVQ2Uat4wtp3Dr5RYTM8U6jr3TPXEVUgpaxChkZko32lYUWXxs0PvMnwNkjvS6KYD" +
+		"l9ztO14UOFzBuRqsnN3ovGlOJrU3UbFrPc$WXtyk$O#QksdCbrbfihhlJqn2vkSsMxaVmdU" +
+		"n7O0Mx1EVeF$TpkYVf8dUTmjcz1FKxwdpUYh1VVNLjmDst2tQiVdwJvDW$kgnRjN1cLP#zX" +
+		"VzpW#xxxS3#D2#ghmAs3FeYhdTYhdKespAOYJmFwwt1bJIXtRviSL6Hk1s45M2hzAVRX3Xt" +
+		"ku9aRs9SlK7HSUf$oHE4VYC4wjKiOnMHTrO9NJoLdBALwbrK0hhKfQQvt4ciRqVFPa$44Uj" +
+		"r#0QxAYI$3OyHxp#W3JvQInrZCvPW1dSYshmJZMIEwesZ5pQS3xqTlZ9iJaDcQrd#nnusDo" +
+		"a#YtbiTj6397bsbmN7sFQGIOjNpSsgnJ6WNgsGBksONyzkNNqEKcnSWWdi$3y9WzO#PQdok" +
+		"dw3lhheREh32xiYBlZXx$cosupezOIcwfxLXwUrfvQeQd3VIqEDNSbLAUgweArr8DrjarMM" +
+		"cVMMpDu5grVINx8fdE6vvARG0jwTuAl1BzUKvmOxeopAl9VEBesTubaWdNWojDvtrDrVwaa" +
+		"7wxOh0SNdY$6pt1oTkrH#TMbEp9CQdEREtH$RX$nOiuywiZlXyo9Uh7U0ciE7RTPzTJ8fzI" +
+		"r23YY8x4ZKGb8iFkBmq0GtX9eznROEEP1JnxWgTNiBe5FYCEadCAKPNe14IEennEUHRbIif" +
+		"p02k5iYLb8ygsb1TITg5iHzc3qXxNdx8NntIcf6wCeCoa$C6NqmpQRWRCSZxRBxnKewr2Vj" +
+		"kiIyvTbFF3vsMkvfZVydLh9DjjrPx7zdZcaQXzKscheVfiwkUfleXwHnt3EVDy2NJMlkMqf" +
+		"LFPexbLLFiQskzWkwMsDxCzWJYMjjNgwpILRMYxHVN1nBqwvW2nZUtCuZz3ininAiesY7Fa" +
+		"yp6l8wwcp#tg$ntj7qei8Phxnenb$rxAnThUGEJIZvlpBXzt8R7Jr#OwiPuWbcYStHndptj" +
+		"HuRmYITg$AyfUaQXCP17LrLQVQAtwwHoptyTF9JZlo6Z2NbSD2TzwYTZppr3z2g82eVSxab" +
+		"x0CnRmlVg3lbVORUfRAFeKzzuN1TjduVdXLfLwR$61ng#aiftAOIftgFmaNvgcoYegwwdK#" +
+		"sFsLZb4vOZed6YR7hGPQmkthMN5cHzv1wFQNnNeaHIVtjYdDoayXjyYOBpsDLDRhif3Qc#b" +
+		"UIPhM##JPRzd1xNlEzzyqfJ7$S78ySrzHd7czU$pDYRvVCvJwTqpFdU#BsQNmcFCLL7jcqe" +
+		"NsvgcEMH7vRGvNoAnY77hezhV#dB93V8ZzNpzMmjqVczXZF7rlHqSYrsy2t$BFdW$ULMsoC" +
+		"loacoMJP8hByf6sI3BvHbvMfwIR8UnNd9udKlC8MOHZnCpYSS8VWraEZ6Du6ujZn1JYDd4e" +
+		"yxuoJ99FSsJXsM#ewrrhY$8H9aWusMSZ9LLPAsZBLjMEdtPyhmZLpZNvvphivhpQogN4K#g" +
+		"ljIRqH9P88iTZJkUV23lg$qz#LL#aKFoi$maFyeFyhry9z$I$hby8r$xxWY$fVAnwX$90TK" +
+		"#LFaLyQxiSVGlPBzQzwfSA8la5SgtYPsoGxPxNjzohjkSw#ko5RwVl2dsS$bB$jJsxmHtFG" +
+		"pbkQiiJsGWJ5pZmE1vBy8Jdy6AEnnTVEX0T5LqvBZBwAiJQnqRtUXx4EqkkjD$3t8oA3ESC" +
+		"qo4Pr0G9Z8TsDLHn3b3sZMJ$OrDfnpCli6KQKwjQB9QD5WhbY7AiOe2OR2MieZyEgiPVVGY" +
+		"hnVRpHKjOg0L#Qt9lu2Itql2u4dJ8WoUYYsUYosUZ2sUZIsUZYsUbur2QCznxJdNIoWlPLv" +
+		"svJpGENj6UAe4OR4ID8W8OLUJbiAlnxBvONXe6e8X$m25uVlN");
 
-	static final Action RETURN5 = new Action() {
+	static final Action RETURN6 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 5];
+			return _symbols[offset + 6];
 		}
 	};
 
@@ -79,9 +78,9 @@ public class ParserExpr extends Parser {
 		}
 	};
 
-	static final Action RETURN6 = new Action() {
+	static final Action RETURN5 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 6];
+			return _symbols[offset + 5];
 		}
 	};
 
@@ -116,7 +115,7 @@ public class ParserExpr extends Parser {
 	public ParserExpr() {
 		super(PARSING_TABLES);
 		actions = new Action[] {
-			RETURN5,	// [0] program = type_declaration_part variable_declaration_part procedure_definition_part BEGIN statement_list.stm END
+			RETURN6,	// [0] program = type_declaration_part variable_declaration_part procedure_definition_part BEGIN statement_list END; returns 'END' although none is marked
 			Action.NONE,  	// [1] type_declaration_part = 
 			RETURN2,	// [2] type_declaration_part = TYPE type_declaration_list; returns 'type_declaration_list' although none is marked
 			new Action() {	// [3] type_declaration_list = type_declaration_list type_declaration
@@ -151,7 +150,7 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [24] range_type = enumerated_type
 			Action.RETURN,	// [25] range_type = subrange_type
 			Action.RETURN,	// [26] range_type = named_type
-			RETURN2,	// [27] pointer_type = CIRCUMFLEX type; returns 'type' although none is marked
+			RETURN2,	// [27] pointer_type = CIRCUMFLEX type.t
 			RETURN4,	// [28] structure_type = STRUCT LCURLY_BRACKET feature_list_type RCURLY_BRACKET; returns 'RCURLY_BRACKET' although none is marked
 			new Action() {	// [29] feature_list_type = feature_list_type feature_type
 				public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -201,105 +200,237 @@ public class ParserExpr extends Parser {
 			},
 			RETURN2,	// [43] procedure_definition = procedure_definition_head block; returns 'block' although none is marked
 			RETURN2,	// [44] procedure_definition = procedure_definition_head SEMI; returns 'SEMI' although none is marked
-			RETURN5,	// [45] procedure_definition_head = PROCEDURE IDENTIFIER LPAR argt_part RPAR; returns 'RPAR' although none is marked
-			RETURN7,	// [46] procedure_definition_head = FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type; returns 'type' although none is marked
-			Action.NONE,  	// [47] argt_part = 
-			Action.RETURN,	// [48] argt_part = argt_list
-			new Action() {	// [49] argt_list = argt_list COMMA argt
+			Action.RETURN,	// [45] procedure_definition_head = procedure_head
+			RETURN5,	// [46] procedure_head = PROCEDURE IDENTIFIER LPAR argt_part RPAR; returns 'RPAR' although none is marked
+			RETURN7,	// [47] procedure_head = FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type; returns 'type' although none is marked
+			Action.NONE,  	// [48] argt_part = 
+			Action.RETURN,	// [49] argt_part = argt_list
+			new Action() {	// [50] argt_list = argt_list COMMA argt
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3]); return _symbols[offset + 1];
 				}
 			},
-			new Action() {	// [50] argt_list = argt
+			new Action() {	// [51] argt_list = argt
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
 				}
 			},
-			RETURN3,	// [51] argt = IDENTIFIER COLON type; returns 'type' although none is marked
-			RETURN4,	// [52] block = variable_declaration_part BEGIN statement_list END; returns 'END' although none is marked
-			new Action() {	// [53] statement_list = statement_list statement
+			RETURN3,	// [52] argt = IDENTIFIER COLON type; returns 'type' although none is marked
+			RETURN4,	// [53] block = variable_declaration_part BEGIN statement_list END; returns 'END' although none is marked
+			new Action() {	// [54] statement_list = statement_list statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
+					final Symbol _symbol_stm = _symbols[offset + 2];
+					final Node stm = (Node) _symbol_stm.value;
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
-			new Action() {	// [54] statement_list = statement
+			new Action() {	// [55] statement_list = statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
-			Action.RETURN,	// [55] statement = simple_statement
-			Action.RETURN,	// [56] statement = structured_statement
-			Action.RETURN,	// [57] simple_statement = assignment_statement
-			Action.RETURN,	// [58] simple_statement = procedure_statement
-			Action.RETURN,	// [59] simple_statement = new_statement
-			Action.RETURN,	// [60] simple_statement = dispose_statement
-			Action.RETURN,	// [61] simple_statement = println_statement
-			Action.RETURN,	// [62] simple_statement = readln_statement
-			Action.RETURN,	// [63] simple_statement = return_statement
-			RETURN4,	// [64] assignment_statement = variable_access EQ expression SEMI; returns 'SEMI' although none is marked
-			RETURN2,	// [65] procedure_statement = procedure_expression SEMI; returns 'SEMI' although none is marked
-			RETURN4,	// [66] procedure_expression = IDENTIFIER LPAR expression_part RPAR; returns 'RPAR' although none is marked
-			Action.NONE,  	// [67] expression_part = 
-			Action.RETURN,	// [68] expression_part = expression_list
-			new Action() {	// [69] expression_list = expression_list COMMA expression
+			new Action() {	// [56] statement = simple_statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3]); return _symbols[offset + 1];
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
 				}
 			},
-			new Action() {	// [70] expression_list = expression
+			new Action() {	// [57] statement = structured_statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
 				}
 			},
-			RETURN3,	// [71] new_statement = NEW variable_access SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [72] dispose_statement = DISPOSE variable_access SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [73] println_statement = PRINTLN expression SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [74] readln_statement = READLN expression SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [75] return_statement = RETURN expression SEMI; returns 'SEMI' although none is marked
-			Action.RETURN,	// [76] structured_statement = block
-			Action.RETURN,	// [77] structured_statement = if_statement
-			Action.RETURN,	// [78] structured_statement = while_statement
-			Action.RETURN,	// [79] structured_statement = switch_statement
-			RETURN4,	// [80] if_statement = IF expression THEN statement; returns 'statement' although none is marked
-			RETURN6,	// [81] if_statement = IF expression THEN statement ELSE statement; returns 'statement' although none is marked
-			RETURN4,	// [82] while_statement = WHILE expression DO statement; returns 'statement' although none is marked
-			RETURN5,	// [83] switch_statement = SWITCH expression BEGIN case_statement_list END; returns 'END' although none is marked
-			RETURN3,	// [84] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
-			Action.RETURN,	// [85] case_statement_list = case_statement
-			RETURN4,	// [86] case_statement = CASE identifier_list COLON statement; returns 'statement' although none is marked
-			Action.NONE,  	// [87] case_default = 
-			RETURN3,	// [88] case_default = DEFAULT COLON statement; returns 'statement' although none is marked
-			Action.RETURN,	// [89] variable_access = IDENTIFIER
-			RETURN4,	// [90] variable_access = variable_access LBRACKET expression RBRACKET; returns 'RBRACKET' although none is marked
-			RETURN2,	// [91] variable_access = expression CIRCUMFLEX; returns 'CIRCUMFLEX' although none is marked
-			RETURN3,	// [92] expression = expression.e1 PLUS expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [93] expression = expression.e1 MINUS expression.e2; returns 'e2' although more are marked
-			RETURN2,	// [94] expression = MINUS expression.e
-			RETURN3,	// [95] expression = expression.e1 TIMES expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [96] expression = expression.e1 DIV expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [97] expression = expression.e1 AND expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [98] expression = expression.e1 OR expression.e2; returns 'e2' although more are marked
-			RETURN2,	// [99] expression = NOT expression.e
-			RETURN3,	// [100] expression = expression.e1 INFERIOR expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [101] expression = expression.e1 INFERIOR_EQ expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [102] expression = expression.e1 SUPERIOR expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [103] expression = expression.e1 SUPERIOR_EQ expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [104] expression = expression.e1 EQUALS expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [105] expression = expression.e1 DIFF expression.e2; returns 'e2' although more are marked
-			new Action() {	// [106] expression = LPAR expression.e RPAR
+			new Action() {	// [58] simple_statement = assignment_statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e = _symbols[offset + 2];
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [59] simple_statement = procedure_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [60] simple_statement = new_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [61] simple_statement = dispose_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [62] simple_statement = println_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [63] simple_statement = readln_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [64] simple_statement = return_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			RETURN3,	// [65] assignment_statement = variable_access.stm EQ expression.e SEMI; returns 'e' although more are marked
+			Action.RETURN,	// [66] procedure_statement = procedure_expression.e SEMI
+			RETURN4,	// [67] procedure_expression = IDENTIFIER LPAR expression_part RPAR; returns 'RPAR' although none is marked
+			Action.NONE,  	// [68] expression_part = 
+			Action.RETURN,	// [69] expression_part = expression_list
+			new Action() {	// [70] expression_list = expression_list COMMA expression
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3].value); return _symbols[offset + 1];
+				}
+			},
+			new Action() {	// [71] expression_list = expression
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+				}
+			},
+			new Action() {	// [72] new_statement = NEW variable_access.stm SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol stm = _symbols[offset + 2];
+					 return new NodeNew(stm);
+				}
+			},
+			new Action() {	// [73] dispose_statement = DISPOSE variable_access.stm SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol stm = _symbols[offset + 2];
+					 return new NodeDispose(stm);
+				}
+			},
+			RETURN2,	// [74] println_statement = PRINTLN expression.e SEMI
+			RETURN2,	// [75] readln_statement = READLN expression.e SEMI
+			new Action() {	// [76] return_statement = RETURN expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
+					 return new NodeReturn(e);
+				}
+			},
+			new Action() {	// [77] structured_statement = block.block
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol block = _symbols[offset + 1];
+					 return block;
+				}
+			},
+			new Action() {	// [78] structured_statement = if_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [79] structured_statement = while_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [80] structured_statement = switch_statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 return stm;
+				}
+			},
+			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeIf(e, stm);
+				}
+			},
+			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
+					final Symbol _symbol_stm1 = _symbols[offset + 4];
+					final Node stm1 = (Node) _symbol_stm1.value;
+					final Symbol _symbol_stm2 = _symbols[offset + 6];
+					final Node stm2 = (Node) _symbol_stm2.value;
+					 return new NodeIf(e, stm1, stm2);
+				}
+			},
+			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeWhile(e, stm);
+				}
+			},
+			new Action() {	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
+					final Symbol stm = _symbols[offset + 4];
+					 return new NodeSwitch(e, stm);
+				}
+			},
+			RETURN3,	// [85] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
+			Action.RETURN,	// [86] case_statement_list = case_statement
+			RETURN4,	// [87] case_statement = CASE identifier_list COLON statement; returns 'statement' although none is marked
+			Action.NONE,  	// [88] case_default = 
+			RETURN3,	// [89] case_default = DEFAULT COLON statement; returns 'statement' although none is marked
+			Action.RETURN,	// [90] variable_access = IDENTIFIER
+			RETURN4,	// [91] variable_access = variable_access LBRACKET expression RBRACKET; returns 'RBRACKET' although none is marked
+			RETURN2,	// [92] variable_access = expression CIRCUMFLEX; returns 'CIRCUMFLEX' although none is marked
+			RETURN3,	// [93] expression = expression.e1 PLUS expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [94] expression = expression.e1 MINUS expression.e2; returns 'e2' although more are marked
+			RETURN2,	// [95] expression = MINUS expression.e
+			RETURN3,	// [96] expression = expression.e1 TIMES expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [97] expression = expression.e1 DIV expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [98] expression = expression.e1 AND expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [99] expression = expression.e1 OR expression.e2; returns 'e2' although more are marked
+			RETURN2,	// [100] expression = NOT expression.e
+			RETURN3,	// [101] expression = expression.e1 INFERIOR expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [102] expression = expression.e1 INFERIOR_EQ expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [103] expression = expression.e1 SUPERIOR expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [104] expression = expression.e1 SUPERIOR_EQ expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [105] expression = expression.e1 EQUALS expression.e2; returns 'e2' although more are marked
+			RETURN3,	// [106] expression = expression.e1 DIFF expression.e2; returns 'e2' although more are marked
+			new Action() {	// [107] expression = LPAR expression.e RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Node e = (Node) _symbol_e.value;
 					 return e;
 				}
 			},
-			Action.RETURN,	// [107] expression = procedure_expression
-			Action.RETURN,	// [108] expression = variable_access
-			Action.RETURN,	// [109] expression = literal
-			Action.RETURN,	// [110] literal = INTEGER_LIT
-			Action.RETURN,	// [111] literal = STRING_LIT
-			Action.RETURN,	// [112] literal = TRUE
-			Action.RETURN,	// [113] literal = FALSE
-			Action.RETURN	// [114] literal = NULL
+			Action.RETURN,	// [108] expression = procedure_expression
+			Action.RETURN,	// [109] expression = variable_access
+			Action.RETURN,	// [110] expression = literal
+			Action.RETURN,	// [111] literal = INTEGER_LIT
+			Action.RETURN,	// [112] literal = STRING_LIT
+			Action.RETURN,	// [113] literal = TRUE
+			Action.RETURN,	// [114] literal = FALSE
+			Action.RETURN	// [115] literal = NULL
 		};
 
  

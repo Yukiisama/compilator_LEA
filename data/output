@@ -1,0 +1,12 @@
+*** Fichier data/progr1.lea
+*** var
+*** a
+*** :
+*** integer
+*** ;
+*** begin
+*** a
+*** =
+*** 100
+*** ;
+*** while

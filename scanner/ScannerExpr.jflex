@@ -1,3 +1,4 @@
+package ubordeaux.deptinfo.compilation.project.main;
 import beaver.Symbol;
 import beaver.Scanner;
 
@@ -17,17 +18,17 @@ import beaver.Scanner;
 
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 Integer = [0-9]+
-Decimal = ({Integer}(\.{Integer})?)|(\.{Integer})
-Float = [+-]{Decimal}([eE][+-]?{Integer})?
+String = "\""~"\""
 
 %%
 
+"\n" 			{ }
+"var"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.VAR, yyline, yycolumn); }
 "begin"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.BEGIN, yyline, yycolumn); }
 "end"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.END, yyline, yycolumn); }
-
 "type"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.TYPE, yyline, yycolumn); }
 "string"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STR, yyline, yycolumn, yytext()); }
-"integer"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INT, yyline, yycolumn, new Integer(yytext())); }
+"integer"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INT, yyline, yycolumn); }
 "boolean"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.BOOL, yyline, yycolumn, new Boolean(yytext())); }
 
 ".."			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DOUBLE_DOT, yyline, yycolumn); }
@@ -36,12 +37,9 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "^"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.CIRCUMFLEX, yyline, yycolumn); }
 "."				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRUCT, yyline, yycolumn); }
 ":"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.COLON, yyline, yycolumn); }
+
 "procedure"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.PROCEDURE, yyline, yycolumn); }
-
 "function"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.FUNCTION, yyline, yycolumn); }
-
-{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER, yyline, yycolumn); }
-{Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING, yyline, yycolumn); }
 
 "(" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.LPAR, yyline, yycolumn); }
 ")" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.RPAR, yyline, yycolumn); }
@@ -50,9 +48,8 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "["				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.LBRACKET, yyline, yycolumn); }
 "]"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.RBRACKET, yyline, yycolumn); }
 
-"Var"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.VAR, yyline, yycolumn); }
-"New"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NEW, yyline, yycolumn); }
-"Dispose"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DISPOSE, yyline, yycolumn); }
+"new"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NEW, yyline, yycolumn); }
+"dispose"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DISPOSE, yyline, yycolumn); }
 "println"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.PRINTLN, yyline, yycolumn); }
 "readln"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.READLN, yyline, yycolumn); }
 "return"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.RETURN, yyline, yycolumn); }
@@ -86,5 +83,9 @@ Float = [+-]{Decimal}([eE][+-]?{Integer})?
 "true"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.TRUE, yyline, yycolumn); }
 "false"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.FALSE, yyline, yycolumn); }
 "null"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NULL, yyline, yycolumn); }
+
+{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, new Integer(yytext())); }
+{Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.IDENTIFIER, yyline, yycolumn, yytext()); }
+{String}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING_LIT, yyline, yycolumn, yytext()); }
 
 [^]|\n		{ }
