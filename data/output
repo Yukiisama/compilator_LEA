@@ -127,5 +127,8 @@ COMMENTAIRE:// 0x4995F6B5
 *** ]
 *** ;
 *** end
+COMMENTAIRE:/*
+blablabla
+*/
 
 *** Analyse syntaxique ok

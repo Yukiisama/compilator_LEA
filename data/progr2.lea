@@ -21,3 +21,6 @@ begin
    println c;
    println d[2];
 end
+/*
+blablabla
+*/

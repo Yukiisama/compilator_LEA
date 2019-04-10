@@ -16,16 +16,16 @@ import beaver.Scanner;
 %line
 %column
 
+
+Commentaire = \/\*[^*]*\*\/|\/\/.*
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
-Integer = [0-9]+ | 0x[a-fA-F0-9_]*
-//Hexadecimal = 0x[a-fA-F0-9_]*
+Integer = [0-9]+
+Hexadecimal = 0x[a-fA-F0-9]+
 String = "\""~"\""
-Commentaire = "/*".*"*/" | "//".*
 
 
 %%
 
-"\n" 			{ }
 "var"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.VAR, yyline, yycolumn); }
 "begin"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.BEGIN, yyline, yycolumn); }
 "end"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.END, yyline, yycolumn); }
@@ -70,7 +70,7 @@ Commentaire = "/*".*"*/" | "//".*
 "-" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.MINUS, yyline, yycolumn); }
 "*" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.TIMES, yyline, yycolumn); }
 
-{Commentaire} 		{System.out.printf("COMMENTAIRE:%s\n", yytext());}
+{Commentaire} 	{ System.out.println("COMMENTAIRE:"+yytext());}
 
 "/" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIV, yyline, yycolumn); }
 "!"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn); }
@@ -90,8 +90,8 @@ Commentaire = "/*".*"*/" | "//".*
 "false"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.FALSE, yyline, yycolumn); }
 "null"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NULL, yyline, yycolumn); }
 
-//{Hexadecimal} 	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, Integer.parseInt(yytext(),16)); }
-{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn); }
+{Hexadecimal} 	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, Integer.parseInt(yytext().substring(2),16)); }
+{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, new Integer(yytext())); }
 {Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.IDENTIFIER, yyline, yycolumn, yytext()); }
 {String}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING_LIT, yyline, yycolumn, yytext()); }
 
