@@ -66,11 +66,21 @@
 ////   TYPEOF    ////
 /////////////////////
 
+%typeof statement = "Node";
+%typeof variable_access = "NodeExp";
+//%typeof expression = "NodeExp";
+//%typeof INTEGER_LIT = "Integer";
+//%typeof STRING_LIT = "String";
 
-%typeof program, statement_list, statement = "Node";
-%typeof structured_statement, if_statement, while_statement, switch_statement = "Node";
-%typeof simple_statement, assignment_statement, procedure_statement, new_statement, dispose_statement, println_statement, readln_statement, return_statement = "Node";
-%typeof	expression = "Node";
+%typeof literal = "NodeLiteral";
+%typeof IDENTIFIER = "String";
+
+%typeof type_declaration_part, type = "Type";
+%typeof feature_list_type = "TypeFeatureList";
+%typeof statement_list = "Node";
+%typeof case_statement_list = "Node";
+%typeof structured_statement = "Node";
+%typeof simple_statement = "Node";
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -123,9 +133,9 @@ type=
 	;
 
 simple_type =
-	STR				
-	| INT		
-	| BOOL		
+	STR				{: return new TypeString(); :}
+	| INT			{: return new TypeInt(); :}
+	| BOOL			{: return new TypeBoolean(); :}
 	;
 
 named_type =
@@ -160,11 +170,11 @@ range_type =
 	;
 
 pointer_type =
-	CIRCUMFLEX type.t
+	CIRCUMFLEX type.t											{: return new TypePointer(t); :}
 	;
 
 structure_type =
-	STRUCT LCURLY_BRACKET feature_list_type RCURLY_BRACKET
+	STRUCT LCURLY_BRACKET feature_list_type.t RCURLY_BRACKET	{: return new TypeStruct(t); :}
 	;
 
 feature_list_type =
@@ -173,7 +183,7 @@ feature_list_type =
 	;
 
 feature_type =
-	IDENTIFIER COLON type SEMI
+	IDENTIFIER.id COLON type.t SEMI								{: return new TypeFeature(id, t); :}
 	;
 
 //////////////////////////////////////////////////////
@@ -256,27 +266,27 @@ block=
 ////////////////////////////
 
 statement_list=
-	statement_list statement.stm
-	| statement.stm
+	statement_list statement
+	| statement
 	;
 
 statement=
-	simple_statement.stm		{: return stm; :}
-	| structured_statement.stm	{: return stm; :}
+	simple_statement
+	| structured_statement
 	;
 
 simple_statement=
-	assignment_statement.stm	{: return stm; :}	
-	| procedure_statement.stm	{: return stm; :}
-	| new_statement.stm			{: return stm; :}
-	| dispose_statement.stm		{: return stm; :}
-	| println_statement.stm		{: return stm; :}
-	| readln_statement.stm		{: return stm; :}
-	| return_statement.stm		{: return stm; :}	
+	assignment_statement
+	| procedure_statement
+	| new_statement
+	| dispose_statement
+	| println_statement
+	| readln_statement
+	| return_statement
 	;
 
 assignment_statement=
-	variable_access.stm EQ expression.e SEMI
+	variable_access.stm EQ expression.e SEMI	//{: return new NodeAssign(e, stm); :}
 	;
 
 procedure_statement=
@@ -284,7 +294,7 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER LPAR expression_part RPAR
+	IDENTIFIER LPAR expression_part.e RPAR
 	;
 
 expression_part=
@@ -314,27 +324,27 @@ readln_statement=
 	;
 	
 return_statement=
-	RETURN expression.e SEMI			{: return new NodeReturn(e); :}
+	RETURN expression.e SEMI			//{: return new NodeReturn(e); :}
 	;
 	
 structured_statement =
-	block.block													{: return block; :}
-	| if_statement.stm											{: return stm; :}
-	| while_statement.stm										{: return stm; :}
-	| switch_statement.stm										{: return stm; :}
+	block.block													
+	| if_statement										
+	| while_statement								
+	| switch_statement								
 	;
 	
 if_statement =
-	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2	{: return new NodeIf(e, stm1, stm2); :}
+	IF expression.e THEN statement.stm							//{: return new NodeIf(e, stm); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2	//{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm							//{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
-	SWITCH expression.e BEGIN case_statement_list.stm END		{: return new NodeSwitch(e, stm); :}
+	SWITCH expression.e BEGIN case_statement_list.stm END		//{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
@@ -362,9 +372,9 @@ variable_access =
 ///////////////////////////
 
 expression =
-	expression.e1 PLUS expression.e2  		
-	| expression.e1 MINUS expression.e2 	
-	| MINUS expression.e @ UNARY_MINUS 		
+	expression.e1 PLUS expression.e2  			
+	| expression.e1 MINUS expression.e2 		
+	| MINUS expression.e @ UNARY_MINUS 			
 	| expression.e1 TIMES expression.e2 	
 	| expression.e1 DIV expression.e2 		
 	| expression.e1 AND expression.e2		
@@ -379,7 +389,7 @@ expression =
 	| LPAR expression.e RPAR  {: return e; :}
 	| procedure_expression
 	| variable_access
-	| literal
+	| literal							
 	;
 
 //////////////////////////////////////
@@ -388,8 +398,8 @@ expression =
 
 literal=
 	INTEGER_LIT
-	| STRING_LIT
-	| TRUE
-	| FALSE
-	| NULL
+	| STRING_LIT	
+	| TRUE			
+	| FALSE			
+	| NULL			
 	;

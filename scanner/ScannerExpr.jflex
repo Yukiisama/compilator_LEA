@@ -17,8 +17,11 @@ import beaver.Scanner;
 %column
 
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
-Integer = [0-9]+
+Integer = [0-9]+ | 0x[a-fA-F0-9_]*
+//Hexadecimal = 0x[a-fA-F0-9_]*
 String = "\""~"\""
+Commentaire = "/*".*"*/" | "//".*
+
 
 %%
 
@@ -66,6 +69,9 @@ String = "\""~"\""
 "+" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.PLUS, yyline, yycolumn); }
 "-" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.MINUS, yyline, yycolumn); }
 "*" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.TIMES, yyline, yycolumn); }
+
+{Commentaire} 		{System.out.printf("COMMENTAIRE:%s\n", yytext());}
+
 "/" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIV, yyline, yycolumn); }
 "!"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn); }
 "||"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn); }
@@ -84,7 +90,8 @@ String = "\""~"\""
 "false"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.FALSE, yyline, yycolumn); }
 "null"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NULL, yyline, yycolumn); }
 
-{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, new Integer(yytext())); }
+//{Hexadecimal} 	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, Integer.parseInt(yytext(),16)); }
+{Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn); }
 {Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.IDENTIFIER, yyline, yycolumn, yytext()); }
 {String}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING_LIT, yyline, yycolumn, yytext()); }
 
