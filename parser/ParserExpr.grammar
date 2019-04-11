@@ -286,7 +286,7 @@ simple_statement=
 	;
 
 assignment_statement=
-	variable_access.stm EQ expression.e SEMI	{: return new NodeAssign(e, stm); :}
+	variable_access.stm EQ expression.e SEMI	{: return new NodeAssign(stm, e); :}
 	;
 
 procedure_statement=
@@ -316,15 +316,15 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			//{: return new NodeCallFct(println, ,NodeList(e)); :}	
+	PRINTLN expression.e SEMI			//{: return new NodeCallFct("println", TypeFunct("println", , ), e); :}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		//{: return new NodeCallFct(func, TypeFunct(func, TypeTuple(), Type()),NodeList(e)); :}
+	READLN.func expression.e SEMI		//{: return new NodeCallFct("readln", TypeFunct("readln", , ), e); :}
 	;
 	
 return_statement=
-	RETURN expression.e SEMI			{: return new NodeReturn(e); :}
+	RETURN expression.e SEMI			//{: return new NodeReturn(e); :}
 	;
 	
 structured_statement =
@@ -335,16 +335,16 @@ structured_statement =
 	;
 	
 if_statement =
-	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2	{: return new NodeIf(e, stm1, stm2); :}
+	IF expression.e THEN statement.stm							//{: return new NodeIf(e, stm); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2	//{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm							//{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
-	SWITCH expression.e BEGIN case_statement_list.stm END		{: return new NodeSwitch(e, stm); :}
+	SWITCH expression.e BEGIN case_statement_list.stm END		//{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
@@ -362,9 +362,9 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER
-	| variable_access LBRACKET expression RBRACKET
-	| expression CIRCUMFLEX 	
+	IDENTIFIER.name										{: return new NodeId(name, new TypeInt()); :}
+	| variable_access.e LBRACKET expression RBRACKET	{: return e; :}
+	| expression.e CIRCUMFLEX 							{: return new NodePtrAccess(e); :}
 	;
 
 ///////////////////////////
@@ -397,9 +397,9 @@ expression =
 //////////////////////////////////////
 
 literal=
-	INTEGER_LIT
-	| STRING_LIT	
-	| TRUE			
-	| FALSE			
-	| NULL			
+	INTEGER_LIT		{: return new NodeLiteral(new TypeInt(), 0); :}
+	| STRING_LIT	{: return new NodeLiteral(new TypeString(), ""); :}
+	| TRUE			{: return new NodeLiteral(new TypeBoolean(), true); :}
+	| FALSE			{: return new NodeLiteral(new TypeBoolean(), false); :}
+	| NULL			{: return new NodeLiteral(new TypeVoid(), null); :}
 	;

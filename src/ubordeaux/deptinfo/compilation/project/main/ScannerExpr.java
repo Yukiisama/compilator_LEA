@@ -35,13 +35,13 @@ class ScannerExpr extends Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\12\0\1\3\1\3\1\3\1\3\23\0\1\51\1\11\3\0\1\53"+
+    "\12\0\1\3\1\3\1\3\1\3\23\0\1\56\1\11\3\0\1\52"+
     "\1\0\1\37\1\40\1\2\1\47\1\57\1\50\1\31\1\1\1\6"+
-    "\11\5\1\34\1\60\1\54\1\55\1\56\2\0\6\10\24\4\1\43"+
+    "\11\5\1\34\1\60\1\53\1\54\1\55\2\0\6\10\24\4\1\43"+
     "\1\0\1\44\1\33\1\4\1\0\1\13\1\15\1\35\1\22\1\16"+
     "\1\32\1\17\1\46\1\20\2\4\1\30\1\4\1\21\1\27\1\25"+
     "\1\4\1\14\1\26\1\23\1\36\1\12\1\45\1\7\1\24\1\4"+
-    "\1\41\1\52\1\42\7\0\1\3\u1fa2\0\1\3\1\3\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\1\41\1\51\1\42\7\0\1\3\u1fa2\0\1\3\1\3\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -56,7 +56,7 @@ class ScannerExpr extends Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\2\5\1\1\14\4"+
     "\1\6\1\4\1\7\1\10\1\4\1\11\1\12\1\13"+
-    "\1\14\1\15\1\16\1\4\1\17\1\20\1\21\2\1"+
+    "\1\14\1\15\1\16\1\4\1\17\1\20\2\1\1\21"+
     "\1\22\1\23\1\24\1\25\1\26\1\27\3\0\1\30"+
     "\10\4\1\31\4\4\1\32\6\4\1\33\1\34\4\4"+
     "\1\35\1\36\1\37\1\40\1\41\1\42\1\0\1\43"+
@@ -170,9 +170,9 @@ class ScannerExpr extends Scanner {
     "\1\0\1\5\2\0\1\5\1\107\6\0\2\5\16\0"+
     "\5\5\1\0\1\5\1\110\15\5\1\0\1\5\2\0"+
     "\2\5\6\0\2\5\16\0\5\5\1\0\17\5\1\0"+
-    "\1\5\2\0\2\5\6\0\1\5\1\111\67\0\1\112"+
-    "\55\0\1\113\61\0\1\114\62\0\1\115\60\0\1\116"+
-    "\60\0\1\117\3\0\3\53\1\0\55\53\2\54\1\120"+
+    "\1\5\2\0\2\5\6\0\1\5\1\111\63\0\1\112"+
+    "\61\0\1\113\62\0\1\114\60\0\1\115\60\0\1\116"+
+    "\60\0\1\117\4\0\3\53\1\0\55\53\2\54\1\120"+
     "\56\54\5\0\2\121\1\0\1\121\2\0\1\121\1\0"+
     "\2\121\3\0\1\121\7\0\1\121\2\0\1\121\27\0"+
     "\5\5\1\0\2\5\1\122\14\5\1\0\1\5\2\0"+
@@ -865,22 +865,22 @@ class ScannerExpr extends Scanner {
             // fall through
           case 75: break;
           case 17: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.INFERIOR, yyline, yycolumn);
             } 
             // fall through
           case 76: break;
           case 18: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.INFERIOR, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.EQ, yyline, yycolumn);
             } 
             // fall through
           case 77: break;
           case 19: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.EQ, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.SUPERIOR, yyline, yycolumn);
             } 
             // fall through
           case 78: break;
           case 20: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.SUPERIOR, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn);
             } 
             // fall through
           case 79: break;
@@ -925,32 +925,32 @@ class ScannerExpr extends Scanner {
             // fall through
           case 87: break;
           case 29: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIFF, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn);
             } 
             // fall through
           case 88: break;
           case 30: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.AND, yyline, yycolumn);
             } 
             // fall through
           case 89: break;
           case 31: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.AND, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.INFERIOR_EQ, yyline, yycolumn);
             } 
             // fall through
           case 90: break;
           case 32: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.INFERIOR_EQ, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.EQUALS, yyline, yycolumn);
             } 
             // fall through
           case 91: break;
           case 33: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.EQUALS, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.SUPERIOR_EQ, yyline, yycolumn);
             } 
             // fall through
           case 92: break;
           case 34: 
-            { System.out.println("*** " + yytext()); return new Symbol(Terminals.SUPERIOR_EQ, yyline, yycolumn);
+            { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIFF, yyline, yycolumn);
             } 
             // fall through
           case 93: break;

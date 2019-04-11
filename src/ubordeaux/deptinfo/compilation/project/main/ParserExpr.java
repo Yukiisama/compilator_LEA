@@ -274,7 +274,7 @@ public class ParserExpr extends Parser {
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeAssign(e, stm);
+					 return new NodeAssign(stm, e);
 				}
 			},
 			Action.RETURN,	// [66] procedure_statement = procedure_expression.e SEMI
@@ -306,71 +306,42 @@ public class ParserExpr extends Parser {
 				}
 			},
 			RETURN2,	// [74] println_statement = PRINTLN expression.e SEMI
-			new Action() {	// [75] readln_statement = READLN.func expression.e SEMI
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol func = _symbols[offset + 1];
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeCallFct(func, TypeFunct(func, TypeTuple(), Type()),NodeList(e));
-				}
-			},
-			new Action() {	// [76] return_statement = RETURN expression.e SEMI
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeReturn(e);
-				}
-			},
+			RETURN2,	// [75] readln_statement = READLN.func expression.e SEMI; returns 'e' although more are marked
+			RETURN2,	// [76] return_statement = RETURN expression.e SEMI
 			Action.RETURN,	// [77] structured_statement = block.block
 			Action.RETURN,	// [78] structured_statement = if_statement
 			Action.RETURN,	// [79] structured_statement = while_statement
 			Action.RETURN,	// [80] structured_statement = switch_statement
-			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm = _symbols[offset + 4];
-					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeIf(e, stm);
-				}
-			},
-			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm1 = _symbols[offset + 4];
-					final Node stm1 = (Node) _symbol_stm1.value;
-					final Symbol _symbol_stm2 = _symbols[offset + 6];
-					final Node stm2 = (Node) _symbol_stm2.value;
-					 return new NodeIf(e, stm1, stm2);
-				}
-			},
-			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm = _symbols[offset + 4];
-					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeWhile(e, stm);
-				}
-			},
-			new Action() {	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm = _symbols[offset + 4];
-					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeSwitch(e, stm);
-				}
-			},
+			RETURN4,	// [81] if_statement = IF expression.e THEN statement.stm; returns 'stm' although more are marked
+			RETURN6,	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2; returns 'stm2' although more are marked
+			RETURN4,	// [83] while_statement = WHILE expression.e DO statement.stm; returns 'stm' although more are marked
+			RETURN4,	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END; returns 'stm' although more are marked
 			RETURN3,	// [85] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
 			Action.RETURN,	// [86] case_statement_list = case_statement
 			RETURN4,	// [87] case_statement = CASE identifier_list COLON statement; returns 'statement' although none is marked
 			Action.NONE,  	// [88] case_default = 
 			RETURN3,	// [89] case_default = DEFAULT COLON statement; returns 'statement' although none is marked
-			Action.RETURN,	// [90] variable_access = IDENTIFIER
-			RETURN4,	// [91] variable_access = variable_access LBRACKET expression RBRACKET; returns 'RBRACKET' although none is marked
-			RETURN2,	// [92] variable_access = expression CIRCUMFLEX; returns 'CIRCUMFLEX' although none is marked
+			new Action() {	// [90] variable_access = IDENTIFIER.name
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 return new NodeId(name, new TypeInt());
+				}
+			},
+			new Action() {	// [91] variable_access = variable_access.e LBRACKET expression RBRACKET
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return e;
+				}
+			},
+			new Action() {	// [92] variable_access = expression.e CIRCUMFLEX
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodePtrAccess(e);
+				}
+			},
 			new Action() {	// [93] expression = expression.e1 PLUS expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
@@ -503,11 +474,31 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [108] expression = procedure_expression
 			Action.RETURN,	// [109] expression = variable_access
 			Action.RETURN,	// [110] expression = literal
-			Action.RETURN,	// [111] literal = INTEGER_LIT
-			Action.RETURN,	// [112] literal = STRING_LIT
-			Action.RETURN,	// [113] literal = TRUE
-			Action.RETURN,	// [114] literal = FALSE
-			Action.RETURN	// [115] literal = NULL
+			new Action() {	// [111] literal = INTEGER_LIT
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					 return new NodeLiteral(new TypeInt(), 0);
+				}
+			},
+			new Action() {	// [112] literal = STRING_LIT
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					 return new NodeLiteral(new TypeString(), "");
+				}
+			},
+			new Action() {	// [113] literal = TRUE
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					 return new NodeLiteral(new TypeBoolean(), true);
+				}
+			},
+			new Action() {	// [114] literal = FALSE
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					 return new NodeLiteral(new TypeBoolean(), false);
+				}
+			},
+			new Action() {	// [115] literal = NULL
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					 return new NodeLiteral(new TypeVoid(), null);
+				}
+			}
 		};
 
  

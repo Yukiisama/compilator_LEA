@@ -73,7 +73,6 @@ String = "\""~"\""
 {Commentaire} 	{ System.out.println("COMMENTAIRE:"+yytext());}
 
 "/" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIV, yyline, yycolumn); }
-"!"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn); }
 "||"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn); }
 "&&"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.AND, yyline, yycolumn); }
 "<"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INFERIOR, yyline, yycolumn); }
@@ -82,6 +81,7 @@ String = "\""~"\""
 ">="			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.SUPERIOR_EQ, yyline, yycolumn); }
 "=="			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.EQUALS, yyline, yycolumn); }
 "!="			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DIFF, yyline, yycolumn); }
+"!"				{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NOT, yyline, yycolumn); }
 "=" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.EQ, yyline, yycolumn); }
 "," 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.COMMA, yyline, yycolumn); }
 ";" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.SEMI, yyline, yycolumn); }
