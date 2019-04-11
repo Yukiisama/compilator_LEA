@@ -68,7 +68,7 @@
 
 %typeof statement = "Node";
 %typeof variable_access = "NodeExp";
-//%typeof expression = "NodeExp";
+%typeof expression = "NodeExp";
 //%typeof INTEGER_LIT = "Integer";
 //%typeof STRING_LIT = "String";
 
@@ -286,7 +286,7 @@ simple_statement=
 	;
 
 assignment_statement=
-	variable_access.stm EQ expression.e SEMI	//{: return new NodeAssign(e, stm); :}
+	variable_access.stm EQ expression.e SEMI	{: return new NodeAssign(e, stm); :}
 	;
 
 procedure_statement=
@@ -316,15 +316,15 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			
+	PRINTLN expression.e SEMI			//{: return new NodeCallFct(println, ,NodeList(e)); :}	
 	;
 	
 readln_statement=
-	READLN expression.e SEMI
+	READLN.func expression.e SEMI		//{: return new NodeCallFct(func, TypeFunct(func, TypeTuple(), Type()),NodeList(e)); :}
 	;
 	
 return_statement=
-	RETURN expression.e SEMI			//{: return new NodeReturn(e); :}
+	RETURN expression.e SEMI			{: return new NodeReturn(e); :}
 	;
 	
 structured_statement =
@@ -335,16 +335,16 @@ structured_statement =
 	;
 	
 if_statement =
-	IF expression.e THEN statement.stm							//{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2	//{: return new NodeIf(e, stm1, stm2); :}
+	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2	{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							//{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
-	SWITCH expression.e BEGIN case_statement_list.stm END		//{: return new NodeSwitch(e, stm); :}
+	SWITCH expression.e BEGIN case_statement_list.stm END		{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
@@ -372,21 +372,21 @@ variable_access =
 ///////////////////////////
 
 expression =
-	expression.e1 PLUS expression.e2  			
-	| expression.e1 MINUS expression.e2 		
-	| MINUS expression.e @ UNARY_MINUS 			
-	| expression.e1 TIMES expression.e2 	
-	| expression.e1 DIV expression.e2 		
-	| expression.e1 AND expression.e2		
-	| expression.e1 OR expression.e2		
-	| NOT expression.e
-	| expression.e1 INFERIOR expression.e2
-	| expression.e1 INFERIOR_EQ expression.e2
-	| expression.e1 SUPERIOR expression.e2
-	| expression.e1 SUPERIOR_EQ expression.e2
-	| expression.e1 EQUALS expression.e2
-	| expression.e1 DIFF expression.e2
-	| LPAR expression.e RPAR  {: return e; :}
+	expression.e1 PLUS expression.e2  				{: return new NodeOp("+", e1, e2); :}
+	| expression.e1 MINUS expression.e2 			{: return new NodeOp("-", e1, e2); :}
+	| MINUS expression.e @ UNARY_MINUS 				{: return new NodeOp("-", e); :}
+	| expression.e1 TIMES expression.e2 			{: return new NodeOp("*", e1, e2); :}
+	| expression.e1 DIV expression.e2 				{: return new NodeOp("/", e1, e2); :}
+	| expression.e1 AND expression.e2				{: return new NodeOp("&&", e1, e2); :}
+	| expression.e1 OR expression.e2				{: return new NodeOp("||", e1, e2); :}
+	| NOT expression.e								{: return new NodeOp("!", e); :}
+	| expression.e1 INFERIOR expression.e2			{: return new NodeOp("<", e1, e2); :}
+	| expression.e1 INFERIOR_EQ expression.e2		{: return new NodeOp("<=", e1, e2); :}
+	| expression.e1 SUPERIOR expression.e2			{: return new NodeOp(">", e1, e2); :}
+	| expression.e1 SUPERIOR_EQ expression.e2		{: return new NodeOp(">=", e1, e2); :}
+	| expression.e1 EQUALS expression.e2			{: return new NodeOp("==", e1, e2); :}
+	| expression.e1 DIFF expression.e2				{: return new NodeOp("!=", e1, e2); :}
+	| LPAR expression.e RPAR  						{: return e; :}
 	| procedure_expression
 	| variable_access
 	| literal							

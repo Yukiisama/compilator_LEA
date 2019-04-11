@@ -268,19 +268,27 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [62] simple_statement = println_statement
 			Action.RETURN,	// [63] simple_statement = readln_statement
 			Action.RETURN,	// [64] simple_statement = return_statement
-			RETURN3,	// [65] assignment_statement = variable_access.stm EQ expression.e SEMI; returns 'e' although more are marked
+			new Action() {	// [65] assignment_statement = variable_access.stm EQ expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final NodeExp stm = (NodeExp) _symbol_stm.value;
+					final Symbol _symbol_e = _symbols[offset + 3];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeAssign(e, stm);
+				}
+			},
 			Action.RETURN,	// [66] procedure_statement = procedure_expression.e SEMI
 			RETURN3,	// [67] procedure_expression = IDENTIFIER LPAR expression_part.e RPAR
 			Action.NONE,  	// [68] expression_part = 
 			Action.RETURN,	// [69] expression_part = expression_list
 			new Action() {	// [70] expression_list = expression_list COMMA expression
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3]); return _symbols[offset + 1];
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3].value); return _symbols[offset + 1];
 				}
 			},
 			new Action() {	// [71] expression_list = expression
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
 			new Action() {	// [72] new_statement = NEW variable_access.stm SEMI
@@ -298,16 +306,63 @@ public class ParserExpr extends Parser {
 				}
 			},
 			RETURN2,	// [74] println_statement = PRINTLN expression.e SEMI
-			RETURN2,	// [75] readln_statement = READLN expression.e SEMI
-			RETURN2,	// [76] return_statement = RETURN expression.e SEMI
+			new Action() {	// [75] readln_statement = READLN.func expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol func = _symbols[offset + 1];
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeCallFct(func, TypeFunct(func, TypeTuple(), Type()),NodeList(e));
+				}
+			},
+			new Action() {	// [76] return_statement = RETURN expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeReturn(e);
+				}
+			},
 			Action.RETURN,	// [77] structured_statement = block.block
 			Action.RETURN,	// [78] structured_statement = if_statement
 			Action.RETURN,	// [79] structured_statement = while_statement
 			Action.RETURN,	// [80] structured_statement = switch_statement
-			RETURN4,	// [81] if_statement = IF expression.e THEN statement.stm; returns 'stm' although more are marked
-			RETURN6,	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2; returns 'stm2' although more are marked
-			RETURN4,	// [83] while_statement = WHILE expression.e DO statement.stm; returns 'stm' although more are marked
-			RETURN4,	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END; returns 'stm' although more are marked
+			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeIf(e, stm);
+				}
+			},
+			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm1 = _symbols[offset + 4];
+					final Node stm1 = (Node) _symbol_stm1.value;
+					final Symbol _symbol_stm2 = _symbols[offset + 6];
+					final Node stm2 = (Node) _symbol_stm2.value;
+					 return new NodeIf(e, stm1, stm2);
+				}
+			},
+			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeWhile(e, stm);
+				}
+			},
+			new Action() {	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeSwitch(e, stm);
+				}
+			},
 			RETURN3,	// [85] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
 			Action.RETURN,	// [86] case_statement_list = case_statement
 			RETURN4,	// [87] case_statement = CASE identifier_list COLON statement; returns 'statement' although none is marked
@@ -316,23 +371,132 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [90] variable_access = IDENTIFIER
 			RETURN4,	// [91] variable_access = variable_access LBRACKET expression RBRACKET; returns 'RBRACKET' although none is marked
 			RETURN2,	// [92] variable_access = expression CIRCUMFLEX; returns 'CIRCUMFLEX' although none is marked
-			RETURN3,	// [93] expression = expression.e1 PLUS expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [94] expression = expression.e1 MINUS expression.e2; returns 'e2' although more are marked
-			RETURN2,	// [95] expression = MINUS expression.e
-			RETURN3,	// [96] expression = expression.e1 TIMES expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [97] expression = expression.e1 DIV expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [98] expression = expression.e1 AND expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [99] expression = expression.e1 OR expression.e2; returns 'e2' although more are marked
-			RETURN2,	// [100] expression = NOT expression.e
-			RETURN3,	// [101] expression = expression.e1 INFERIOR expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [102] expression = expression.e1 INFERIOR_EQ expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [103] expression = expression.e1 SUPERIOR expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [104] expression = expression.e1 SUPERIOR_EQ expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [105] expression = expression.e1 EQUALS expression.e2; returns 'e2' although more are marked
-			RETURN3,	// [106] expression = expression.e1 DIFF expression.e2; returns 'e2' although more are marked
+			new Action() {	// [93] expression = expression.e1 PLUS expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("+", e1, e2);
+				}
+			},
+			new Action() {	// [94] expression = expression.e1 MINUS expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("-", e1, e2);
+				}
+			},
+			new Action() {	// [95] expression = MINUS expression.e
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeOp("-", e);
+				}
+			},
+			new Action() {	// [96] expression = expression.e1 TIMES expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("*", e1, e2);
+				}
+			},
+			new Action() {	// [97] expression = expression.e1 DIV expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("/", e1, e2);
+				}
+			},
+			new Action() {	// [98] expression = expression.e1 AND expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("&&", e1, e2);
+				}
+			},
+			new Action() {	// [99] expression = expression.e1 OR expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("||", e1, e2);
+				}
+			},
+			new Action() {	// [100] expression = NOT expression.e
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeOp("!", e);
+				}
+			},
+			new Action() {	// [101] expression = expression.e1 INFERIOR expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("<", e1, e2);
+				}
+			},
+			new Action() {	// [102] expression = expression.e1 INFERIOR_EQ expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("<=", e1, e2);
+				}
+			},
+			new Action() {	// [103] expression = expression.e1 SUPERIOR expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp(">", e1, e2);
+				}
+			},
+			new Action() {	// [104] expression = expression.e1 SUPERIOR_EQ expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp(">=", e1, e2);
+				}
+			},
+			new Action() {	// [105] expression = expression.e1 EQUALS expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("==", e1, e2);
+				}
+			},
+			new Action() {	// [106] expression = expression.e1 DIFF expression.e2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeOp("!=", e1, e2);
+				}
+			},
 			new Action() {	// [107] expression = LPAR expression.e RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol e = _symbols[offset + 2];
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
 					 return e;
 				}
 			},
