@@ -324,7 +324,7 @@ readln_statement=
 	;
 	
 return_statement=
-	RETURN expression.e SEMI			//{: return new NodeReturn(e); :}
+	RETURN expression.e SEMI			{: return new NodeReturn(e); :}
 	;
 	
 structured_statement =
@@ -335,16 +335,16 @@ structured_statement =
 	;
 	
 if_statement =
-	IF expression.e THEN statement.stm							//{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2	//{: return new NodeIf(e, stm1, stm2); :}
+	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2	{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							//{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
-	SWITCH expression.e BEGIN case_statement_list.stm END		//{: return new NodeSwitch(e, stm); :}
+	SWITCH expression.e BEGIN case_statement_list.stm END		{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
