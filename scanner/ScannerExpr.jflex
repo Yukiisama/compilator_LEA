@@ -17,12 +17,11 @@ import beaver.Scanner;
 %column
 
 
-Commentaire = \/\*[^*]*\*\/|\/\/.*
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 Integer = [0-9]+
 Hexadecimal = 0x[a-fA-F0-9]+
 String = "\""~"\""
-
+//Commentaire = \/\*[^*]*\*\/|\/\/.*
 
 %%
 
@@ -70,7 +69,7 @@ String = "\""~"\""
 "-" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.MINUS, yyline, yycolumn); }
 "*" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.TIMES, yyline, yycolumn); }
 
-{Commentaire} 	{ System.out.println("COMMENTAIRE:"+yytext());}
+//{Commentaire} 	{ System.out.println("COMMENTAIRE:"+yytext());}
 
 "/" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIV, yyline, yycolumn); }
 "||"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn); }

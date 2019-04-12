@@ -151,13 +151,19 @@ public class ParserExpr extends Parser {
 					 return new TypeBoolean();
 				}
 			},
-			Action.RETURN,	// [16] named_type = IDENTIFIER
+			new Action() {	// [16] named_type = IDENTIFIER.name
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 return new NodeId(name, new TypeInt());
+				}
+			},
 			Action.RETURN,	// [17] index_type = enumerated_type
 			Action.RETURN,	// [18] index_type = subrange_type
 			RETURN4,	// [19] enumerated_type = init_enumerated_type LPAR identifier_list RPAR; returns 'RPAR' although none is marked
 			Action.NONE,  	// [20] init_enumerated_type = 
-			RETURN3,	// [21] subrange_type = INTEGER_LIT DOUBLE_DOT INTEGER_LIT; returns 'INTEGER_LIT' although none is marked
-			RETURN3,	// [22] subrange_type = IDENTIFIER DOUBLE_DOT IDENTIFIER; returns 'IDENTIFIER' although none is marked
+			RETURN3,	// [21] subrange_type = INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max; returns 'max' although more are marked
+			RETURN3,	// [22] subrange_type = IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max; returns 'max' although more are marked
 			RETURN6,	// [23] array_type = ARRAY LBRACKET range_type RBRACKET OF type; returns 'type' although none is marked
 			Action.RETURN,	// [24] range_type = enumerated_type
 			Action.RETURN,	// [25] range_type = subrange_type
@@ -176,16 +182,14 @@ public class ParserExpr extends Parser {
 					 return new TypeStruct(t);
 				}
 			},
-			new Action() {	// [29] feature_list_type = feature_list_type feature_type
+			new Action() {	// [29] feature_list_type = feature_list_type.t feature_type
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
+					final Symbol _symbol_t = _symbols[offset + 1];
+					final TypeFeatureList t = (TypeFeatureList) _symbol_t.value;
+					 return new TypeFeatureList(t);
 				}
 			},
-			new Action() {	// [30] feature_list_type = feature_type
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
-				}
-			},
+			Action.RETURN,	// [30] feature_list_type = feature_type
 			new Action() {	// [31] feature_type = IDENTIFIER.id COLON type.t SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
@@ -208,14 +212,20 @@ public class ParserExpr extends Parser {
 				}
 			},
 			RETURN4,	// [36] variable_declaration = identifier_list COLON type SEMI; returns 'SEMI' although none is marked
-			new Action() {	// [37] identifier_list = identifier_list COMMA IDENTIFIER
+			new Action() {	// [37] identifier_list = identifier_list.list COMMA IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3].value); return _symbols[offset + 1];
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final IdentifierList list = (IdentifierList) _symbol_list.value;
+					final Symbol _symbol_name = _symbols[offset + 3];
+					final String name = (String) _symbol_name.value;
+					 list.add(name); return list;
 				}
 			},
-			new Action() {	// [38] identifier_list = IDENTIFIER
+			new Action() {	// [38] identifier_list = IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 IdentifierList list = new IdentifierList(); list.add(name); return list;
 				}
 			},
 			Action.NONE,  	// [39] procedure_definition_part = 
@@ -249,14 +259,20 @@ public class ParserExpr extends Parser {
 			},
 			RETURN3,	// [52] argt = IDENTIFIER COLON type; returns 'type' although none is marked
 			RETURN4,	// [53] block = variable_declaration_part BEGIN statement_list END; returns 'END' although none is marked
-			new Action() {	// [54] statement_list = statement_list statement
+			new Action() {	// [54] statement_list = statement_list.list statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final Node list = (Node) _symbol_list.value;
+					final Symbol _symbol_stm = _symbols[offset + 2];
+					final Node stm = (Node) _symbol_stm.value;
+					 list.add(stm); return list;
 				}
 			},
-			new Action() {	// [55] statement_list = statement
+			new Action() {	// [55] statement_list = statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+					final Symbol _symbol_stm = _symbols[offset + 1];
+					final Node stm = (Node) _symbol_stm.value;
+					 NodeList list = new NodeList(); list.add(stm); return list;
 				}
 			},
 			Action.RETURN,	// [56] statement = simple_statement
@@ -281,14 +297,20 @@ public class ParserExpr extends Parser {
 			RETURN3,	// [67] procedure_expression = IDENTIFIER LPAR expression_part.e RPAR
 			Action.NONE,  	// [68] expression_part = 
 			Action.RETURN,	// [69] expression_part = expression_list
-			new Action() {	// [70] expression_list = expression_list COMMA expression
+			new Action() {	// [70] expression_list = expression_list.list COMMA expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3].value); return _symbols[offset + 1];
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final NodeExp list = (NodeExp) _symbol_list.value;
+					final Symbol _symbol_e = _symbols[offset + 3];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 list.add(e); return list;
 				}
 			},
-			new Action() {	// [71] expression_list = expression
+			new Action() {	// [71] expression_list = expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 NodeList list = new NodeList(); list.add(e); return list;
 				}
 			},
 			new Action() {	// [72] new_statement = NEW variable_access.stm SEMI
@@ -307,20 +329,66 @@ public class ParserExpr extends Parser {
 			},
 			RETURN2,	// [74] println_statement = PRINTLN expression.e SEMI
 			RETURN2,	// [75] readln_statement = READLN.func expression.e SEMI; returns 'e' although more are marked
-			RETURN2,	// [76] return_statement = RETURN expression.e SEMI
+			new Action() {	// [76] return_statement = RETURN expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodeReturn(e);
+				}
+			},
 			Action.RETURN,	// [77] structured_statement = block.block
 			Action.RETURN,	// [78] structured_statement = if_statement
 			Action.RETURN,	// [79] structured_statement = while_statement
 			Action.RETURN,	// [80] structured_statement = switch_statement
-			RETURN4,	// [81] if_statement = IF expression.e THEN statement.stm; returns 'stm' although more are marked
-			RETURN6,	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2; returns 'stm2' although more are marked
-			RETURN4,	// [83] while_statement = WHILE expression.e DO statement.stm; returns 'stm' although more are marked
-			RETURN4,	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END; returns 'stm' although more are marked
+			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeIf(e, stm);
+				}
+			},
+			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm1 = _symbols[offset + 4];
+					final Node stm1 = (Node) _symbol_stm1.value;
+					final Symbol _symbol_stm2 = _symbols[offset + 6];
+					final Node stm2 = (Node) _symbol_stm2.value;
+					 return new NodeIf(e, stm1, stm2);
+				}
+			},
+			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeWhile(e, stm);
+				}
+			},
+			new Action() {	// [84] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeSwitch(e, stm);
+				}
+			},
 			RETURN3,	// [85] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
 			Action.RETURN,	// [86] case_statement_list = case_statement
-			RETURN4,	// [87] case_statement = CASE identifier_list COLON statement; returns 'statement' although none is marked
+			RETURN4,	// [87] case_statement = CASE identifier_list.idlist COLON statement.stm; returns 'stm' although more are marked
 			Action.NONE,  	// [88] case_default = 
-			RETURN3,	// [89] case_default = DEFAULT COLON statement; returns 'statement' although none is marked
+			new Action() {	// [89] case_default = DEFAULT COLON statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 3];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeCase(stm);
+				}
+			},
 			new Action() {	// [90] variable_access = IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_name = _symbols[offset + 1];
@@ -474,14 +542,18 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [108] expression = procedure_expression
 			Action.RETURN,	// [109] expression = variable_access
 			Action.RETURN,	// [110] expression = literal
-			new Action() {	// [111] literal = INTEGER_LIT
+			new Action() {	// [111] literal = INTEGER_LIT.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					 return new NodeLiteral(new TypeInt(), 0);
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final Integer e = (Integer) _symbol_e.value;
+					 return new NodeLiteral(new TypeInt(), e);
 				}
 			},
-			new Action() {	// [112] literal = STRING_LIT
+			new Action() {	// [112] literal = STRING_LIT.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					 return new NodeLiteral(new TypeString(), "");
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final String e = (String) _symbol_e.value;
+					 return new NodeLiteral(new TypeString(), e);
 				}
 			},
 			new Action() {	// [113] literal = TRUE

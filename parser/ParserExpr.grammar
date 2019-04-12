@@ -30,12 +30,9 @@
 	
 :};
 
-
-
 %init {: 
 	report = new Events();
 :};
-
 
 /////////////////////////////////////////
 ////////////    TERMINALS    ////////////
@@ -67,20 +64,25 @@
 /////////////////////
 
 %typeof statement = "Node";
+
 %typeof variable_access = "NodeExp";
 %typeof expression = "NodeExp";
-//%typeof INTEGER_LIT = "Integer";
-//%typeof STRING_LIT = "String";
+%typeof INTEGER_LIT = "Integer";
+%typeof STRING_LIT = "String";
 
 %typeof literal = "NodeLiteral";
 %typeof IDENTIFIER = "String";
 
 %typeof type_declaration_part, type = "Type";
+%typeof index_type = "Node";
 %typeof feature_list_type = "TypeFeatureList";
 %typeof statement_list = "Node";
 %typeof case_statement_list = "Node";
 %typeof structured_statement = "Node";
 %typeof simple_statement = "Node";
+
+%typeof identifier_list = "IdentifierList";
+%typeof expression_list = "NodeExp";
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -133,13 +135,13 @@ type=
 	;
 
 simple_type =
-	STR				{: return new TypeString(); :}
-	| INT			{: return new TypeInt(); :}
-	| BOOL			{: return new TypeBoolean(); :}
+	STR						{: return new TypeString(); :}
+	| INT					{: return new TypeInt(); :}
+	| BOOL					{: return new TypeBoolean(); :}
 	;
 
 named_type =
-	IDENTIFIER
+	IDENTIFIER.name			{: return new NodeId(name, new TypeInt()); :}
 	;
 
 index_type =
@@ -148,19 +150,19 @@ index_type =
 	;
 
 enumerated_type =
-	init_enumerated_type LPAR identifier_list RPAR
+	init_enumerated_type LPAR identifier_list RPAR			//{: return new TypeItemEnum(int value, list)
 	;
 	
 init_enumerated_type =
 	;
 
 subrange_type =
-	INTEGER_LIT DOUBLE_DOT INTEGER_LIT
-	| IDENTIFIER DOUBLE_DOT IDENTIFIER
+	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				//{: return new TypeArray(TypeArrayRange(min, max),new TypeInt()); :}
+	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				//{: return new TypeArray(TypeArrayRange(min, max),new TypeString()); :}
 	;
 
 array_type =
-	ARRAY LBRACKET range_type RBRACKET OF type
+	ARRAY LBRACKET range_type RBRACKET OF type			//{: return new TypeArray(t1,t2); :}
 	;
 
 range_type =
@@ -178,7 +180,7 @@ structure_type =
 	;
 
 feature_list_type =
-	feature_list_type feature_type
+	feature_list_type.t feature_type							{: return new TypeFeatureList(t); :}
 	| feature_type
 	;
 
@@ -205,8 +207,8 @@ variable_declaration =
 	;
 
 identifier_list =
-	identifier_list COMMA IDENTIFIER
-	| IDENTIFIER
+	identifier_list.list COMMA IDENTIFIER.name	{: list.add(name); return list; :}
+	| IDENTIFIER.name							{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
 	;
 
 /////////////////////////////////////////////////////////////
@@ -266,8 +268,8 @@ block=
 ////////////////////////////
 
 statement_list=
-	statement_list statement
-	| statement
+	statement_list.list statement.stm		{: list.add(stm); return list; :}
+	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); return list; :}
 	;
 
 statement=
@@ -299,12 +301,12 @@ procedure_expression=
 
 expression_part=
 	/* empty */ 
-	| expression_list
+	| expression_list					
 	;
 
 expression_list=
-	expression_list COMMA expression
-	| expression
+	expression_list.list COMMA expression.e		{: list.add(e); return list; :}
+	| expression.e								{: NodeList list = new NodeList(); list.add(e); return list; :}
 	;
 
 new_statement=
@@ -316,7 +318,7 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			//{: return new NodeCallFct("println", TypeFunct("println", , ), e); :}	
+	PRINTLN expression.e SEMI			//{: return new NodeCallFct("println", TypeFunct("println",new TypeTuple(new TypeString()),new TypeString()), e); :}	
 	;
 	
 readln_statement=
@@ -353,12 +355,12 @@ case_statement_list=
 	;
 
 case_statement=
-	CASE identifier_list COLON statement
+	CASE identifier_list.idlist COLON statement.stm		//{: return new NodeCase(idlist, stm); :}
 	;
 	
 case_default = 
 	/* empty */
-	| DEFAULT COLON statement
+	| DEFAULT COLON statement.stm						{: return new NodeCase(stm); :}
 	;
 
 variable_access =
@@ -397,8 +399,8 @@ expression =
 //////////////////////////////////////
 
 literal=
-	INTEGER_LIT		{: return new NodeLiteral(new TypeInt(), 0); :}
-	| STRING_LIT	{: return new NodeLiteral(new TypeString(), ""); :}
+	INTEGER_LIT.e	{: return new NodeLiteral(new TypeInt(), e); :}
+	| STRING_LIT.e	{: return new NodeLiteral(new TypeString(), e); :}
 	| TRUE			{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| FALSE			{: return new NodeLiteral(new TypeBoolean(), false); :}
 	| NULL			{: return new NodeLiteral(new TypeVoid(), null); :}
