@@ -74,13 +74,17 @@
 %typeof IDENTIFIER = "String";
 
 %typeof type_declaration_part, type = "Type";
-%typeof index_type = "Node";
+%typeof index_type = "Type";
 %typeof feature_list_type = "TypeFeatureList";
 %typeof statement_list = "Node";
 %typeof case_statement_list = "Node";
 %typeof structured_statement = "Node";
 %typeof simple_statement = "Node";
+%typeof subrange_type = "Type";
+%typeof array_type = "Type";
 
+%typeof variable_declaration_part = "Type";
+%typeof variable_declaration_list = "Type";
 %typeof identifier_list = "IdentifierList";
 %typeof expression_list = "NodeExp";
 
@@ -157,12 +161,12 @@ init_enumerated_type =
 	;
 
 subrange_type =
-	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				//{: return new TypeArray(TypeArrayRange(min, max),new TypeInt()); :}
-	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				//{: return new TypeArray(TypeArrayRange(min, max),new TypeString()); :}
+	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				{: return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
+	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				{: return new TypeArrayRange(new TypeNamed(min), new TypeNamed(max)); :}
 	;
 
 array_type =
-	ARRAY LBRACKET range_type RBRACKET OF type			//{: return new TypeArray(t1,t2); :}
+	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2			//{: return new TypeArray(t1,t2); :}
 	;
 
 range_type =
@@ -198,8 +202,8 @@ variable_declaration_part =
 	;
 
 variable_declaration_list=
-	variable_declaration_list variable_declaration
-	| variable_declaration
+	variable_declaration_list.list variable_declaration		{: return new TypeList(list); :}
+	| variable_declaration							
 	;
 
 variable_declaration =
@@ -207,8 +211,8 @@ variable_declaration =
 	;
 
 identifier_list =
-	identifier_list.list COMMA IDENTIFIER.name	{: list.add(name); return list; :}
-	| IDENTIFIER.name							{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
+	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); return list; :}
+	| IDENTIFIER.name										{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
 	;
 
 /////////////////////////////////////////////////////////////
@@ -244,8 +248,8 @@ argt_part =
 	;
 
 argt_list =
-	argt_list COMMA argt
-	| argt
+	argt_list.list COMMA argt.arg			
+	| argt.arg								
 	;
 
 argt =
@@ -292,11 +296,11 @@ assignment_statement=
 	;
 
 procedure_statement=
-	procedure_expression.e SEMI
+	procedure_expression SEMI
 	;
 
 procedure_expression=
-	IDENTIFIER LPAR expression_part.e RPAR
+	IDENTIFIER.name LPAR expression_part RPAR	{: return new NodeId(name, new TypeInt()); :}
 	;
 
 expression_part=
@@ -350,12 +354,12 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list case_statement case_default
-	| case_statement
+	case_statement_list.list case_statement.case1 case_default.case2	//{: list.add(case1); list.add(case2); return list; :}
+	| case_statement.case												//{: NodeList list = new NodeList(); list.add(case); return list; :}
 	;
 
 case_statement=
-	CASE identifier_list.idlist COLON statement.stm		//{: return new NodeCase(idlist, stm); :}
+	CASE identifier_list COLON statement.stm			{: return new NodeCase(stm); :}
 	;
 	
 case_default = 

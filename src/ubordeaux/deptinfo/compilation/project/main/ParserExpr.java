@@ -72,12 +72,6 @@ public class ParserExpr extends Parser {
 		}
 	};
 
-	static final Action RETURN3 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 3];
-		}
-	};
-
 	static final Action RETURN5 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 5];
@@ -87,6 +81,12 @@ public class ParserExpr extends Parser {
 	static final Action RETURN7 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 7];
+		}
+	};
+
+	static final Action RETURN3 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 3];
 		}
 	};
  
@@ -162,9 +162,25 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [18] index_type = subrange_type
 			RETURN4,	// [19] enumerated_type = init_enumerated_type LPAR identifier_list RPAR; returns 'RPAR' although none is marked
 			Action.NONE,  	// [20] init_enumerated_type = 
-			RETURN3,	// [21] subrange_type = INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max; returns 'max' although more are marked
-			RETURN3,	// [22] subrange_type = IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max; returns 'max' although more are marked
-			RETURN6,	// [23] array_type = ARRAY LBRACKET range_type RBRACKET OF type; returns 'type' although none is marked
+			new Action() {	// [21] subrange_type = INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_min = _symbols[offset + 1];
+					final Integer min = (Integer) _symbol_min.value;
+					final Symbol _symbol_max = _symbols[offset + 3];
+					final Integer max = (Integer) _symbol_max.value;
+					 return new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+				}
+			},
+			new Action() {	// [22] subrange_type = IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_min = _symbols[offset + 1];
+					final String min = (String) _symbol_min.value;
+					final Symbol _symbol_max = _symbols[offset + 3];
+					final String max = (String) _symbol_max.value;
+					 return new TypeArrayRange(new TypeNamed(min), new TypeNamed(max));
+				}
+			},
+			RETURN6,	// [23] array_type = ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2; returns 't2' although more are marked
 			Action.RETURN,	// [24] range_type = enumerated_type
 			Action.RETURN,	// [25] range_type = subrange_type
 			Action.RETURN,	// [26] range_type = named_type
@@ -201,16 +217,14 @@ public class ParserExpr extends Parser {
 			},
 			Action.NONE,  	// [32] variable_declaration_part = 
 			RETURN2,	// [33] variable_declaration_part = VAR variable_declaration_list; returns 'variable_declaration_list' although none is marked
-			new Action() {	// [34] variable_declaration_list = variable_declaration_list variable_declaration
+			new Action() {	// [34] variable_declaration_list = variable_declaration_list.list variable_declaration
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final Type list = (Type) _symbol_list.value;
+					 return new TypeList(list);
 				}
 			},
-			new Action() {	// [35] variable_declaration_list = variable_declaration
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
-				}
-			},
+			Action.RETURN,	// [35] variable_declaration_list = variable_declaration
 			RETURN4,	// [36] variable_declaration = identifier_list COLON type SEMI; returns 'SEMI' although none is marked
 			new Action() {	// [37] identifier_list = identifier_list.list COMMA IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -247,13 +261,18 @@ public class ParserExpr extends Parser {
 			RETURN7,	// [47] procedure_head = FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type; returns 'type' although none is marked
 			Action.NONE,  	// [48] argt_part = 
 			Action.RETURN,	// [49] argt_part = argt_list
-			new Action() {	// [50] argt_list = argt_list COMMA argt
+			new Action() {	// [50] argt_list = argt_list.list COMMA argt.arg
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final ArrayList _list_list = (ArrayList) _symbol_list.value;
+					final beaver.Symbol[] list = _list_list == null ? new beaver.Symbol[0] : (beaver.Symbol[]) _list_list.toArray(new beaver.Symbol[_list_list.size()]);
+					final Symbol arg = _symbols[offset + 3];
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3]); return _symbols[offset + 1];
 				}
 			},
-			new Action() {	// [51] argt_list = argt
+			new Action() {	// [51] argt_list = argt.arg
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol arg = _symbols[offset + 1];
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
 				}
 			},
@@ -293,8 +312,14 @@ public class ParserExpr extends Parser {
 					 return new NodeAssign(stm, e);
 				}
 			},
-			Action.RETURN,	// [66] procedure_statement = procedure_expression.e SEMI
-			RETURN3,	// [67] procedure_expression = IDENTIFIER LPAR expression_part.e RPAR
+			RETURN2,	// [66] procedure_statement = procedure_expression SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [67] procedure_expression = IDENTIFIER.name LPAR expression_part RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 return new NodeId(name, new TypeInt());
+				}
+			},
 			Action.NONE,  	// [68] expression_part = 
 			Action.RETURN,	// [69] expression_part = expression_list
 			new Action() {	// [70] expression_list = expression_list.list COMMA expression.e
@@ -378,9 +403,15 @@ public class ParserExpr extends Parser {
 					 return new NodeSwitch(e, stm);
 				}
 			},
-			RETURN3,	// [85] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
-			Action.RETURN,	// [86] case_statement_list = case_statement
-			RETURN4,	// [87] case_statement = CASE identifier_list.idlist COLON statement.stm; returns 'stm' although more are marked
+			RETURN3,	// [85] case_statement_list = case_statement_list.list case_statement.case1 case_default.case2; returns 'case2' although more are marked
+			Action.RETURN,	// [86] case_statement_list = case_statement.case
+			new Action() {	// [87] case_statement = CASE identifier_list COLON statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeCase(stm);
+				}
+			},
 			Action.NONE,  	// [88] case_default = 
 			new Action() {	// [89] case_default = DEFAULT COLON statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
