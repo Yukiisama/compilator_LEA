@@ -42,5 +42,8 @@ public class IdentifierList extends TypeAtomic implements Iterable<String> {
 	public String last() {
 		return list.get(list.size()-1);
 	}
+	public int size() {
+		return list.size();
+	}
 
 }

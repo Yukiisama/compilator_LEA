@@ -28,6 +28,7 @@
 	private StackEnvironment stackEnvironment = new StackEnvironment("local variables stack");
 	private String type_declaration_name;
 	
+	
 :};
 
 %init {: 
@@ -73,6 +74,7 @@
 %typeof literal = "NodeLiteral";
 %typeof IDENTIFIER = "String";
 
+
 %typeof type_declaration_part, type = "Type";
 %typeof index_type = "Type";
 %typeof feature_list_type = "TypeFeatureList";
@@ -81,7 +83,6 @@
 %typeof structured_statement = "Node";
 %typeof simple_statement = "Node";
 %typeof subrange_type = "Type";
-%typeof array_type = "Type";
 
 %typeof variable_declaration_part = "Type";
 %typeof variable_declaration_list = "Type";
@@ -145,7 +146,7 @@ simple_type =
 	;
 
 named_type =
-	IDENTIFIER.name			{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name			{: return new TypeNamed(name); :} //{: return new NodeId(name, new TypeInt()); :}
 	;
 
 index_type =
@@ -154,10 +155,12 @@ index_type =
 	;
 
 enumerated_type =
-	init_enumerated_type LPAR identifier_list RPAR			//{: return new TypeItemEnum(int value, list)
+	init_enumerated_type LPAR identifier_list.t_list RPAR	{: 
+	return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+														:}
 	;
 	
-init_enumerated_type =
+init_enumerated_type = {:return new TypeEnumRange();:}
 	;
 
 subrange_type =
@@ -166,7 +169,7 @@ subrange_type =
 	;
 
 array_type =
-	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2			//{: return new TypeArray(t1,t2); :}
+	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2			{: return new TypeArray(t1,t2); :}
 	;
 
 range_type =
@@ -300,7 +303,7 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.name LPAR expression_part RPAR	{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name LPAR expression_part RPAR	//{: return new NodeId(name, new TypeInt()); :}
 	;
 
 expression_part=
@@ -322,11 +325,11 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			//{: return new NodeCallFct("println", TypeFunct("println",new TypeTuple(new TypeString()),new TypeString()), e); :}	
+	PRINTLN expression.e SEMI			{: return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(),new TypeVoid()), new NodeList(e)); :}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		//{: return new NodeCallFct("readln", TypeFunct("readln", , ), e); :}
+	READLN.func expression.e SEMI		//{: return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(new TypeString()),new TypeString()), new NodeList(e)); :}
 	;
 	
 return_statement=
