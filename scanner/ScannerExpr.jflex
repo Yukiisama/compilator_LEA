@@ -21,7 +21,7 @@ Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 Integer = [0-9]+
 Hexadecimal = 0x[a-fA-F0-9]+
 String = "\""~"\""
-//Commentaire = \/\*[^*]*\*\/|\/\/.*
+Commentary = \/\*[^*]*\*\/|\/\/.*
 
 %%
 
@@ -69,7 +69,7 @@ String = "\""~"\""
 "-" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.MINUS, yyline, yycolumn); }
 "*" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.TIMES, yyline, yycolumn); }
 
-//{Commentaire} 	{ System.out.println("COMMENTAIRE:"+yytext());}
+
 
 "/" 	        { System.out.println("*** " + yytext()); return new Symbol(Terminals.DIV, yyline, yycolumn); }
 "||"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.OR, yyline, yycolumn); }
@@ -93,5 +93,5 @@ String = "\""~"\""
 {Integer}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.INTEGER_LIT, yyline, yycolumn, new Integer(yytext())); }
 {Identifier}	{ System.out.println("*** " + yytext()); return new Symbol(Terminals.IDENTIFIER, yyline, yycolumn, yytext()); }
 {String}		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.STRING_LIT, yyline, yycolumn, yytext()); }
-
+{Commentary}	{ System.out.println("*** " + yytext());}
 [^]|\n		{ }

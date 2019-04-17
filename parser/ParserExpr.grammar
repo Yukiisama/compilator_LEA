@@ -156,9 +156,10 @@ index_type =
 	;
 
 enumerated_type =
-	init_enumerated_type LPAR identifier_list.t_list RPAR	{: 
+	init_enumerated_type LPAR identifier_list.t_list RPAR
+	{: 
 	return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
-														:}
+	:}
 	;
 	
 init_enumerated_type = {:return new TypeEnumRange();:}
