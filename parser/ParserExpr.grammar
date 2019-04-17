@@ -74,9 +74,10 @@
 %typeof literal = "NodeLiteral";
 %typeof IDENTIFIER = "String";
 
-
+%typeof init_enumerated_type = "Integer";
 %typeof type_declaration_part, type = "Type";
 %typeof index_type = "Type";
+%typeof range_type = "Type";
 %typeof feature_list_type = "TypeFeatureList";
 %typeof statement_list = "Node";
 %typeof case_statement_list = "Node";
