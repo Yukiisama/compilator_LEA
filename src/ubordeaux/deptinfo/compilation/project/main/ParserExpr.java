@@ -251,14 +251,20 @@ public class ParserExpr extends Parser {
 			},
 			Action.NONE,  	// [39] procedure_definition_part = 
 			Action.RETURN,	// [40] procedure_definition_part = procedure_definition_list
-			new Action() {	// [41] procedure_definition_list = procedure_definition_list procedure_definition
+			new Action() {	// [41] procedure_definition_list = procedure_definition_list.list procedure_definition.func
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final NodeList list = (NodeList) _symbol_list.value;
+					final Symbol _symbol_func = _symbols[offset + 2];
+					final NodeCallFct func = (NodeCallFct) _symbol_func.value;
+					 list.add(func); return list;
 				}
 			},
-			new Action() {	// [42] procedure_definition_list = procedure_definition
+			new Action() {	// [42] procedure_definition_list = procedure_definition.func
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					final Symbol _symbol_func = _symbols[offset + 1];
+					final NodeCallFct func = (NodeCallFct) _symbol_func.value;
+					 NodeList list = new NodeList(); list.add(func); return list;
 				}
 			},
 			RETURN2,	// [43] procedure_definition = procedure_definition_head block; returns 'block' although none is marked
