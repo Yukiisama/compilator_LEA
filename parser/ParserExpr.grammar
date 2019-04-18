@@ -64,31 +64,48 @@
 ////   TYPEOF    ////
 /////////////////////
 
+
+////====Node====\\\\
+
 %typeof statement = "Node";
+%typeof structured_statement = "Node";
+%typeof simple_statement = "Node";
+%typeof statement_list = "Node";
+%typeof argt = "Node";
+
+////====NodeExp====\\\\
 
 %typeof variable_access = "NodeExp";
 %typeof expression = "NodeExp";
-%typeof INTEGER_LIT = "Integer";
-%typeof STRING_LIT = "String";
+%typeof expression_list = "NodeExp";
 
-%typeof literal = "NodeLiteral";
+////====Integer/String====\\\\
+
+%typeof INTEGER_LIT = "Integer";
+%typeof init_enumerated_type = "Integer";
+%typeof STRING_LIT = "String";
 %typeof IDENTIFIER = "String";
 
-%typeof init_enumerated_type = "Integer";
+////====Literal====\\\\
+
+%typeof literal = "NodeLiteral";
+
+
+////====TYPE====\\\\
+
 %typeof type_declaration_part, type = "Type";
 %typeof index_type = "Type";
 %typeof range_type = "Type";
-%typeof feature_list_type = "TypeFeatureList";
-%typeof statement_list = "Node";
-%typeof case_statement_list = "Node";
-%typeof structured_statement = "Node";
-%typeof simple_statement = "Node";
 %typeof subrange_type = "Type";
-
 %typeof variable_declaration_part = "Type";
 %typeof variable_declaration_list = "Type";
+
+////====LIST====\\\\
+
+%typeof argt_list = "NodeList";
+%typeof feature_list_type = "TypeFeatureList";
+%typeof case_statement_list = "NodeCaseList";
 %typeof identifier_list = "IdentifierList";
-%typeof expression_list = "NodeExp";
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -147,7 +164,7 @@ simple_type =
 	;
 
 named_type =
-	IDENTIFIER.name			{: return new TypeNamed(name); :} //{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name			{: return new NodeId(name, new TypeInt()); :}
 	;
 
 index_type =
@@ -207,7 +224,7 @@ variable_declaration_part =
 	;
 
 variable_declaration_list=
-	variable_declaration_list.list variable_declaration		{: return new TypeList(list); :}
+	variable_declaration_list.list variable_declaration		//{: return new TypeList(list); :}
 	| variable_declaration							
 	;
 
@@ -238,13 +255,13 @@ procedure_definition =
 	| procedure_definition_head SEMI
 	;
 
-procedure_definition_head=
+procedure_definition_head =
 	procedure_head 
 	;
 
 procedure_head =
-	PROCEDURE IDENTIFIER LPAR argt_part RPAR
-	| FUNCTION IDENTIFIER LPAR argt_part RPAR COLON type
+	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), TypeVoid()), list); :}
+	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), t), list); :}
 	;
 
 argt_part =
@@ -253,12 +270,12 @@ argt_part =
 	;
 
 argt_list =
-	argt_list.list COMMA argt.arg			
-	| argt.arg								
+	argt_list.list COMMA argt.arg			{: list.add(arg); return list; :}
+	| argt.arg								{: NodeList list = new NodeList(); list.add(arg); return list; :}
 	;
 
 argt =
-	IDENTIFIER COLON type
+	IDENTIFIER.name COLON type.t			{: return new NodeId(name, t); :}
 	;
 
 ////////////////////////////////////////////
@@ -327,11 +344,11 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			{: return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(),new TypeVoid()), new NodeList(e)); :}	
+	PRINTLN expression.e SEMI			{: return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		//{: return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(new TypeString()),new TypeString()), new NodeList(e)); :}
+	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}
 	;
 	
 return_statement=
@@ -359,8 +376,8 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.case1 case_default.case2	//{: list.add(case1); list.add(case2); return list; :}
-	| case_statement.case												//{: NodeList list = new NodeList(); list.add(case); return list; :}
+	case_statement_list.list case_statement.case1 case_default.case2	//{: list.add(case2); list.add(case1); return list; :}
+	| case_statement.case												//{: NodeCaseList list = new NodeCaseList(); list.add(case); return list; :}
 	;
 
 case_statement=
