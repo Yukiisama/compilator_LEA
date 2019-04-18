@@ -72,12 +72,12 @@
 %typeof simple_statement = "Node";
 %typeof statement_list = "Node";
 %typeof argt = "Node";
+%typeof procedure_definition = "NodeCallFct";
 
 ////====NodeExp====\\\\
 
 %typeof variable_access = "NodeExp";
 %typeof expression = "NodeExp";
-%typeof expression_list = "NodeExp";
 
 ////====Integer/String====\\\\
 
@@ -102,12 +102,13 @@
 
 ////====LIST====\\\\
 
+%typeof expression_part = "NodeList";
+%typeof expression_list = "NodeList";
 %typeof argt_list = "NodeList";
 %typeof feature_list_type = "TypeFeatureList";
 %typeof case_statement_list = "NodeCaseList";
 %typeof identifier_list = "IdentifierList";
 %typeof procedure_definition_list = "NodeList";
-%typeof procedure_definition = "NodeCallFct";
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -176,12 +177,11 @@ index_type =
 
 enumerated_type =
 	init_enumerated_type LPAR identifier_list.t_list RPAR
-	{: 
-	return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
-	:}
+		{: return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last())); :}
 	;
 	
-init_enumerated_type = {:return new TypeEnumRange();:}
+init_enumerated_type = 
+							{:	return new TypeEnumRange();	:}
 	;
 
 subrange_type =
@@ -248,8 +248,8 @@ procedure_definition_part =
 	;
 
 procedure_definition_list =
-	procedure_definition_list.list procedure_definition.func 				{: list.add(func); return list; :}
-	| procedure_definition.func												{: NodeList list = new NodeList(); list.add(func); return list; :}
+	procedure_definition_list.list procedure_definition.func 			{: list.add(func); return list; :}
+	| procedure_definition.func											{: NodeList list = new NodeList(); list.add(func); return list; :}
 	;
 
 procedure_definition =
@@ -324,7 +324,7 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.name LPAR expression_part RPAR	//{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.func LPAR expression_part.list RPAR	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
 	;
 
 expression_part=
@@ -366,7 +366,7 @@ structured_statement =
 	
 if_statement =
 	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	//{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=
@@ -431,5 +431,5 @@ literal=
 	| STRING_LIT.e	{: return new NodeLiteral(new TypeString(), e); :}
 	| TRUE			{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| FALSE			{: return new NodeLiteral(new TypeBoolean(), false); :}
-	| NULL			{: return new NodeLiteral(new TypeVoid(), null); :}
+	| NULL			{: return new NodeLiteral(new TypePointer(), null); :}
 	;

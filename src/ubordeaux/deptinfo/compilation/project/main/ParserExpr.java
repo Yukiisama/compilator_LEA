@@ -152,13 +152,12 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_t_list = _symbols[offset + 3];
 					final IdentifierList t_list = (IdentifierList) _symbol_t_list.value;
-					 
-	return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+					 return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
 				}
 			},
 			new Action() {	// [20] init_enumerated_type = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					return new TypeEnumRange();
+						return new TypeEnumRange();
 				}
 			},
 			new Action() {	// [21] subrange_type = INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max
@@ -353,13 +352,21 @@ public class ParserExpr extends Parser {
 				}
 			},
 			RETURN2,	// [66] procedure_statement = procedure_expression SEMI; returns 'SEMI' although none is marked
-			Action.RETURN,	// [67] procedure_expression = IDENTIFIER.name LPAR expression_part RPAR
+			new Action() {	// [67] procedure_expression = IDENTIFIER.func LPAR expression_part.list RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_func = _symbols[offset + 1];
+					final String func = (String) _symbol_func.value;
+					final Symbol _symbol_list = _symbols[offset + 3];
+					final NodeList list = (NodeList) _symbol_list.value;
+					 return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
+				}
+			},
 			Action.NONE,  	// [68] expression_part = 
 			Action.RETURN,	// [69] expression_part = expression_list
 			new Action() {	// [70] expression_list = expression_list.list COMMA expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
-					final NodeExp list = (NodeExp) _symbol_list.value;
+					final NodeList list = (NodeList) _symbol_list.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 list.add(e); return list;
@@ -421,17 +428,7 @@ public class ParserExpr extends Parser {
 					 return new NodeIf(e, stm);
 				}
 			},
-			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm1 = _symbols[offset + 4];
-					final Node stm1 = (Node) _symbol_stm1.value;
-					final Symbol _symbol_stm2 = _symbols[offset + 6];
-					final Node stm2 = (Node) _symbol_stm2.value;
-					 return new NodeIf(e, stm1, stm2);
-				}
-			},
+			RETURN6,	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2; returns 'stm2' although more are marked
 			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
@@ -646,7 +643,7 @@ public class ParserExpr extends Parser {
 			},
 			new Action() {	// [115] literal = NULL
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					 return new NodeLiteral(new TypeVoid(), null);
+					 return new NodeLiteral(new TypePointer(), null);
 				}
 			}
 		};
