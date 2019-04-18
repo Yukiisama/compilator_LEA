@@ -72,12 +72,6 @@ public class ParserExpr extends Parser {
 		}
 	};
 
-	static final Action RETURN5 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 5];
-		}
-	};
-
 	static final Action RETURN3 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 3];
@@ -270,7 +264,15 @@ public class ParserExpr extends Parser {
 			RETURN2,	// [43] procedure_definition = procedure_definition_head block; returns 'block' although none is marked
 			RETURN2,	// [44] procedure_definition = procedure_definition_head SEMI; returns 'SEMI' although none is marked
 			Action.RETURN,	// [45] procedure_definition_head = procedure_head
-			RETURN5,	// [46] procedure_head = PROCEDURE IDENTIFIER LPAR argt_part RPAR; returns 'RPAR' although none is marked
+			new Action() {	// [46] procedure_head = PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_func = _symbols[offset + 2];
+					final String func = (String) _symbol_func.value;
+					final Symbol _symbol_list = _symbols[offset + 4];
+					final NodeList list = (NodeList) _symbol_list.value;
+					 return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
+				}
+			},
 			new Action() {	// [47] procedure_head = FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_func = _symbols[offset + 2];
