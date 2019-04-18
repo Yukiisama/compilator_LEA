@@ -34,5 +34,11 @@ public final class NodeCase extends Node {
 	public boolean isDefaultValue() {
 		return defaultValue;
 	}
+	public String tostring() {
+		String x ="";
+		x+=nameValue;
+		return x;
+
+	}
 
 }

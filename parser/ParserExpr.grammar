@@ -56,7 +56,7 @@
 ////    LEFT/RIGHT    ////
 //////////////////////////
 
-%right UNARY_MINUS, CIRCUMFLEX, NOT, IF, THEN,ELSE;
+%right UNARY_MINUS, CIRCUMFLEX, NOT, IF, THEN, ELSE;
 %left TIMES, DIV, PLUS, MINUS;
 %left OR, AND, INFERIOR, INFERIOR_EQ, SUPERIOR, SUPERIOR_EQ, EQUALS, DIFF;
 
@@ -73,6 +73,8 @@
 %typeof statement_list = "Node";
 %typeof argt = "Node";
 %typeof procedure_definition = "NodeCallFct";
+
+%typeof case_default = "NodeCase";
 
 ////====NodeExp====\\\\
 
@@ -102,6 +104,7 @@
 
 ////====LIST====\\\\
 
+%typeof case_statement = "NodeList";
 %typeof expression_part = "NodeList";
 %typeof expression_list = "NodeList";
 %typeof argt_list = "NodeList";
@@ -167,7 +170,7 @@ simple_type =
 	;
 
 named_type =
-	IDENTIFIER.name			{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name			{: return new TypeNamed(name); :}
 	;
 
 index_type =
@@ -378,12 +381,20 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.case1 case_default.case2	//{: list.add(case2); list.add(case1); return list; :}
-	| case_statement.case												//{: NodeCaseList list = new NodeCaseList(); list.add(case); return list; :}
+	case_statement_list.list case_statement.case1 case_default.case2	{: list.add(case1); list.add(case2); return list; :}
+	| case_statement.case1												{: NodeCaseList list = new NodeCaseList(); list.add(case1); return list; :}
 	;
 
 case_statement=
-	CASE identifier_list COLON statement.stm			{: return new NodeCase(stm); :}
+	CASE identifier_list.list COLON statement.stm			{: 
+		
+		NodeList list_2 = new NodeList();
+		Iterator<String> it = list.iterator();
+		while(it.hasNext()) {
+			String x =  it.next();
+			list_2.add(new NodeCase(x,stm));
+		}
+		return list_2; :}
 	;
 	
 case_default = 

@@ -45,5 +45,12 @@ public class IdentifierList extends TypeAtomic implements Iterable<String> {
 	public int size() {
 		return list.size();
 	}
+	public String tostring() {
+		String result="";
+	
+		for (String str : list)
+			result += str;
+		return result;
+	}
 
 }

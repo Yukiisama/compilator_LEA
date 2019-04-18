@@ -1,0 +1,8 @@
+Ici vous trouvez les classes qui permettent de créer
+les types.
+
+Les types sont créés directement à partir de l'analyseur syntaxique et sont
+agrégés à certains "Node" (comme à "NodeExp")
+
+Allez voir dans TypeInterface les méthodes utiles.
+

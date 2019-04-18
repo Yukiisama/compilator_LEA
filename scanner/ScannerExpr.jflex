@@ -21,7 +21,7 @@ Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 Integer = [0-9]+
 Hexadecimal = 0x[a-fA-F0-9]+
 String = "\""~"\""
-Commentary = \/\*[^*]*\*\/|\/\/.*
+Commentary = "/*"~"*/" | "//".*
 
 %%
 
