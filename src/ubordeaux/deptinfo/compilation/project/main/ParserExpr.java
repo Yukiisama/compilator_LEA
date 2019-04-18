@@ -15,6 +15,7 @@ import ubordeaux.deptinfo.compilation.project.node.*;
 public class ParserExpr extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
+<<<<<<< Updated upstream
 		"U9pjLsTu55KKFJEx52D4HIL4YI0gX8uqDVGMGAKOa124Y0Y1K1GL6nOGLCG26XGLH8L81sb" +
 		"AHqeeAXqiOCFUU#$NCxDt9fEToPe4lyy$x7vdpdttdNVlUrFUt072kKX3HNH1AroE2bY6un" +
 		"27ur4EvH6F4t0YJiB9E0MdeZKQuJnqH1DqGcTSY8la47PXBahB4NyVRiHKN8aHw8OUw8KCz" +
@@ -53,6 +54,46 @@ public class ParserExpr extends Parser {
 		"fkSpNPVsYseRy7sK1jMTHIsloAjcibwnmua3sFVC7AcNIkQh1ODregbY3Aiea0OhAL2HAJE" +
 		"QiaOlQdhpNOhHUiOQ4jzE#gRaKSmtWZwXZFES79xSWSYbUX8T2BQqEz5PuxhpBLUIBw8yx8" +
 		"gvq7qPx2TnNXPRAUmdS9sYbrDXXHUEvRF2yD5ym1S$G$D#lo2");
+=======
+		"U9pjLsTu55KKFJExW4Q9YYK4YIAYX8v8qT1RA4eB9GGX8a8WT1KBs105H10qA2g8BT9H11M" +
+		"aIGd5GbCis411x5tivNfczivaiZDPa#3t#OVTxyovxxxpxdrlofixG3WNQJW3dT0SbwCSbk" +
+		"DunE44d8YoYCT9E1cdu5ISXjFH0XUY4TgX0TgZ0phY4jc77LY0qdB0tuVhCGjNOWIwe3jw8" +
+		"GDzaOtoQ8mKvWd9MlPlmGieKzBSr3#FKhWYEBU8BxTVDG0Ly0Ps5pBxdRu8tfaULuoPLeoi" +
+		"kf0y5VwpF6STHPwiOkIfT1HvXXGZJ#MZo3Ey67cg74MUwugHv$oOUPh4pBEiq3n9c8l5M8X" +
+		"5s8NTk8hpFHDdunminRau3rLH3JLG2tLm0HAflLIVm75eYUckTgnFcmGJ5oDPrPqTfKprAQ" +
+		"khvbaynr6jiOehQODMw8y4DtuptwZUrDRKaOFn46VhP5ZZqrv6RMtLNeqnQEl6xURJPb9RL" +
+		"xNN89TpSRGF1AondYglfV9ELtcpJtatjVLLsnDJCCZLZl9fPp1d4Xgg#XwkRPYhlZzW3XUf" +
+		"ya7CnYEkyk40PLDLvk9HFE4gv$cKSt4hxi9Kt8HRC1wtOG9kTttt1lXc1lZc1FWs1$XU2V2" +
+		"zvl7vx$HZdk9w9cE#V8adyGmcowUsbKFh4yV2QDTtGArKlLDoi9BlmiEOXljm1oPYKf6joR" +
+		"ZHZlKuhLoDceHN#OpdqLg5fn1sxy2rM8yLtAswsZdJqCFceAX9U4pUnjD8absClDgDu70Ir" +
+		"j6$XhmHBs93GBzLCsmYRyKsl1pGdwuhVmbx#NVyVTJRJtcWyb3baUwkE1bvzcetyhy4U$0w" +
+		"WErOBx$1#xi1KJ$PBRkvNwOmJXC#fyqOgmLts5RS3zjmlqhbzNIkfi6TDSIpLmgbMVrOx$T" +
+		"uxW5zkIF61$ILvtl0MaL5hkqihgKILvEV9v7zjRWtrYXnRaiVNsXk#7BxLJNuNkh3FJeumk" +
+		"0Oio$UJ9rnmNdYZkKvbeTvaakOnsHbr8brJXVxNgxXrbfrjTOgfzNM6QngJ3TcB#OVuchx#" +
+		"RGcQxf4LvtWAaVwb8ucazMUoJ43k9BXh0VZMIKvewh5d4i3de#whZOnfZQ3RvZghZOXfZQB" +
+		"SPDTxOK1QtIKLQci4oDgiaURG6rzNqMRhwrMG7q1rGrTTRqOS#ZBMOHYp25VQV3g6QwoZa$" +
+		"ft0zTMMMciIhlmShl$$Bvx$HZdk9xmhOdWrOrsuehO0rohNYrd3ibZlTHUIehizAkmbhx$2" +
+		"9RXdqtXlci6Vn7efhsCvvEQm3lm87k7TWVL$1BmSdfS51KQt#8PsIBgtlkOOSZ$X3P8AS7z" +
+		"5irGrMxFqJszplP4#rvE$xekHN6rdELRg$M6jsFErY2YBs#ckBvOQX4$PWlaJN7c#EjYafO" +
+		"juAh1jSAFX7WjotuV0BPLdz901Z2GoRv$NmVlrh0xqhm2nQiRu5FYS#eEPEeI7G1mgUGRoV" +
+		"N8wyYDmH2DScjo0t8gUHcv3HoEt8lSbVo0786nz0EqJRk80yZ$#2PqspwnW1c6O$l5nugqN" +
+		"TYf6tMekPcylpWTPbhEUQtY1sQn7PRzUzXUmRvLkrxa7PbjH#dVP7QYsbtrZ5SCxygWQxQn" +
+		"$DY3gJn3ZcEUSggVntROzbkgUsjR5kvh7ErHcEThMoTWslLvlhDyJhc4B6BxT55luPcTs9M" +
+		"b6y8ppNFhMcTeviOSw$6twVz4uYdYEQUCG#p$mFo2crl8jvYd8hQtkVHBgDsHtuxj9HOJco" +
+		"BjCEyHyCdSusB2iuhdApwjwByAKGRuawYfleg4UtLhiin1ptwtaGwCOMmxglwn76U$cnYgD" +
+		"hzYRB4TTeUbAyp5l2v#eEnLrfjsjj9VOfwxWk35RFW#g2viLXvl#OlfvogF4vPhvTnECAcg" +
+		"LnUkRPoQ#KCvT7A4wFdHDzilyzOLx0TMbQKzL7tULJxwtmxSltKRkIn6nSSmtSHC5txcgjl" +
+		"i$BFwjVr6TMrtKxpZQFlJrrNASzwCbLNctQkP#rpYhAkVr#tCTCJSvwoUyvutJUpdLLmZBa" +
+		"wgZsXPBb3UJg7dAWvROamaWePjo6gVSGpbpo$Fbp7qxypt#Rx5iOKJz$R$h5uasVXRpa0zo" +
+		"SlotRP9bjbY#J9Pjaa6sM3h93byemiannRyQBaylW4mHrO7YKU8UOIt964RmDvYE1EBGyGi" +
+		"uZxYSU8EVRu#sIcHdfIxfLvjhNEFgwMUsI6J9UxPPgyGDLw#d9abTsN8ojjVju#FcSVdzKv" +
+		"lwBC7LAULdkfkw8bia0MszPyOhzyeFxtv5VvHNwMd#I8$2W$oFVodNnB$#VoZNpjEIDybyh" +
+		"7QX#IWsfzgFmLyQwyOzjVo4VgVLzveIoIbyZSb#KDsIklkr5ViuyxxUEhiWEUd#mHwxhy9N" +
+		"zg#tU2knx6yCkhDB$9G9WORCFW5r#Ottm6A#vWTFEW4v6cwCnnbp9M5zOw5hepzX3w7VHW$" +
+		"9xKP9EpsUvBkodrJTaUQiEgZiBsLwHLCrdls87aOUmRHiwqQqMJrQB1Mh4KKOPL50Y3jLI8" +
+		"YDHPpHYZDtMzsMwkQ143hQXlJNrZyWZ66q7VSCOPJcv3Raka4ks8zaHB#htem7LsuDYEn2M" +
+		"SbrKv3w8$W#qinijYEuNj5BPJx6eofF3QiNnU62wQ163KFyt#$88=");
+>>>>>>> Stashed changes
 
 	static final Action RETURN6 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -427,16 +468,7 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [78] structured_statement = if_statement
 			Action.RETURN,	// [79] structured_statement = while_statement
 			Action.RETURN,	// [80] structured_statement = switch_statement
-			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					final Symbol _symbol_stm = _symbols[offset + 4];
-					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeIf(e, stm);
-				}
-			},
-			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+			new Action() {	// [81] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -445,6 +477,15 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_stm2 = _symbols[offset + 6];
 					final Node stm2 = (Node) _symbol_stm2.value;
 					 return new NodeIf(e, stm1, stm2);
+				}
+			},
+			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeIf(e, stm);
 				}
 			},
 			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm

@@ -363,10 +363,10 @@ structured_statement =
 	| while_statement								
 	| switch_statement								
 	;
-	
+
 if_statement =
-	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	 IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	|IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
 	;
 
 while_statement=

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 *** Fichier data/progr6.lea
 *** //
 *** // gestion complexe de la pile
@@ -313,3 +314,26 @@
 *** end
 
 *** Analyse syntaxique ok
+=======
+*** Fichier data/progr1.lea
+*** var
+*** a
+*** :
+*** integer
+*** ;
+*** begin
+*** a
+*** =
+*** 100
+*** ;
+*** while
+*** (
+*** a
+*** >=
+*** 0
+*** )
+*** do
+*** Erreur de syntaxe en ligne 0, colonne 5. Token inattendu: ELSE
+*** begin
+*** Erreur de syntaxe: data/progr1.lea:Cannot recover from the syntax error
+>>>>>>> Stashed changes
