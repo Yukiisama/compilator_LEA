@@ -58,10 +58,10 @@ public class Terminals {
 	static public final short LCURLY_BRACKET = 50;
 	static public final short RCURLY_BRACKET = 51;
 	static public final short THEN = 52;
-	static public final short DO = 53;
-	static public final short DEFAULT = 54;
-	static public final short TYPE = 55;
-	static public final short ELSE = 56;
+	static public final short ELSE = 53;
+	static public final short DO = 54;
+	static public final short DEFAULT = 55;
+	static public final short TYPE = 56;
 
 	static public final String[] NAMES = {
 		"EOF",
@@ -117,9 +117,9 @@ public class Terminals {
 		"LCURLY_BRACKET",
 		"RCURLY_BRACKET",
 		"THEN",
+		"ELSE",
 		"DO",
 		"DEFAULT",
-		"TYPE",
-		"ELSE"
+		"TYPE"
 	};
 }

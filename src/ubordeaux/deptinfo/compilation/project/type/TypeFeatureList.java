@@ -4,6 +4,10 @@ import ubordeaux.deptinfo.compilation.project.main.ClonableSymbol;
 
 public class TypeFeatureList extends TypeComplex {
 
+	public TypeFeatureList() {
+		super();
+	}
+	
 	public TypeFeatureList(Type t) {
 		super(t);
 	}

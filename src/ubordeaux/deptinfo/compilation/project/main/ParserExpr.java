@@ -15,44 +15,44 @@ import ubordeaux.deptinfo.compilation.project.node.*;
 public class ParserExpr extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjLsTu5LKGFRlx04M8YcA84WL40mbDGLH4EYWglGGGec1G4bGisB1B2IZD058KAG6feg8" +
-		"8qWqe5Z1AKL0KmOQzOtSykvdTRDvkdadm#$p3Uz$PcJltt9cvktVlpWKYSz4L9w43ckCALC" +
-		"8pE1hbSGmge2BYS2oEm$4u0IUYCbgW8Sx5HJW75wCzBi6biXjRiG1bPL#m3xVX4Lo5wz09t" +
-		"T0JlT4N6QY22z24SInPm$xDM8LofOrD$WgKGV$ms2A1s47M09oCdSWh8ljj0G$#J8ygGQPL" +
-		"ysTTH9oJ$xCufnv6dAjB4AVQOSGPL88uDGuZphKbY5FpCEBSMe8uPyQCqpHcdAUAZ9E8cLY" +
-		"CXLY4Dv276vdlAJWDrR4Kf#CC9A4sKb0NzN4M4iYzJD$0OMY9yHxtZW0t4IREHorbTtIPyb" +
-		"20cQoSP$4SHxN6Iiwa3LhXIiHx$fi5HlKYjuwEN8hfkCcBi3h0lPpSUieTYflHrlFR9S1D8" +
-		"xU1Scz13dDnkLD3vdYsCdDmDqPxp341vZXo6obt0YPYeCST4k1E8RUnSgTZ6WPxt1aX6Pod" +
-		"pCVmEBDmcRD2c1SgSoxcumdlRdqMOCx4lNWG3#4kt8FxS3yUm73Fzd28RLA8xT4GMsw8xRK" +
-		"Gsri#Mt2T7x6Kr98bdygNc8UdgNtYQDd8GewdtU1gia#rThfIil4yzvKdCHQJCG8ZCQhOMX" +
-		"RkT7pDeVQ2Uat4wtp3Dr5RYTM8U6jr3TPXEVUgpaxChkZko32lYUWXxs0PvMnwNkjvS6KYD" +
-		"l9ztO14UOFzBuRqsnN3ovGlOJrU3UbFrPc$WXtyk$O#QksdCbrbfihhlJqn2vkSsMxaVmdU" +
-		"n7O0Mx1EVeF$TpkYVf8dUTmjcz1FKxwdpUYh1VVNLjmDst2tQiVdwJvDW$kgnRjN1cLP#zX" +
-		"VzpW#xxxS3#D2#ghmAs3FeYhdTYhdKespAOYJmFwwt1bJIXtRviSL6Hk1s45M2hzAVRX3Xt" +
-		"ku9aRs9SlK7HSUf$oHE4VYC4wjKiOnMHTrO9NJoLdBALwbrK0hhKfQQvt4ciRqVFPa$44Uj" +
-		"r#0QxAYI$3OyHxp#W3JvQInrZCvPW1dSYshmJZMIEwesZ5pQS3xqTlZ9iJaDcQrd#nnusDo" +
-		"a#YtbiTj6397bsbmN7sFQGIOjNpSsgnJ6WNgsGBksONyzkNNqEKcnSWWdi$3y9WzO#PQdok" +
-		"dw3lhheREh32xiYBlZXx$cosupezOIcwfxLXwUrfvQeQd3VIqEDNSbLAUgweArr8DrjarMM" +
-		"cVMMpDu5grVINx8fdE6vvARG0jwTuAl1BzUKvmOxeopAl9VEBesTubaWdNWojDvtrDrVwaa" +
-		"7wxOh0SNdY$6pt1oTkrH#TMbEp9CQdEREtH$RX$nOiuywiZlXyo9Uh7U0ciE7RTPzTJ8fzI" +
-		"r23YY8x4ZKGb8iFkBmq0GtX9eznROEEP1JnxWgTNiBe5FYCEadCAKPNe14IEennEUHRbIif" +
-		"p02k5iYLb8ygsb1TITg5iHzc3qXxNdx8NntIcf6wCeCoa$C6NqmpQRWRCSZxRBxnKewr2Vj" +
-		"kiIyvTbFF3vsMkvfZVydLh9DjjrPx7zdZcaQXzKscheVfiwkUfleXwHnt3EVDy2NJMlkMqf" +
-		"LFPexbLLFiQskzWkwMsDxCzWJYMjjNgwpILRMYxHVN1nBqwvW2nZUtCuZz3ininAiesY7Fa" +
-		"yp6l8wwcp#tg$ntj7qei8Phxnenb$rxAnThUGEJIZvlpBXzt8R7Jr#OwiPuWbcYStHndptj" +
-		"HuRmYITg$AyfUaQXCP17LrLQVQAtwwHoptyTF9JZlo6Z2NbSD2TzwYTZppr3z2g82eVSxab" +
-		"x0CnRmlVg3lbVORUfRAFeKzzuN1TjduVdXLfLwR$61ng#aiftAOIftgFmaNvgcoYegwwdK#" +
-		"sFsLZb4vOZed6YR7hGPQmkthMN5cHzv1wFQNnNeaHIVtjYdDoayXjyYOBpsDLDRhif3Qc#b" +
-		"UIPhM##JPRzd1xNlEzzyqfJ7$S78ySrzHd7czU$pDYRvVCvJwTqpFdU#BsQNmcFCLL7jcqe" +
-		"NsvgcEMH7vRGvNoAnY77hezhV#dB93V8ZzNpzMmjqVczXZF7rlHqSYrsy2t$BFdW$ULMsoC" +
-		"loacoMJP8hByf6sI3BvHbvMfwIR8UnNd9udKlC8MOHZnCpYSS8VWraEZ6Du6ujZn1JYDd4e" +
-		"yxuoJ99FSsJXsM#ewrrhY$8H9aWusMSZ9LLPAsZBLjMEdtPyhmZLpZNvvphivhpQogN4K#g" +
-		"ljIRqH9P88iTZJkUV23lg$qz#LL#aKFoi$maFyeFyhry9z$I$hby8r$xxWY$fVAnwX$90TK" +
-		"#LFaLyQxiSVGlPBzQzwfSA8la5SgtYPsoGxPxNjzohjkSw#ko5RwVl2dsS$bB$jJsxmHtFG" +
-		"pbkQiiJsGWJ5pZmE1vBy8Jdy6AEnnTVEX0T5LqvBZBwAiJQnqRtUXx4EqkkjD$3t8oA3ESC" +
-		"qo4Pr0G9Z8TsDLHn3b3sZMJ$OrDfnpCli6KQKwjQB9QD5WhbY7AiOe2OR2MieZyEgiPVVGY" +
-		"hnVRpHKjOg0L#Qt9lu2Itql2u4dJ8WoUYYsUYosUZ2sUZIsUZYsUbur2QCznxJdNIoWlPLv" +
-		"svJpGENj6UAe4OR4ID8W8OLUJbiAlnxBvONXe6e8X$m25uVlN");
+		"U9pjLsTu55KKFJEx52D4HIL4YI0gX8uqDVGMGAKOa124Y0Y1K1GL6nOGLCG26XGLH8L81sb" +
+		"AHqeeAXqiOCFUU#$NCxDt9fEToPe4lyy$x7vdpdttdNVlUrFUt072kKX3HNH1AroE2bY6un" +
+		"27ur4EvH6F4t0YJiB9E0MdeZKQuJnqH1DqGcTSY8la47PXBahB4NyVRiHKN8aHw8OUw8KCz" +
+		"4KsAg4PKfWd9ElOlnMhKQQakQb$7gLmHN1k4Lzklse0JiChs5l8x7Vx8dXdMhOOCwqSMNKX" +
+		"UKxxp$ASSHHviegHf#fHv1bIZ3pLZYBFy6BaEVieyjnGZ3pLO#Pf7ZFFaaBp96465c0UvcC" +
+		"Fzk8QplTqLC6PM8IpS0vge2PgeoxgurmaKdknFe6ZqGQJNEtDFcqIJ5o0P5LtTPHodqzPIp" +
+		"Khy1n7jSCghgGzsg8$4jpuBNsZUbDRHqSEnkEShPDXhKzx6RNrL7ijHg636$SIdpQJsWQgl" +
+		"Gwvd8kZVJHWZGrLUJsLzxZAstpA1wXjhDfBCH63NEtLFkravan2KrK$oBKDSzMF1CpXV5K#" +
+		"XcbuqbK#4Q1ieSfSF8LPhdAsJpa3Ot0lxiEjk1rZSGV6ORphUoZ0DoN0Dpt0joN0ztA0Rx$" +
+		"7vx$JZtcAwvc0EV85di5IJ91FR2k7riUEXP6kxuXQgNgdv60btuKVuNuyZ3jn5#ukiZK1jz" +
+		"YnPjBArQX9sCbdF8$MAYn6sBq3rs43bdEtwcxdJ4DFcuEY9k5fUHtF8adsCF8QDuB3ILXF$" +
+		"rho9ho0ZG7zLismcRmDs$5IG7#whln57EJVyVTHRp$bWSf3bQzoTyK9oBDNkud$XTY70m1s" +
+		"O8Fy1k$l9aJzPA$ivNwPmZZD#PosPApMt67RSZzip$qgbTVJkPe6TzOGprufb6RrOxtVuxa" +
+		"7zEME61$GLudl0MiLbRcsCxYMgbnDVfv4zjVbtbYxnBajVNoXkU7BxLVLvdkf3$Veu0Y3Oy" +
+		"o#U3DrnWNdYJkMvrWUvaakOHwJbL4NrZdTx7kvjbjhDT1Qgu9MMnLPrPXkp5xCFyJLzlDfJ" +
+		"TPqYQuwmLLUvLCwcanMUoR73E1AXhCUZ6ULv8og6NCkJNW#6hZQn9ZQ3BvXQhdQX9ZQBCPD" +
+		"ThMD0jReA6jGMJz6r6IFDe7QnhwADbzRiu3wNAgRkkg6CURGbxC8nPX3ljBWrJDSPNsVqha" +
+		"VkhFAJ6DLtfELt$$byz$fnpp5zuHjJmQjchOLLy0Qv5hnQZbtIXpleqfKLcEbVJPhxUf5jW" +
+		"pxRWppMJFuZqGrxMSydTO0te43tJkmFwxWbuAJq#6WgDR#4C$85jVotCCEH$mXia5E3#YtQ" +
+		"eOQTd#8xEztiYVQytRyqNChZAtdAjrUhJMw7tUm115xVNN4yyDGYVenNo9hZbV7MXMLi6u5" +
+		"Lmsk5NmYm6zRyFa4igt#aW0mX8TCyblvFdwrWD#Lu1SiMDy2dn2VKdCwKPde1eHF8eydDoI" +
+		"l8ZS5GdN8RSbDoAdabkGqSaToBt9tyW1o1iVG3j4sxYGF8t$lcTCq#aO1PXcFxnSUgj9NBj" +
+		"8swr9p6tbEyBhCTHppMyGEtSrs1$NlOtioUOpsFKQxcjepQP#lzWBQNNKCryolIg2xzl6yc" +
+		"0Df72R7CKzvzQzd#sQsssXx6zjMBkjShTLOLPIjSt2zsbo$ELR7V43iONjaqQ#XsOEO6kKR" +
+		"mdFDSsjQv#XMnZoeyGzf$pXYCT7AC#O9zhzDNgxjpSHhZ5DPsuSysYNKxiflXnOHouZjaNQ" +
+		"OzsZuHAvnVi5vXPDL$rgKFuLeJzn3r55VLQAJsWquvdsFlZUHJamahFkgCL7MqvzD35MxFr" +
+		"6Uk47RW$9rnbm#LtymzaghJNi7gKzHptrXi68MN1yqDnOelwFvAoYdAezMrkjbV1HXqrIkf" +
+		"5nFkProXl98vRkYvqJVDB$FM5#m7LfIbFLHzrbK#wjyEtBzr3xFOpShE8Rl8c2IzhLItnRb" +
+		"dzMlwpDgQRkZvXjDtv#whbAUzMIghXxjNC$QfnTbNV##RcEA9#PiPVUSyRflOJkhu1XpJLH" +
+		"xNCboX$9q3ZbHSzeQOIGLCcvZLFj7prpo$FfmVK$$xdoRxriO4przh$l7ubMUXR$b2DoVl2" +
+		"GxPBjiawsI9rjaisoIZR9SbibIMI8vjk85oULn5i4TM9uYdYHc4DoHX6y3UPpWJYsF4bE9H" +
+		"uYdYUds#8TbYaPwHXwIsRQrtZwkaGTbiaoI1#H#MKtL1lfoP9NTboChRNxUFZvd7rVed5zM" +
+		"VfPOhFOYTqKBPQuiiAqvn3lojlhVb5$b5$bPVf8VvGVvNhwJR#KR#Z#Jh#KhpndXkrG#LFi" +
+		"3UL#jTvM$9DwGmxRzkRodthUKvybyUP7CVLbUaODom8swtpxkjeyxPHSyFzadrdNvI$xKzk" +
+		"y4TpsCufTNQNwJWJ0ns8R1Bxuml$aCLjp1kCI3BaIQeYl7NSnOtLZhMEZ1s4FeTz2JyI#b9" +
+		"fkSpNPVsYseRy7sK1jMTHIsloAjcibwnmua3sFVC7AcNIkQh1ODregbY3Aiea0OhAL2HAJE" +
+		"QiaOlQdhpNOhHUiOQ4jzE#gRaKSmtWZwXZFES79xSWSYbUX8T2BQqEz5PuxhpBLUIBw8yx8" +
+		"gvq7qPx2TnNXPRAUmdS9sYbrDXXHUEvRF2yD5ym1S$G$D#lo2");
 
 	static final Action RETURN6 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -204,14 +204,22 @@ public class ParserExpr extends Parser {
 					 return new TypeStruct(t);
 				}
 			},
-			new Action() {	// [29] feature_list_type = feature_list_type.t feature_type
+			new Action() {	// [29] feature_list_type = feature_list_type.list feature_type.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_t = _symbols[offset + 1];
-					final TypeFeatureList t = (TypeFeatureList) _symbol_t.value;
-					 return new TypeFeatureList(t);
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final TypeFeatureList list = (TypeFeatureList) _symbol_list.value;
+					final Symbol _symbol_t = _symbols[offset + 2];
+					final TypeFeature t = (TypeFeature) _symbol_t.value;
+					 list.add(t); return list;
 				}
 			},
-			Action.RETURN,	// [30] feature_list_type = feature_type
+			new Action() {	// [30] feature_list_type = feature_type.t
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_t = _symbols[offset + 1];
+					final TypeFeature t = (TypeFeature) _symbol_t.value;
+					 TypeFeatureList list = new TypeFeatureList(); list.add(t); return list;
+				}
+			},
 			new Action() {	// [31] feature_type = IDENTIFIER.id COLON type.t SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
@@ -428,7 +436,17 @@ public class ParserExpr extends Parser {
 					 return new NodeIf(e, stm);
 				}
 			},
-			RETURN6,	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2; returns 'stm2' although more are marked
+			new Action() {	// [82] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					final Symbol _symbol_stm1 = _symbols[offset + 4];
+					final Node stm1 = (Node) _symbol_stm1.value;
+					final Symbol _symbol_stm2 = _symbols[offset + 6];
+					final Node stm2 = (Node) _symbol_stm2.value;
+					 return new NodeIf(e, stm1, stm2);
+				}
+			},
 			new Action() {	// [83] while_statement = WHILE expression.e DO statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];

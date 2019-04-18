@@ -56,8 +56,8 @@
 ////    LEFT/RIGHT    ////
 //////////////////////////
 
-%right UNARY_MINUS, CIRCUMFLEX, NOT;
-%left TIMES, DIV, PLUS, MINUS, IF, THEN,ELSE;
+%right UNARY_MINUS, CIRCUMFLEX, NOT, IF, THEN,ELSE;
+%left TIMES, DIV, PLUS, MINUS;
 %left OR, AND, INFERIOR, INFERIOR_EQ, SUPERIOR, SUPERIOR_EQ, EQUALS, DIFF;
 
 /////////////////////
@@ -90,7 +90,6 @@
 
 %typeof literal = "NodeLiteral";
 
-
 ////====TYPE====\\\\
 
 %typeof type_declaration_part, type = "Type";
@@ -99,6 +98,7 @@
 %typeof subrange_type = "Type";
 %typeof variable_declaration_part = "Type";
 %typeof variable_declaration_list = "Type";
+%typeof feature_type = "TypeFeature";
 
 ////====LIST====\\\\
 
@@ -208,8 +208,8 @@ structure_type =
 	;
 
 feature_list_type =
-	feature_list_type.t feature_type							{: return new TypeFeatureList(t); :}
-	| feature_type
+	feature_list_type.list feature_type.t						{: list.add(t); return list; :}
+	| feature_type.t											{: TypeFeatureList list = new TypeFeatureList(); list.add(t); return list; :}
 	;
 
 feature_type =
@@ -366,7 +366,7 @@ structured_statement =
 	
 if_statement =
 	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	//{: return new NodeIf(e, stm1, stm2); :}
+	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
 	;
 
 while_statement=

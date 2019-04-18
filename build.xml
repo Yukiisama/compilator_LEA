@@ -43,7 +43,7 @@
 			<fileset dir="lib" includes="jflex-full-1.7.0.jar" />
 		</path>
 		<java classname="ubordeaux.deptinfo.compilation.project.main.Main" classpath="bin" classpathref="beaverclasspath" output="data/output">
-			<arg value="data/progr4.lea" />
+			<arg value="data/progr6.lea" />
 			<arg value="-checkType" />
 		</java>
 	</target>
