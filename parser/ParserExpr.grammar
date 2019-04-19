@@ -72,8 +72,8 @@
 %typeof simple_statement = "Node";
 %typeof statement_list = "Node";
 %typeof argt = "Node";
-%typeof procedure_definition = "NodeCallFct";
-
+%typeof procedure_definition = "Node";
+%typeof procedure_expression = "Node";
 %typeof case_default = "NodeCase";
 
 ////====NodeExp====\\\\
@@ -285,19 +285,15 @@ procedure_head =
 	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
 		
 		TypeFeatureList types = new TypeFeatureList();
-		NodeList list_2 = new NodeList();
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();
 			types.add(x.getType());
-			
 		}
 		System.out.println("Coucou c'est ici ::::");
 		System.out.println(list);
 		
-		
-		
-		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), new TypeInt()), list); :}
+		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), t), list); :}
 	;
 
 argt_part =
@@ -359,8 +355,15 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.func LPAR expression_part.list RPAR	{: return new NodeCallFct(func, 
-			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
+	IDENTIFIER.func LPAR expression_part.list RPAR	{: 
+		TypeFeature types = new TypeFeature("coucou", new TypeInt());
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeExp x = (NodeExp) it.next();
+			types.add(x.getType());
+		}
+		return new NodeCallFct(func, 
+			new TypeFunct(func,new TypeTuple(types), new TypeVoid()), list); :}
 	;
 
 expression_part=
