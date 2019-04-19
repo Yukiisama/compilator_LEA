@@ -245,6 +245,7 @@ variable_declaration =
 		while(it.hasNext()) {
 			String x =  it.next();
 			list_2.add(new NodeId(x,t));
+			typeEnvironment.putVariable(x,t);
 		}
 		return list_2; :}
 	;
