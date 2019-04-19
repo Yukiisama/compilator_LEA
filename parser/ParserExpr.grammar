@@ -243,6 +243,7 @@ variable_declaration =
 		while(it.hasNext()) {
 			String x =  it.next();
 			list_2.add(new NodeId(x,t));
+			typeEnvironment.putVariable(x,t);
 		}
 		return list_2; :}
 	;
@@ -416,7 +417,7 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name										{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name										{: return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
 	| variable_access.e LBRACKET expression RBRACKET	{: return e; :}
 	| expression.e CIRCUMFLEX 							{: return new NodePtrAccess(e); :}
 	;
