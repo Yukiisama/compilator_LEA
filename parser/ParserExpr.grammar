@@ -72,7 +72,7 @@
 %typeof simple_statement = "Node";
 %typeof statement_list = "Node";
 %typeof argt = "Node";
-%typeof procedure_definition = "NodeCallFct";
+%typeof procedure_definition = "Node";
 
 %typeof case_default = "NodeCase";
 
@@ -279,9 +279,13 @@ procedure_definition_head =
 	;
 
 procedure_head =
-	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{:
-		return new NodeCallFct(func, 
-			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
+	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					
+	{:
+		return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); 
+:}
+
+
+
 	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
 		
 		TypeFeatureList types = new TypeFeatureList();
@@ -294,10 +298,10 @@ procedure_head =
 		}
 		System.out.println("Coucou c'est ici ::::");
 		System.out.println(list);
+
 		
 		
-		
-		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), new TypeInt()), list); :}
+		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), t), list); :}
 	;
 
 argt_part =
