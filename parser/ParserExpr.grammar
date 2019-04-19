@@ -99,11 +99,12 @@
 %typeof range_type = "Type";
 %typeof subrange_type = "Type";
 %typeof variable_declaration_part = "Type";
-%typeof variable_declaration_list = "Type";
 %typeof feature_type = "TypeFeature";
 
 ////====LIST====\\\\
 
+//%typeof type_declaration_list = "TypeList";
+%typeof variable_declaration, variable_declaration_list = "NodeList";
 %typeof case_statement = "NodeList";
 %typeof expression_part = "NodeList";
 %typeof expression_list = "NodeList";
@@ -124,8 +125,9 @@ program =
 	variable_declaration_part		
 	procedure_definition_part		
 	BEGIN
-	statement_list						
+	statement_list.l						
 	END
+	{: return l; :}
 	;
 
 ////////////////////////////////////////////////
@@ -138,16 +140,16 @@ type_declaration_part =
 	;
 
 type_declaration_list =
-	type_declaration_list type_declaration
-	| type_declaration
+	type_declaration_list.list type_declaration.t		//{: list.add(t); return list; :}
+	| type_declaration.t								//{: TypeList list = new TypeList(); list.add(t); return list; :}
 	;
 
 type_declaration =
-	type_declaration_head EQ type SEMI
+	type_declaration_head.name EQ type.t SEMI			//{: return new NodeId(name, t); :}	
 	;
 	
 type_declaration_head =
-	IDENTIFIER
+	IDENTIFIER.name 									{: return new TypeNamed(name); :}
 	;
 
 ////////////////////////////////////////
@@ -229,13 +231,22 @@ variable_declaration_part =
 	;
 
 variable_declaration_list=
-	variable_declaration_list.list variable_declaration		{: return new TypeList(list); :}
-	| variable_declaration							
+	variable_declaration_list.list variable_declaration.name	{: list.add(name); return list; :}
+	| variable_declaration.name									{: NodeList list = new NodeList(); list.add(name); return list; :}
 	;
 
 variable_declaration =
-	identifier_list COLON type SEMI
+	identifier_list.list COLON type.t SEMI {: 
+		
+		NodeList list_2 = new NodeList();
+		Iterator<String> it = list.iterator();
+		while(it.hasNext()) {
+			String x =  it.next();
+			list_2.add(new NodeId(x,t));
+		}
+		return list_2; :}
 	;
+		
 
 identifier_list =
 	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); return list; :}
@@ -349,11 +360,13 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			{: return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}	
+	PRINTLN expression.e SEMI			{: return new NodeCallFct("println",
+			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())), new TypeVoid()), new NodeList(e)); :}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}
+	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", 
+			new TypeFunct("readln",new TypeTuple(new TypeFeature("readln",e.getType())), new TypeVoid()), new NodeList(e)); :}
 	;
 	
 return_statement=
