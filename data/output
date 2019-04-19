@@ -1,149 +1,142 @@
-*** Fichier data/progr1.lea
+*** Fichier data/progr5.lea
 *** var
-*** a
+*** x
+*** :
+*** integer
+*** ;
+*** function
+Enregistre x TypeInt_null
+*** sum
+*** (
+*** i
+*** :
+*** integer
+*** ,
+*** j
+*** :
+*** integer
+*** )
+*** :
+*** integer
+*** var
+*** k
 *** :
 *** integer
 *** ;
 *** begin
-*** a
-*** =
-Create class NodeId
-*** 100
+Enregistre k TypeInt_null
+*** return
+*** (
+*** i
+*** +
+Retrouve i null
+*** j
+*** )
+Retrouve j null
 *** ;
-Create class NodeLiteral
-*** while
-Create class NodeAssign
-Create class NodeList
-NodeList(NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#100:TypeInt_null#))
+*** end
+*** function
+*** pgcd
 *** (
 *** a
 *** >=
 Create class NodeId
 *** 0
 *** )
-Create class NodeLiteral
-Create class NodeOp
-*** do
-*** println
-*** (
-*** a
-*** )
-Create class NodeId
-*** ;
-*** a
-Create class NodeList
-Create class NodeCallFct
-Create class NodeWhile
-*** =
-Create class NodeId
-*** 1
-*** ;
-Create class NodeLiteral
-*** if
-Create class NodeAssign
-*** (
-*** a
-*** ==
-Create class NodeId
-*** 0
-*** )
-Create class NodeLiteral
-Create class NodeOp
-*** then
-*** return
-*** 1
-*** ;
-Create class NodeLiteral
-*** else
-Create class NodeReturn
-*** return
-*** 0
-*** ;
-Create class NodeLiteral
-*** end
-Create class NodeReturn
-Create class NodeIf
-
-NodeList(NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#100:TypeInt_null#), NodeWhile(NodeOp(NodeId#a:TypeInt_1#, NodeLiteral#0:TypeInt_null#), println_NodeCallFct(NodeList(NodeId#a:TypeInt_1#))), NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#1:TypeInt_null#), NodeIf(NodeOp(NodeId#a:TypeInt_1#, NodeLiteral#0:TypeInt_null#), NodeReturn(NodeLiteral#1:TypeInt_null#), NodeReturn(NodeLiteral#0:TypeInt_null#)))
-*** Analyse syntaxique ok
-*** Fichier data/progr1.lea
-*** var
-*** a
 *** :
 *** integer
-*** ;
 *** begin
-*** a
-*** =
-Create class NodeId
-*** 100
-*** ;
-Create class NodeLiteral
 *** while
-Create class NodeAssign
-Create class NodeList
-NodeList(NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#100:TypeInt_null#))
 *** (
-*** a
-*** >=
-Create class NodeId
-*** 0
+*** i
+*** !=
+Retrouve i null
+*** j
 *** )
-Create class NodeLiteral
-Create class NodeOp
+Retrouve j null
 *** do
-*** println
-*** (
-*** a
-*** )
-Create class NodeId
-*** ;
-*** a
-Create class NodeList
-Create class NodeCallFct
-Create class NodeWhile
-*** =
-Create class NodeId
-*** 1
-*** ;
-Create class NodeLiteral
 *** if
 Create class NodeAssign
 *** (
-*** a
-*** ==
-Create class NodeId
-*** 0
+*** i
+*** >
+Retrouve i null
+*** j
 *** )
-Create class NodeLiteral
-Create class NodeOp
+Retrouve j null
 *** then
-*** return
-*** 1
+*** i
+*** =
+Retrouve i null
+*** i
+*** -
+Retrouve i null
+*** j
 *** ;
-Create class NodeLiteral
+Retrouve j null
 *** else
-Create class NodeReturn
-*** return
-*** 0
+*** j
+*** =
+Retrouve j null
+*** j
+*** -
+Retrouve j null
+*** i
 *** ;
-Create class NodeLiteral
+Retrouve i null
+*** return
+*** (
+*** i
+*** )
+Retrouve i null
+*** ;
+*** end
+*** begin
+*** x
+*** =
+Retrouve x TypeInt_null
+*** 5
+*** ;
+*** x
+*** =
+Retrouve x TypeInt_null
+*** sum
+*** (
+*** 3
+*** ,
+*** 5
+*** )
+*** ;
+*** println
+*** sum
+*** (
+*** 3
+*** ,
+*** 5
+*** )
+*** ;
+*** println
+*** (
+*** pgcd
+*** (
+*** 78
+*** ,
+*** 90
+*** )
+*** )
+*** ;
 *** end
 Create class NodeReturn
 Create class NodeIf
 
-NodeList(NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#100:TypeInt_null#), NodeWhile(NodeOp(NodeId#a:TypeInt_1#, NodeLiteral#0:TypeInt_null#), println_NodeCallFct(NodeList(NodeId#a:TypeInt_1#))), NodeAssign(NodeId#a:TypeInt_1#, NodeLiteral#1:TypeInt_null#), NodeIf(NodeOp(NodeId#a:TypeInt_1#, NodeLiteral#0:TypeInt_null#), NodeReturn(NodeLiteral#1:TypeInt_null#), NodeReturn(NodeLiteral#0:TypeInt_null#)))
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_null#, NodeLiteral#90:TypeInt_null#)))))
 *** Analyse syntaxique ok
 --- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeLiteral
---- CheckType NodeWhile
---- CheckType NodeOp
---- CheckType NodeCallFct
---- CheckType NodeId
 --- CheckType NodeAssign
 --- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeIf
-*** Typage correct
+--- CheckType NodeCallFct
+*** Erreur de typage: pas le même nombre de paramètres 
+*** Erreur de typage

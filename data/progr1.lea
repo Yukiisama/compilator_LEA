@@ -3,14 +3,11 @@ a: integer;
 
 begin
 a = 100;
-while (a>=0) do
-    
-    println (a);
-    a =1;
-    if (a==0) then
-    return 1;
-    else
-    return 0;
-
- 
+while (a >= 0) do
+	println (a);
+	a = a - 1;
+	if (a==0) then
+	return 1;
+	else
+	return 0;
 end
