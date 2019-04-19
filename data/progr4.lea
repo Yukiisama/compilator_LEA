@@ -8,18 +8,14 @@ var
    
 begin
    x = 1;
-   while (x <= 10) do begin
+   while (x <= 10) do
       println (x);
-      if (x==10) then begin
-	 y = 1;
-	 while (y <= 5) do begin
-	    println (-1000-y);
-	    y = y + 1;
-	    end
-         end
+      if (x==10) then
+	 	y = 1;
+   		while (y <= 5) do
+	    	println (-1000-y);
+	    	y = y + 1;
       else
-	 println ("X");
-      x = x + 1;
-   end
-   
+	 	println ("X");
+      	x = x + 1;
 end
