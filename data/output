@@ -5,129 +5,406 @@
 *** integer
 *** ;
 *** function
+Create class NodeList
+Create class NodeId
 Enregistre x TypeInt_null
+Create class NodeList
 *** sum
 *** (
 *** i
 *** :
 *** integer
 *** ,
+Create class NodeId
+Create class NodeList
 *** j
 *** :
 *** integer
 *** )
+Create class NodeId
 *** :
 *** integer
 *** var
+Create class NodeList
+Coucou c'est ici ::::
+NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
+Create class NodeCallFct
 *** k
 *** :
 *** integer
 *** ;
 *** begin
+Create class NodeList
+Create class NodeId
 Enregistre k TypeInt_null
+Create class NodeList
 *** return
 *** (
 *** i
 *** +
 Retrouve i null
+Create class NodeId
 *** j
 *** )
 Retrouve j null
+Create class NodeId
+Create class NodeOp
 *** ;
 *** end
+Create class NodeReturn
+Create class NodeList
+NodeList(NodeReturn(NodeOp(NodeId#i:null#, NodeId#j:null#)))
 *** function
+Create class NodeList
 *** pgcd
 *** (
-*** a
-*** >=
+*** i
+*** :
+*** integer
+*** ,
 Create class NodeId
-*** 0
+Create class NodeList
+*** j
+*** :
+*** integer
 *** )
+Create class NodeId
 *** :
 *** integer
 *** begin
+Create class NodeList
+Coucou c'est ici ::::
+NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
+Create class NodeCallFct
 *** while
 *** (
 *** i
 *** !=
 Retrouve i null
+Create class NodeId
 *** j
 *** )
 Retrouve j null
+Create class NodeId
+Create class NodeOp
 *** do
 *** if
-Create class NodeAssign
 *** (
 *** i
 *** >
 Retrouve i null
+Create class NodeId
 *** j
 *** )
 Retrouve j null
+Create class NodeId
+Create class NodeOp
 *** then
 *** i
 *** =
 Retrouve i null
+Create class NodeId
 *** i
 *** -
 Retrouve i null
+Create class NodeId
 *** j
 *** ;
 Retrouve j null
+Create class NodeId
+Create class NodeOp
 *** else
+Create class NodeAssign
 *** j
 *** =
 Retrouve j null
+Create class NodeId
 *** j
 *** -
 Retrouve j null
+Create class NodeId
 *** i
 *** ;
 Retrouve i null
+Create class NodeId
+Create class NodeOp
 *** return
+Create class NodeAssign
+Create class NodeIf
+Create class NodeWhile
+Create class NodeList
+NodeList(NodeWhile(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeIf(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeAssign(NodeId#i:null#, NodeOp(NodeId#i:null#, NodeId#j:null#)), NodeAssign(NodeId#j:null#, NodeOp(NodeId#j:null#, NodeId#i:null#)))))
 *** (
 *** i
 *** )
 Retrouve i null
+Create class NodeId
 *** ;
 *** end
+Create class NodeReturn
 *** begin
 *** x
 *** =
 Retrouve x TypeInt_null
+Create class NodeId
 *** 5
 *** ;
+Create class NodeLiteral
 *** x
+Create class NodeAssign
+Create class NodeList
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#))
 *** =
 Retrouve x TypeInt_null
+Create class NodeId
 *** sum
 *** (
 *** 3
 *** ,
+Create class NodeLiteral
+Create class NodeList
 *** 5
 *** )
+Create class NodeLiteral
 *** ;
+Create class NodeCallFct
 *** println
+Create class NodeAssign
 *** sum
 *** (
 *** 3
 *** ,
+Create class NodeLiteral
+Create class NodeList
 *** 5
 *** )
+Create class NodeLiteral
 *** ;
+Create class NodeCallFct
 *** println
+Create class NodeList
+Create class NodeCallFct
 *** (
 *** pgcd
 *** (
 *** 78
 *** ,
+Create class NodeLiteral
+Create class NodeList
 *** 90
 *** )
+Create class NodeLiteral
 *** )
+Create class NodeCallFct
+*** ;
+*** end
+Create class NodeList
+Create class NodeCallFct
+
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_null#, NodeLiteral#90:TypeInt_null#)))))
+*** Analyse syntaxique ok
+*** Fichier data/progr5.lea
+*** var
+*** x
+*** :
+*** integer
+*** ;
+*** function
+Create class NodeList
+Create class NodeId
+Enregistre x TypeInt_null
+Create class NodeList
+*** sum
+*** (
+*** i
+*** :
+*** integer
+*** ,
+Create class NodeId
+Create class NodeList
+*** j
+*** :
+*** integer
+*** )
+Create class NodeId
+*** :
+*** integer
+*** var
+Create class NodeList
+Coucou c'est ici ::::
+NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
+Create class NodeCallFct
+*** k
+*** :
+*** integer
+*** ;
+*** begin
+Create class NodeList
+Create class NodeId
+Enregistre k TypeInt_null
+Create class NodeList
+*** return
+*** (
+*** i
+*** +
+Retrouve i null
+Create class NodeId
+*** j
+*** )
+Retrouve j null
+Create class NodeId
+Create class NodeOp
 *** ;
 *** end
 Create class NodeReturn
+Create class NodeList
+NodeList(NodeReturn(NodeOp(NodeId#i:null#, NodeId#j:null#)))
+*** function
+Create class NodeList
+*** pgcd
+*** (
+*** i
+*** :
+*** integer
+*** ,
+Create class NodeId
+Create class NodeList
+*** j
+*** :
+*** integer
+*** )
+Create class NodeId
+*** :
+*** integer
+*** begin
+Create class NodeList
+Coucou c'est ici ::::
+NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
+Create class NodeCallFct
+*** while
+*** (
+*** i
+*** !=
+Retrouve i null
+Create class NodeId
+*** j
+*** )
+Retrouve j null
+Create class NodeId
+Create class NodeOp
+*** do
+*** if
+*** (
+*** i
+*** >
+Retrouve i null
+Create class NodeId
+*** j
+*** )
+Retrouve j null
+Create class NodeId
+Create class NodeOp
+*** then
+*** i
+*** =
+Retrouve i null
+Create class NodeId
+*** i
+*** -
+Retrouve i null
+Create class NodeId
+*** j
+*** ;
+Retrouve j null
+Create class NodeId
+Create class NodeOp
+*** else
+Create class NodeAssign
+*** j
+*** =
+Retrouve j null
+Create class NodeId
+*** j
+*** -
+Retrouve j null
+Create class NodeId
+*** i
+*** ;
+Retrouve i null
+Create class NodeId
+Create class NodeOp
+*** return
+Create class NodeAssign
 Create class NodeIf
+Create class NodeWhile
+Create class NodeList
+NodeList(NodeWhile(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeIf(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeAssign(NodeId#i:null#, NodeOp(NodeId#i:null#, NodeId#j:null#)), NodeAssign(NodeId#j:null#, NodeOp(NodeId#j:null#, NodeId#i:null#)))))
+*** (
+*** i
+*** )
+Retrouve i null
+Create class NodeId
+*** ;
+*** end
+Create class NodeReturn
+*** begin
+*** x
+*** =
+Retrouve x TypeInt_null
+Create class NodeId
+*** 5
+*** ;
+Create class NodeLiteral
+*** x
+Create class NodeAssign
+Create class NodeList
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#))
+*** =
+Retrouve x TypeInt_null
+Create class NodeId
+*** sum
+*** (
+*** 3
+*** ,
+Create class NodeLiteral
+Create class NodeList
+*** 5
+*** )
+Create class NodeLiteral
+*** ;
+Create class NodeCallFct
+*** println
+Create class NodeAssign
+*** sum
+*** (
+*** 3
+*** ,
+Create class NodeLiteral
+Create class NodeList
+*** 5
+*** )
+Create class NodeLiteral
+*** ;
+Create class NodeCallFct
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** pgcd
+*** (
+*** 78
+*** ,
+Create class NodeLiteral
+Create class NodeList
+*** 90
+*** )
+Create class NodeLiteral
+*** )
+Create class NodeCallFct
+*** ;
+*** end
+Create class NodeList
+Create class NodeCallFct
 
 NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_null#, NodeLiteral#90:TypeInt_null#)))))
 *** Analyse syntaxique ok

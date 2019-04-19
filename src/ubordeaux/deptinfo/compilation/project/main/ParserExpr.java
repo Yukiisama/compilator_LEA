@@ -60,9 +60,9 @@ public class ParserExpr extends Parser {
 		}
 	};
 
-	static final Action RETURN4 = new Action() {
+	static final Action RETURN3 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 4];
+			return _symbols[offset + 3];
 		}
 	};
  
@@ -95,23 +95,34 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 5];
 					final Node l = (Node) _symbol_l.value;
-					return l;
+					 return l;
 				}
 			},
 			Action.NONE,  	// [1] type_declaration_part = 
 			RETURN2,	// [2] type_declaration_part = TYPE type_declaration_list; returns 'type_declaration_list' although none is marked
-			new Action() {	// [3] type_declaration_list = type_declaration_list type_declaration
+			new Action() {	// [3] type_declaration_list = type_declaration_list.list type_declaration.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final ArrayList _list_list = (ArrayList) _symbol_list.value;
+					final beaver.Symbol[] list = _list_list == null ? new beaver.Symbol[0] : (beaver.Symbol[]) _list_list.toArray(new beaver.Symbol[_list_list.size()]);
+					final Symbol t = _symbols[offset + 2];
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
 				}
 			},
-			new Action() {	// [4] type_declaration_list = type_declaration
+			new Action() {	// [4] type_declaration_list = type_declaration.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol t = _symbols[offset + 1];
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
 				}
 			},
-			RETURN4,	// [5] type_declaration = type_declaration_head EQ type SEMI; returns 'SEMI' although none is marked
-			Action.RETURN,	// [6] type_declaration_head = IDENTIFIER
+			RETURN3,	// [5] type_declaration = type_declaration_head.name EQ type.t SEMI; returns 't' although more are marked
+			new Action() {	// [6] type_declaration_head = IDENTIFIER.name
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 return new TypeNamed(name);
+				}
+			},
 			Action.RETURN,	// [7] type = simple_type
 			Action.RETURN,	// [8] type = named_type
 			Action.RETURN,	// [9] type = index_type
@@ -225,16 +236,40 @@ public class ParserExpr extends Parser {
 			},
 			Action.NONE,  	// [32] variable_declaration_part = 
 			RETURN2,	// [33] variable_declaration_part = VAR variable_declaration_list; returns 'variable_declaration_list' although none is marked
-			new Action() {	// [34] variable_declaration_list = variable_declaration_list.list variable_declaration.e
+			new Action() {	// [34] variable_declaration_list = variable_declaration_list.list variable_declaration.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
-					final Type list = (Type) _symbol_list.value;
-					final Symbol e = _symbols[offset + 2];
-					System.out.println("coucou2"); return new TypeList(list);
+					final NodeList list = (NodeList) _symbol_list.value;
+					final Symbol _symbol_name = _symbols[offset + 2];
+					final NodeList name = (NodeList) _symbol_name.value;
+					 list.add(name); return list;
 				}
 			},
-			Action.RETURN,	// [35] variable_declaration_list = variable_declaration
-			RETURN4,	// [36] variable_declaration = identifier_list COLON type SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [35] variable_declaration_list = variable_declaration.name
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final NodeList name = (NodeList) _symbol_name.value;
+					 NodeList list = new NodeList(); list.add(name); return list;
+				}
+			},
+			new Action() {	// [36] variable_declaration = identifier_list.list COLON type.t SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final IdentifierList list = (IdentifierList) _symbol_list.value;
+					final Symbol _symbol_t = _symbols[offset + 3];
+					final Type t = (Type) _symbol_t.value;
+					 
+		
+		NodeList list_2 = new NodeList();
+		Iterator<String> it = list.iterator();
+		while(it.hasNext()) {
+			String x =  it.next();
+			list_2.add(new NodeId(x,t));
+			typeEnvironment.putVariable(x,t);
+		}
+		return list_2;
+				}
+			},
 			new Action() {	// [37] identifier_list = identifier_list.list COMMA IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
@@ -258,14 +293,14 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final NodeList list = (NodeList) _symbol_list.value;
 					final Symbol _symbol_func = _symbols[offset + 2];
-					final NodeCallFct func = (NodeCallFct) _symbol_func.value;
+					final Node func = (Node) _symbol_func.value;
 					 list.add(func); return list;
 				}
 			},
 			new Action() {	// [42] procedure_definition_list = procedure_definition.func
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_func = _symbols[offset + 1];
-					final NodeCallFct func = (NodeCallFct) _symbol_func.value;
+					final Node func = (Node) _symbol_func.value;
 					 NodeList list = new NodeList(); list.add(func); return list;
 				}
 			},
@@ -278,7 +313,8 @@ public class ParserExpr extends Parser {
 					final String func = (String) _symbol_func.value;
 					final Symbol _symbol_list = _symbols[offset + 4];
 					final NodeList list = (NodeList) _symbol_list.value;
-					 return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
+					
+		return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
 				}
 			},
 			new Action() {	// [47] procedure_head = FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t
@@ -289,7 +325,23 @@ public class ParserExpr extends Parser {
 					final NodeList list = (NodeList) _symbol_list.value;
 					final Symbol _symbol_t = _symbols[offset + 7];
 					final Type t = (Type) _symbol_t.value;
-					 return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), t), list);
+					 
+		
+		TypeFeatureList types = new TypeFeatureList();
+		NodeList list_2 = new NodeList();
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeId x = (NodeId) it.next();
+			TypeFeature type = new TypeFeature("coucou",x.getType());
+			types.add(type);
+
+		}
+		System.out.println("Coucou c'est ici ::::");
+		System.out.println(list);
+
+		
+		
+		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), t), list);
 				}
 			},
 			Action.NONE,  	// [48] argt_part = 
@@ -319,7 +371,13 @@ public class ParserExpr extends Parser {
 					 return new NodeId(name, t);
 				}
 			},
-			RETURN4,	// [53] block = variable_declaration_part BEGIN statement_list END; returns 'END' although none is marked
+			new Action() {	// [53] block = variable_declaration_part BEGIN statement_list.l END
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Node l = (Node) _symbol_l.value;
+					return l;
+				}
+			},
 			new Action() {	// [54] statement_list = statement_list.list statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
@@ -361,7 +419,8 @@ public class ParserExpr extends Parser {
 					final String func = (String) _symbol_func.value;
 					final Symbol _symbol_list = _symbols[offset + 3];
 					final NodeList list = (NodeList) _symbol_list.value;
-					 return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
+					 return new NodeCallFct(func, 
+			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list);
 				}
 			},
 			Action.NONE,  	// [68] expression_part = 
@@ -400,7 +459,8 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())), null), new NodeList(e));
+					 return new NodeCallFct("println",
+			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())), new TypeVoid()), new NodeList(e));
 				}
 			},
 			new Action() {	// [75] readln_statement = READLN.func expression.e SEMI
@@ -408,7 +468,8 @@ public class ParserExpr extends Parser {
 					final Symbol func = _symbols[offset + 1];
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(), new TypeVoid()), new NodeList(e));
+					 return new NodeCallFct("readln", 
+			new TypeFunct("readln",new TypeTuple(new TypeFeature("readln",e.getType())), new TypeVoid()), new NodeList(e));
 				}
 			},
 			new Action() {	// [76] return_statement = RETURN expression.e SEMI
@@ -507,14 +568,16 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_name = _symbols[offset + 1];
 					final String name = (String) _symbol_name.value;
-					 return new NodeId(name, new TypeInt(1));
+					 return new NodeId(name, typeEnvironment.getVariableValue(name));
 				}
 			},
-			new Action() {	// [91] variable_access = variable_access.e LBRACKET expression RBRACKET
+			new Action() {	// [91] variable_access = variable_access.e1 LBRACKET expression.e2 RBRACKET
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 1];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return e;
+					final Symbol _symbol_e1 = _symbols[offset + 1];
+					final NodeExp e1 = (NodeExp) _symbol_e1.value;
+					final Symbol _symbol_e2 = _symbols[offset + 3];
+					final NodeExp e2 = (NodeExp) _symbol_e2.value;
+					 return new NodeArrayAccess(e1, e2) ;
 				}
 			},
 			new Action() {	// [92] variable_access = expression.e CIRCUMFLEX
