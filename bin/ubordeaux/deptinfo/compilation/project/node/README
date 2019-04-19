@@ -1,0 +1,7 @@
+Ici vous trouvez les classes qui permettent de créer
+la syntaxe abstraite.
+
+La syntaxe abstraite est créée directement à partir de l'analyseur syntaxique.
+
+Allez voir dans NodeInterface les méthodes utiles.
+

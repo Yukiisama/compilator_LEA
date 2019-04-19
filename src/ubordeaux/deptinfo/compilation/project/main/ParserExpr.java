@@ -112,12 +112,6 @@ public class ParserExpr extends Parser {
 			return _symbols[offset + 4];
 		}
 	};
-
-	static final Action RETURN3 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 3];
-		}
-	};
  
 	static class Events extends beaver.Parser.Events {
 		public void syntaxError(Symbol token) {
@@ -184,7 +178,7 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_name = _symbols[offset + 1];
 					final String name = (String) _symbol_name.value;
-					 return new NodeId(name, new TypeInt());
+					 return new TypeNamed(name);
 				}
 			},
 			Action.RETURN,	// [17] index_type = enumerated_type
@@ -506,13 +500,42 @@ public class ParserExpr extends Parser {
 					 return new NodeSwitch(e, stm);
 				}
 			},
-			RETURN3,	// [85] case_statement_list = case_statement_list.list case_statement.case1 case_default.case2; returns 'case2' although more are marked
-			Action.RETURN,	// [86] case_statement_list = case_statement.case
-			new Action() {	// [87] case_statement = CASE identifier_list COLON statement.stm
+			new Action() {	// [85] case_statement_list = case_statement_list.list case_statement.case1 case_default.case2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_list = _symbols[offset + 1];
+					final NodeCaseList list = (NodeCaseList) _symbol_list.value;
+					final Symbol _symbol_case1 = _symbols[offset + 2];
+					final NodeList case1 = (NodeList) _symbol_case1.value;
+					final Symbol _symbol_case2 = _symbols[offset + 3];
+					final NodeCase case2 = (NodeCase) _symbol_case2.value;
+					 System.out.println(case1.toString());list.add(case1); list.add(case2); return list;
+				}
+			},
+			new Action() {	// [86] case_statement_list = case_statement.case1
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_case1 = _symbols[offset + 1];
+					final NodeList case1 = (NodeList) _symbol_case1.value;
+					 NodeCaseList list = new NodeCaseList(); list.add(case1); return list;
+				}
+			},
+			new Action() {	// [87] case_statement = CASE identifier_list.list COLON statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_list = _symbols[offset + 2];
+					final IdentifierList list = (IdentifierList) _symbol_list.value;
 					final Symbol _symbol_stm = _symbols[offset + 4];
 					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeCase(stm);
+					 
+		
+		NodeList list_2 = new NodeList();
+		Iterator<String> it = list.iterator();
+		while(it.hasNext()) {
+			String x =  it.next();
+			list_2.add(new NodeCase(x,stm));
+			
+		}
+		
+		
+		return list_2;
 				}
 			},
 			Action.NONE,  	// [88] case_default = 
