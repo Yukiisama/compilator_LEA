@@ -114,6 +114,7 @@
 %typeof identifier_list = "IdentifierList";
 %typeof procedure_definition_list = "NodeList";
 
+
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
 ///////////////////////////////////////
@@ -216,6 +217,7 @@ feature_list_type =
 	feature_list_type.list feature_type.t						{: list.add(t); return list; :}
 	| feature_type.t											{: TypeFeatureList list = new TypeFeatureList(); list.add(t); return list; :}
 	;
+	
 
 feature_type =
 	IDENTIFIER.id COLON type.t SEMI								{: return new TypeFeature(id, t); :}
@@ -249,7 +251,7 @@ variable_declaration =
 		
 
 identifier_list =
-	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); return list; :}
+	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); System.err.println(list.toString()); return list; :}
 	| IDENTIFIER.name										{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
 	;
 
@@ -311,7 +313,7 @@ block=
 
 statement_list=
 	statement_list.list statement.stm		{: list.add(stm); return list; :}
-	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); return list; :}
+	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); System.out.println(list.toString()); return list; :}
 	;
 
 statement=
@@ -374,7 +376,7 @@ return_statement=
 	;
 	
 structured_statement =
-	block.block													
+	block													
 	| if_statement		
 	| while_statement								
 	| switch_statement								
@@ -386,7 +388,7 @@ if_statement =
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO  statement.stm							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
@@ -416,7 +418,7 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name										{: return new NodeId(name, new TypeInt()); :}
+	IDENTIFIER.name										{: return new NodeId(name, new TypeInt(1)); :}
 	| variable_access.e LBRACKET expression RBRACKET	{: return e; :}
 	| expression.e CIRCUMFLEX 							{: return new NodePtrAccess(e); :}
 	;

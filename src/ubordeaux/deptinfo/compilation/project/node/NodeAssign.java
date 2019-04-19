@@ -6,6 +6,7 @@ public final class NodeAssign extends Node {
 
 	public NodeAssign(NodeExp lhs, NodeExp rhs) {
 		super(lhs, rhs);
+		
 	}
 
 	@Override
