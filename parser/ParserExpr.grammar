@@ -279,10 +279,25 @@ procedure_definition_head =
 	;
 
 procedure_head =
-	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{: return new NodeCallFct(func, 
+	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{:
+		return new NodeCallFct(func, 
 			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
-	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: return new NodeCallFct(func, 
-			new TypeFunct(func,new TypeTuple(), t), list); :}
+	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
+		
+		TypeFeatureList types = new TypeFeatureList();
+		NodeList list_2 = new NodeList();
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeId x = (NodeId) it.next();
+			types.add(x.getType());
+			
+		}
+		System.out.println("Coucou c'est ici ::::");
+		System.out.println(list);
+		
+		
+		
+		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), new TypeInt()), list); :}
 	;
 
 argt_part =
@@ -306,8 +321,9 @@ argt =
 block=
 	variable_declaration_part
 	BEGIN
-	statement_list
+	statement_list.l 
 	END
+	{:return l;:}
 	;
 
 ////////////////////////////
@@ -383,7 +399,8 @@ structured_statement =
 	block													
 	| if_statement		
 	| while_statement								
-	| switch_statement								
+	| switch_statement
+	
 	;
 
 if_statement =
@@ -392,7 +409,7 @@ if_statement =
 	;
 
 while_statement=
-	WHILE expression.e DO  statement.stm							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm 							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
