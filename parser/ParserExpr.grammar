@@ -279,8 +279,10 @@ procedure_definition_head =
 	;
 
 procedure_head =
-	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
-	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), t), list); :}
+	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{: return new NodeCallFct(func, 
+			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
+	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: return new NodeCallFct(func, 
+			new TypeFunct(func,new TypeTuple(), t), list); :}
 	;
 
 argt_part =
@@ -341,7 +343,8 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.func LPAR expression_part.list RPAR	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
+	IDENTIFIER.func LPAR expression_part.list RPAR	{: return new NodeCallFct(func, 
+			new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
 	;
 
 expression_part=
@@ -419,9 +422,9 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name										{: return new NodeId(name, new TypeInt(1)); :}
-	| variable_access.e LBRACKET expression RBRACKET	{: return e; :}
-	| expression.e CIRCUMFLEX 							{: return new NodePtrAccess(e); :}
+	IDENTIFIER.name											{: return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
+	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
+	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
 
 ///////////////////////////
