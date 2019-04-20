@@ -280,11 +280,19 @@ procedure_definition_head =
 
 procedure_head =
 	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					
-	{:
-		return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); 
-:}
+	{: 
+		
+		TypeTuple lionel = new TypeTuple();
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeId x = (NodeId) it.next();		
+			lionel.add( new TypeFeature(func,x.getType()));
+		}
 
+		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
+		procedureEnvironment.putFunction(func,lionel_le_boss);
 
+		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list); :}
 
 	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
 		
