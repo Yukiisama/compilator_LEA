@@ -288,19 +288,17 @@ procedure_head =
 
 	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
 		
-		TypeFeatureList types = new TypeFeatureList();
+		TypeTuple lionel = new TypeTuple();
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
-			NodeId x = (NodeId) it.next();
-			types.add(x.getType());
+			NodeId x = (NodeId) it.next();		
+			lionel.add( new TypeFeature(func,x.getType()));
 		}
-		System.out.println("Coucou c'est ici ::::");
-		System.out.println(list);
 
-		
-		
-		
-		return new NodeCallFct(func,new TypeFunct(func, new TypeTuple(types), new TypeInt()), list); :}
+		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
+		procedureEnvironment.putFunction(func,lionel_le_boss);
+
+		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list); :}
 	;
 
 argt_part =
@@ -362,15 +360,12 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.func LPAR expression_part.list RPAR	{: 
-		TypeFeature types = new TypeFeature("coucou", new TypeInt());
-		Iterator<Node> it = list.iterator();
-		while(it.hasNext()) {
-			NodeExp x = (NodeExp) it.next();
-			types.add(x.getType());
-		}
+	IDENTIFIER.func LPAR expression_part.list RPAR	{: 	
+		TypeFunct lionel_le_boss = (TypeFunct)procedureEnvironment.getFunction(func);
+		System.out.println("Etape 126 : " + lionel_le_boss);
 		return new NodeCallFct(func, 
-			new TypeFunct(func,new TypeTuple(types), new TypeVoid()), list); :}
+			lionel_le_boss, list); 
+		:}
 	;
 
 expression_part=
@@ -484,7 +479,7 @@ expression =
 //////////////////////////////////////
 
 literal=
-	INTEGER_LIT.e	{: return new NodeLiteral(new TypeInt(), e); :}
+	INTEGER_LIT.e	{: return new NodeLiteral(new TypeInt(e), e); :}
 	| STRING_LIT.e	{: return new NodeLiteral(new TypeString(), e); :}
 	| TRUE			{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| FALSE			{: return new NodeLiteral(new TypeBoolean(), false); :}
