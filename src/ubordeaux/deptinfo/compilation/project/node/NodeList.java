@@ -41,5 +41,14 @@ public final class NodeList extends Node {
 		}
 		return node;
 	}
+	public String ToString() {
+		String x = "";
+		NodeList node = new NodeList();
+		for (Node elt : this.elts) {
+			x+=elt.toString();
+			x+=" ";
+		}
+		return x;
+	}
 
 }

@@ -72,8 +72,8 @@
 %typeof simple_statement = "Node";
 %typeof statement_list = "Node";
 %typeof argt = "Node";
-%typeof procedure_definition = "NodeCallFct";
-
+%typeof procedure_definition = "Node";
+%typeof procedure_expression = "Node";
 %typeof case_default = "NodeCase";
 
 ////====NodeExp====\\\\
@@ -99,11 +99,12 @@
 %typeof range_type = "Type";
 %typeof subrange_type = "Type";
 %typeof variable_declaration_part = "Type";
-%typeof variable_declaration_list = "Type";
 %typeof feature_type = "TypeFeature";
 
 ////====LIST====\\\\
 
+//%typeof type_declaration_list = "TypeList";
+%typeof variable_declaration, variable_declaration_list = "NodeList";
 %typeof case_statement = "NodeList";
 %typeof expression_part = "NodeList";
 %typeof expression_list = "NodeList";
@@ -112,6 +113,7 @@
 %typeof case_statement_list = "NodeCaseList";
 %typeof identifier_list = "IdentifierList";
 %typeof procedure_definition_list = "NodeList";
+
 
 ///////////////////////////////////////
 ///////////    PROGRAMME    ///////////
@@ -124,8 +126,9 @@ program =
 	variable_declaration_part		
 	procedure_definition_part		
 	BEGIN
-	statement_list						
+	statement_list.l						
 	END
+	{: return l; :}
 	;
 
 ////////////////////////////////////////////////
@@ -138,16 +141,16 @@ type_declaration_part =
 	;
 
 type_declaration_list =
-	type_declaration_list type_declaration
-	| type_declaration
+	type_declaration_list.list type_declaration.t		//{: list.add(t); return list; :}
+	| type_declaration.t								//{: TypeList list = new TypeList(); list.add(t); return list; :}
 	;
 
 type_declaration =
-	type_declaration_head EQ type SEMI
+	type_declaration_head.name EQ type.t SEMI			//{: return new NodeId(name, t); :}	
 	;
 	
 type_declaration_head =
-	IDENTIFIER
+	IDENTIFIER.name 									{: return new TypeNamed(name); :}
 	;
 
 ////////////////////////////////////////
@@ -180,7 +183,19 @@ index_type =
 
 enumerated_type =
 	init_enumerated_type LPAR identifier_list.t_list RPAR
-		{: return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last())); :}
+		{: 
+			Iterator<String> it = t_list.iterator();
+			int i = 0;
+			while(it.hasNext()) {
+			String x =  it.next();
+			typeEnvironment.put_enum_value(x,i);
+			typeEnvironment.putVariable(x,new TypeInt(i));
+			i++;
+			}
+			//typeEnvironment.put_enum_value(t_list.first(),0);
+			//typeEnvironment.put_enum_value(t_list.last(),t_list.size()-1);
+			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+:}
 	;
 	
 init_enumerated_type = 
@@ -214,6 +229,7 @@ feature_list_type =
 	feature_list_type.list feature_type.t						{: list.add(t); return list; :}
 	| feature_type.t											{: TypeFeatureList list = new TypeFeatureList(); list.add(t); return list; :}
 	;
+	
 
 feature_type =
 	IDENTIFIER.id COLON type.t SEMI								{: return new TypeFeature(id, t); :}
@@ -229,16 +245,26 @@ variable_declaration_part =
 	;
 
 variable_declaration_list=
-	variable_declaration_list.list variable_declaration		{: return new TypeList(list); :}
-	| variable_declaration							
+	variable_declaration_list.list variable_declaration.name	{: list.add(name); return list; :}
+	| variable_declaration.name									{: NodeList list = new NodeList(); list.add(name); return list; :}
 	;
 
 variable_declaration =
-	identifier_list COLON type SEMI
+	identifier_list.list COLON type.t SEMI {: 
+		
+		NodeList list_2 = new NodeList();
+		Iterator<String> it = list.iterator();
+		while(it.hasNext()) {
+			String x =  it.next();
+			list_2.add(new NodeId(x,t));
+			typeEnvironment.putVariable(x,t);
+		}
+		return list_2; :}
 	;
+		
 
 identifier_list =
-	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); return list; :}
+	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); System.err.println(list.toString()); return list; :}
 	| IDENTIFIER.name										{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
 	;
 
@@ -265,8 +291,34 @@ procedure_definition_head =
 	;
 
 procedure_head =
-	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
-	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), t), list); :}
+	PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR					
+	{: 
+		
+		TypeTuple lionel = new TypeTuple();
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeId x = (NodeId) it.next();		
+			lionel.add( new TypeFeature(func,x.getType()));
+		}
+
+		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
+		procedureEnvironment.putFunction(func,lionel_le_boss);
+
+		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list); :}
+
+	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
+		
+		TypeTuple lionel = new TypeTuple();
+		Iterator<Node> it = list.iterator();
+		while(it.hasNext()) {
+			NodeId x = (NodeId) it.next();		
+			lionel.add( new TypeFeature(func,x.getType()));
+		}
+
+		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
+		procedureEnvironment.putFunction(func,lionel_le_boss);
+
+		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list); :}
 	;
 
 argt_part =
@@ -290,8 +342,9 @@ argt =
 block=
 	variable_declaration_part
 	BEGIN
-	statement_list
+	statement_list.l 
 	END
+	{:return l;:}
 	;
 
 ////////////////////////////
@@ -300,7 +353,7 @@ block=
 
 statement_list=
 	statement_list.list statement.stm		{: list.add(stm); return list; :}
-	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); return list; :}
+	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); System.out.println(list.toString()); return list; :}
 	;
 
 statement=
@@ -323,11 +376,16 @@ assignment_statement=
 	;
 
 procedure_statement=
-	procedure_expression SEMI
+	procedure_expression.e SEMI {:return e;:}
 	;
 
 procedure_expression=
-	IDENTIFIER.func LPAR expression_part.list RPAR	{: return new NodeCallFct(func, new TypeFunct(func,new TypeTuple(), new TypeVoid()), list); :}
+	IDENTIFIER.func LPAR expression_part.list RPAR	{: 	
+		TypeFunct lionel_le_boss = (TypeFunct)procedureEnvironment.getFunction(func);
+		System.out.println("Etape 126 : " + lionel_le_boss);
+		return new NodeCallFct(func, 
+			lionel_le_boss, list); 
+		:}
 	;
 
 expression_part=
@@ -349,11 +407,13 @@ dispose_statement=
 	;
 
 println_statement=		
-	PRINTLN expression.e SEMI			{: return new NodeCallFct("println", new TypeFunct("println",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}	
+	PRINTLN expression.e SEMI			{: return new NodeCallFct("println",
+			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())), new TypeVoid()), new NodeList(e)); :}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", new TypeFunct("readln",new TypeTuple(), new TypeVoid()), new NodeList(e)); :}
+	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", 
+			new TypeFunct("readln",new TypeTuple(new TypeFeature("readln",e.getType())), new TypeVoid()), new NodeList(e)); :}
 	;
 	
 return_statement=
@@ -361,19 +421,20 @@ return_statement=
 	;
 	
 structured_statement =
-	block.block													
+	block													
 	| if_statement		
 	| while_statement								
-	| switch_statement								
-	;
+	| switch_statement
 	
+	;
+
 if_statement =
-	IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
-	| IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	 IF expression.e THEN statement.stm1 ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	|IF expression.e THEN statement.stm							{: return new NodeIf(e, stm); :}
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm 							{: return new NodeWhile(e, stm); :}
 	;
 
 switch_statement =
@@ -403,9 +464,9 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name										{: return new NodeId(name, new TypeInt()); :}
-	| variable_access.e LBRACKET expression RBRACKET	{: return e; :}
-	| expression.e CIRCUMFLEX 							{: return new NodePtrAccess(e); :}
+	IDENTIFIER.name											{: return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
+	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
+	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
 
 ///////////////////////////
@@ -438,7 +499,7 @@ expression =
 //////////////////////////////////////
 
 literal=
-	INTEGER_LIT.e	{: return new NodeLiteral(new TypeInt(), e); :}
+	INTEGER_LIT.e	{: return new NodeLiteral(new TypeInt(e), e); :}
 	| STRING_LIT.e	{: return new NodeLiteral(new TypeString(), e); :}
 	| TRUE			{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| FALSE			{: return new NodeLiteral(new TypeBoolean(), false); :}
