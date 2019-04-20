@@ -93,7 +93,8 @@
 %typeof literal = "NodeLiteral";
 
 ////====TYPE====\\\\
-
+%typeof type_declaration_head = "TypeNamed";
+%typeof type_declaration = "Type";
 %typeof type_declaration_part, type = "Type";
 %typeof index_type = "Type";
 %typeof range_type = "Type";
@@ -103,7 +104,7 @@
 
 ////====LIST====\\\\
 
-//%typeof type_declaration_list = "TypeList";
+%typeof type_declaration_list = "TypeList";
 %typeof variable_declaration, variable_declaration_list = "NodeList";
 %typeof case_statement = "NodeList";
 %typeof expression_part = "NodeList";
@@ -141,12 +142,14 @@ type_declaration_part =
 	;
 
 type_declaration_list =
-	type_declaration_list.list type_declaration.t		//{: list.add(t); return list; :}
-	| type_declaration.t								//{: TypeList list = new TypeList(); list.add(t); return list; :}
+	type_declaration_list.list type_declaration.t		{: list.add(t); return list; :}
+	| type_declaration.t								{: TypeList list = new TypeList(t);  return list; :}
 	;
 
 type_declaration =
-	type_declaration_head.name EQ type.t SEMI			//{: return new NodeId(name, t); :}	
+	type_declaration_head.name EQ type.t SEMI			
+	
+	{: typeEnvironment.putVariable(name.get_name(),t);return new TypeFeature(name.get_name(),t);:}	
 	;
 	
 type_declaration_head =
@@ -204,7 +207,11 @@ init_enumerated_type =
 
 subrange_type =
 	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				{: return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
-	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				{: return new TypeArrayRange(new TypeNamed(min), new TypeNamed(max)); :}
+	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				{: 
+		
+		int v_min = typeEnvironment.get_enum_value(min);
+		int v_max = typeEnvironment.get_enum_value(max);
+		return new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max)); :}
 	;
 
 array_type =
@@ -251,7 +258,7 @@ variable_declaration_list=
 
 variable_declaration =
 	identifier_list.list COLON type.t SEMI {: 
-		
+	
 		NodeList list_2 = new NodeList();
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
@@ -464,7 +471,9 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name											{: return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
+	IDENTIFIER.name											{: 
+		
+		return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
 	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
