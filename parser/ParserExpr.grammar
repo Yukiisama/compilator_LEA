@@ -183,7 +183,19 @@ index_type =
 
 enumerated_type =
 	init_enumerated_type LPAR identifier_list.t_list RPAR
-		{: return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last())); :}
+		{: 
+			Iterator<String> it = t_list.iterator();
+			int i = 0;
+			while(it.hasNext()) {
+			String x =  it.next();
+			typeEnvironment.put_enum_value(x,i);
+			typeEnvironment.putVariable(x,new TypeInt(i));
+			i++;
+			}
+			//typeEnvironment.put_enum_value(t_list.first(),0);
+			//typeEnvironment.put_enum_value(t_list.last(),t_list.size()-1);
+			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+:}
 	;
 	
 init_enumerated_type = 
