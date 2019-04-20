@@ -364,7 +364,7 @@ assignment_statement=
 	;
 
 procedure_statement=
-	procedure_expression SEMI
+	procedure_expression.e SEMI {:return e;:}
 	;
 
 procedure_expression=
