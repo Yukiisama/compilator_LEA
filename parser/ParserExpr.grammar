@@ -124,14 +124,18 @@
 
 program =
 	type_declaration_part		
+	push_stack
 	variable_declaration_part		
 	procedure_definition_part		
 	BEGIN
-	statement_list.l						
+	statement_list.l
 	END
+	pop_stack
 	{: return l; :}
 	;
 
+	push_stack = {:stackEnvironment.push_stack();return new Symbol(0);:};
+	pop_stack = {:stackEnvironment.pop_stack();return new Symbol(0);:};
 ////////////////////////////////////////////////
 //////    DECLARATION DES TYPES NOMMES    //////
 ////////////////////////////////////////////////
@@ -195,7 +199,7 @@ enumerated_type =
 			while(it.hasNext()) {
 			String x =  it.next();
 			typeEnvironment.put_enum_value(x,i);
-			typeEnvironment.putVariable(x,new TypeInt(i));
+			stackEnvironment.putVariable(x,new TypeInt(i));
 			i++;
 			}
 			//typeEnvironment.put_enum_value(t_list.first(),0);
@@ -268,7 +272,7 @@ variable_declaration =
 		while(it.hasNext()) {
 			String x =  it.next();
 			list_2.add(new NodeId(x,t));
-			typeEnvironment.putVariable(x,t);
+			stackEnvironment.putVariable(x,t);
 		}
 		return list_2; 
 		:}
@@ -357,7 +361,7 @@ argt =
 block=
 	variable_declaration_part
 	BEGIN
-	statement_list.l 
+	statement_list.l
 	END
 	{:return l;:}
 	;
@@ -492,7 +496,7 @@ case_default =
 variable_access =
 	IDENTIFIER.name											
 	{: 
-		return new NodeId(name, typeEnvironment.getVariableValue(name));
+		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
 	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
