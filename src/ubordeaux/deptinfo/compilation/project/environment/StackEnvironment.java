@@ -43,7 +43,10 @@ public class StackEnvironment {
 	
 	public void push_stack() {
 		System.out.println("Stack PUSH");
-		this.stack.push(new HashMap<String, Type>());
+		if(!this.stack.isEmpty())
+			this.stack.push(new HashMap<String, Type>(this.stack.peek()));
+		else
+			this.stack.push(new HashMap<String, Type>());
 	}
 	public void pop_stack() {
 		if(!this.stack.isEmpty()) {

@@ -359,10 +359,12 @@ argt =
 ////////////////////////////////////////////
 
 block=
+	push_stack
 	variable_declaration_part
 	BEGIN
 	statement_list.l
 	END
+	pop_stack
 	{:return l;:}
 	;
 
