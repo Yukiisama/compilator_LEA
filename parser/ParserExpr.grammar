@@ -395,9 +395,9 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 
-		if(stm.getType()!=e.getType()) {
+		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())) {
 			semanticError("Semantic Error  : Type error in affectation", e);
-			System.err.println("ERROR : Type error in affectation " + stm + "  : " + e);
+			System.err.println("ERROR : Type error in affectation " + stm.getType() + "  : " + e.getType());
 		}
 		return new NodeAssign(stm, e); 
 	:}
@@ -428,7 +428,7 @@ expression_list=
 	;
 
 new_statement=
-	NEW variable_access.stm SEMI		{: return new NodeNew(stm); :}
+	NEW variable_access.stm SEMI		{:return new NodeNew(stm); :}
 	;
 
 dispose_statement=
