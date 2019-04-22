@@ -123,8 +123,8 @@
 %goal program;
 
 program =
-	type_declaration_part		
 	push_stack
+	type_declaration_part		
 	variable_declaration_part		
 	procedure_definition_part		
 	BEGIN
