@@ -393,7 +393,14 @@ simple_statement=
 	;
 
 assignment_statement=
-	variable_access.stm EQ expression.e SEMI	{: return new NodeAssign(stm, e); :}
+	variable_access.stm EQ expression.e SEMI	
+	{: 
+		if(stm.getType()!=e.getType()) {
+			semanticError("Semantic Error  : Type error in affectation", e);
+			System.err.println("ERROR : Type error in affectation " + stm + "  : " + e);
+		}
+		return new NodeAssign(stm, e); 
+	:}
 	;
 
 procedure_statement=
@@ -497,7 +504,7 @@ case_default =
 
 variable_access =
 	IDENTIFIER.name											
-	{: 
+	{:  
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
