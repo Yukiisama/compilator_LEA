@@ -567,7 +567,26 @@ variable_access =
 	{:  
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
-	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
+	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: 
+		boolean is_id = false;
+		NodeId id = (NodeId) e1;
+		Node id2 = (Node) e2;
+		if(e2 instanceof NodeId) {
+				is_id = true; 
+		}
+		TypeArray array = (TypeArray) id.getType(); 
+		Type type = null;
+		if(is_id) {
+			NodeId id3 = (NodeId) id2;
+			type = (Type)id3.getType();
+		if(type==null || array.getRangeOREnum().getFirst().equals(type)) {
+			semanticError(" Type error in array access ",e1);
+			System.err.println("ERROR :Type error in array access " + id +" : " + id3 );
+			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in array access " + id +" : " + new NodeId("Error",new TypeInt())));
+			return new NodeArrayAccess(e1, new NodeId("Error",new TypeInt())) ;
+		}
+		}
+		return new NodeArrayAccess(e1, e2) ; :}
 	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
 
