@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
-public final class NodeDispose extends Node {
+public final class NodeDispose extends NodeStm {
 
 	public NodeDispose(Node e) {
 		super(e);

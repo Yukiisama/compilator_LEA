@@ -7,6 +7,9 @@ import ubordeaux.deptinfo.compilation.project.type.TypeFunct;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Call;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpList;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Name;
+
 import java.util.List;
 
 public final class NodeCallFct extends NodeExp {
@@ -106,9 +109,9 @@ public final class NodeCallFct extends NodeExp {
 			this.get(i).generateIntermediateCode();
 
 		ExpList args = this.listArgs(0, this.elts);
-
-
-		super.exp = new Call(this.getExp(),args);
+		
+		LabelLocation label = new LabelLocation(this.name);
+		super.exp = new Call(new Name(label),args);
 
 
 	}

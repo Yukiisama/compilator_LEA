@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
-public final class NodeCase extends Node {
+public final class NodeCase extends NodeStm {
 
 	private String nameValue;
 	private boolean defaultValue;
@@ -24,12 +24,10 @@ public final class NodeCase extends Node {
 
 	@Override
 	public NodeCase clone() {
-		return new NodeCase(nameValue, (Node) this.getStm().clone());
+		return new NodeCase(nameValue, (Node) this.clone());
 	}
 
-	private Node getStm() {
-		return super.get(0);
-	}
+
 
 	public boolean isDefaultValue() {
 		return defaultValue;

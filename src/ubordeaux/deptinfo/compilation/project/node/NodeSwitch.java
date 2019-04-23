@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
-public final class NodeSwitch extends Node {
+public final class NodeSwitch extends NodeStm {
 
 	public NodeSwitch(Node e, Node stm) {
 		super(e, stm);
@@ -18,12 +18,9 @@ public final class NodeSwitch extends Node {
 
 	@Override
 	public NodeSwitch clone() {
-		return new NodeSwitch((Node) this.getExp().clone(), (Node) this.getStm().clone());
+		return new NodeSwitch((Node) this.getExp().clone(), (Node) this.clone());
 	}
 
-	private Node getStm() {
-		return this.get(1);
-	}
 
 	private Node getExp() {
 		return this.get(0);

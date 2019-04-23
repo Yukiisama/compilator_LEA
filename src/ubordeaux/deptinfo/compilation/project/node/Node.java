@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Stm;
 import ubordeaux.deptinfo.compilation.project.main.ClonableSymbol;
 
 public abstract class Node extends ClonableSymbol implements NodeInterface {
@@ -98,5 +100,4 @@ public abstract class Node extends ClonableSymbol implements NodeInterface {
 		// TODO Auto-generated method stub
 		System.err.println("TODO: " + this.getClass().getSimpleName() + ".generateIntermediateCode()");
 	}
-
 }

@@ -11,8 +11,8 @@ public class Binop extends Exp {
 		right = r;
 	}
 
-	public final static int PLUS = 0, MINUS = 1, MUL = 2, DIV = 3, AND = 4, OR = 5, SUP = 6, INF = 7, EQ = 8,
-			INF_OR_EQ = 9, NOT = 10, SUP_OR_EQ = 11, DIFF = 12;
+	public final static int PLUS = 0, MINUS = 1, MUL = 2, DIV = 3, AND = 4, OR = 5, LSHIFT = 6, RSHIFT = 7, ARSHIFT = 8,
+			XOR = 9;
 
 	public String toString() {
 		String result = new String();

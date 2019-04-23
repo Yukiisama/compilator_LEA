@@ -60,30 +60,14 @@ public class NodeOp extends NodeExp {
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
 
+		if(this.name == "+")
+			super.exp = new Binop(Binop.PLUS,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "-")
 			super.exp = new Binop(Binop.MINUS,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "*")
 			super.exp = new Binop(Binop.MUL,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "/")
 			super.exp = new Binop(Binop.DIV,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "&&")
-			super.exp = new Binop(Binop.AND,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "||")
-			super.exp = new Binop(Binop.OR,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "!")
-			super.exp = new Binop(Binop.NOT,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "<")
-			super.exp = new Binop(Binop.INF,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "<=")
-			super.exp = new Binop(Binop.INF_OR_EQ,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == ">")
-			super.exp = new Binop(Binop.SUP,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == ">=")
-			super.exp = new Binop(Binop.SUP_OR_EQ,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "==")
-			super.exp = new Binop(Binop.EQ,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "!=")
-			super.exp = new Binop(Binop.DIFF,this.getOp1().getExp(),this.getOp2().getExp());
 	}
 
 }
