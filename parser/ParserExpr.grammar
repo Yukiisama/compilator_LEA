@@ -1,5 +1,6 @@
 %package "ubordeaux.deptinfo.compilation.project.main";
 %class "ParserExpr";
+%import "ubordeaux.deptinfo.compilation.project.main.*";
 %import "ubordeaux.deptinfo.compilation.project.node.*";
 %import "ubordeaux.deptinfo.compilation.project.type.*";
 %import "ubordeaux.deptinfo.compilation.project.environment.*";
@@ -395,11 +396,13 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 
+		
 		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())) {
-			semanticError("Semantic Error  : Type error in affectation", e);
-			System.err.println("ERROR : Type error in affectation " + stm.getType() + "  : " + e.getType());
+			semanticError("Type error in affectation", e);
+			System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
+			Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
 		}
-		return new NodeAssign(stm, e); 
+		return new NodeAssign(stm, e);
 	:}
 	;
 
@@ -415,8 +418,10 @@ procedure_expression=
 		System.out.println("Etape 127 : " + list);
 		//Case Nb params differents
 		if(lionel_le_boss.getParams().size() != list.size()) {
-			semanticError("Semantic Error  : Type error in calling expression",list);
+			
+			semanticError("Type error in calling expression",list);
 			System.err.println("ERROR : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list);
+			Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list));
 		}
 		//Prepare to test the type of parameters
 		Iterator<Node> l = list.iterator();
@@ -426,12 +431,14 @@ procedure_expression=
 			TypeFeature m = (TypeFeature) t.next();
 			//Type Parameters different
 			if(m.get(0)!=null && n.getType()!= null && !n.getType().equals(m.get(0))) {
-				semanticError("Semantic Error  : Type error in calling expression",list);
+				semanticError(" Type error in calling expression",list);
 				System.err.println("ERROR : Type error in calling expression <BAD TYPES PARAMS>" + lionel_le_boss + "  : " + list);
+				Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <BAD TYPES PARAMS>" + lionel_le_boss + "  : " + list));
 			}
 		}
+		
 		return new NodeCallFct(func, 
-			lionel_le_boss, list); 
+				lionel_le_boss, list);
 	:}
 	;
 
