@@ -1,8 +1,9 @@
 package ubordeaux.deptinfo.compilation.project.environment;
 import java.util.HashMap;
-
+import ubordeaux.deptinfo.compilation.project.main.*;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeFeature;
+import ubordeaux.deptinfo.compilation.project.type.TypeFunct;
 import ubordeaux.deptinfo.compilation.project.type.TypeList;
 
 import java.util.Map;
@@ -32,10 +33,17 @@ public class Environment implements EnvironmentInt {
 		return table.get(variable);
 	}
 	public void putFunction(String variable, Type value) {
-		table.put(variable, value);
+		TypeFunct x = (TypeFunct)table.get(variable);
+		if(table.get(variable)!=null && x.getDefined()!= true) {
+			table.put(variable, value);
+		}
+		else if(table.get(variable)==null)
+			table.put(variable, value);
 		//table.put(variable, );
 		System.out.println("Enregistre " + variable + " " + value);
 	}
+	
+
 
 	
 	public Type getFunction(String variable) {
