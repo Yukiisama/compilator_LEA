@@ -153,8 +153,17 @@ type_declaration_list =
 
 type_declaration =
 	type_declaration_head.name EQ type.t SEMI			
-	
-	{:  
+	{:
+		if(!t.equals(new TypeInt()) && !t.equals(new TypeBoolean()) 
+				&& !t.equals(new TypeString())) {
+				if(t instanceof TypeNamed) {
+					if(typeEnvironment.getVariableValue(((TypeNamed)t).get_name())==null) {
+						semanticError("Error : Named type assigned doesn't exist " + name + ": " + t,t);
+						System.err.println("ERROR :Named type assigned doesn't exist  " + name + ": " + t);
+						Main.add_error_type(new String("ERROR Type declaration : Named type assigned doesn't exist  "+ name + ": " + t ));
+					}
+				}
+		}
 		typeEnvironment.putVariable(name.get_name(),t);
 		return new TypeFeature(name.get_name(),t);
 	:}	
