@@ -223,11 +223,18 @@ init_enumerated_type =
 	;
 
 subrange_type =
-	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				{: return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
+	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				{: 
+		if(min > max) {
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+		}
+		return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
 	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				
 		{: 
 		int v_min = typeEnvironment.get_enum_value(min);
 		int v_max = typeEnvironment.get_enum_value(max);
+		if(v_min > v_max) {
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
+		}
 		return new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max)); 
 		:}
 	;
