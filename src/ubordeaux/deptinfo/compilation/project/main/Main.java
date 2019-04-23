@@ -25,10 +25,16 @@ public class Main {
 					System.out.println(result.toString());
 					System.err.println("*** Analyse syntaxique ok");
 					if (checksType) {
-						if (!result.checksType()) {
+						if(error_type !=null) {
+							System.err.format(error_type );
+							
+						}
+						
+						if (!result.checksType() || error_type.compareTo("")!=0) {
+							System.err.println("*** Erreur de typage (add_by_student) ");
+						}
+						else if (!result.checksType()) {
 							System.err.println("*** Erreur de typage");
-							if(error_type !=null)
-								System.err.format(error_type );
 						}
 						else
 							System.err.println("*** Typage correct");

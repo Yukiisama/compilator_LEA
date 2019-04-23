@@ -299,7 +299,23 @@ procedure_definition_list =
 	;
 
 procedure_definition =
-	procedure_definition_head block
+	procedure_definition_head.s block {:
+		NodeCallFct sa = (NodeCallFct)s;
+		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
+		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		if(t2.getDefined()==false)
+			t.setDefined(true);
+		else {
+			semanticError(" function already defined",s);
+			System.err.println("ERROR :function already defined" + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : function already defined" + sa ));
+			
+		}
+		sa.setTypeFUNC(t);
+		System.out.println("COUCOU" + sa.getTypeFUNC() );
+		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
+		
+		return sa;:}
 	| procedure_definition_head SEMI
 	;
 
