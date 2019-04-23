@@ -5,6 +5,8 @@ import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeFeature;
 import ubordeaux.deptinfo.compilation.project.type.TypeFunct;
 import ubordeaux.deptinfo.compilation.project.type.TypeList;
+import ubordeaux.deptinfo.compilation.project.type.TypeTuple;
+import ubordeaux.deptinfo.compilation.project.type.TypeVoid;
 
 import java.util.Map;
 
@@ -47,6 +49,10 @@ public class Environment implements EnvironmentInt {
 
 	
 	public Type getFunction(String variable) {
+		if(table.get(variable) == null) {
+			Main.add_error_type(new String("ERROR NodeCallFct : function not declared " + variable));
+			return new TypeFunct(new String(""), new TypeTuple(), new TypeVoid());
+		}
 		System.out.println("Retrouve2 " + variable + " " + table.get(variable));
 		return table.get(variable);
 	}
