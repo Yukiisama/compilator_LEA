@@ -6,6 +6,10 @@ import ubordeaux.deptinfo.compilation.project.node.Node;
 
 public class Main {
 	private static boolean checksType;
+	private static String error_type = new String("");
+	public static void add_error_type(String error) {
+		error_type += error + "\n"; 
+	}
 
 	public static void main(String[] args) throws Exception {
 		for (String arg : args) {
@@ -21,8 +25,11 @@ public class Main {
 					System.out.println(result.toString());
 					System.err.println("*** Analyse syntaxique ok");
 					if (checksType) {
-						if (!result.checksType())
+						if (!result.checksType()) {
 							System.err.println("*** Erreur de typage");
+							if(error_type !=null)
+								System.err.format(error_type );
+						}
 						else
 							System.err.println("*** Typage correct");
 					}
