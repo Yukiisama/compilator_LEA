@@ -497,14 +497,17 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.case1 case_default.case2	{: list.add(case1); list.add(case2); return list; :}
-	| case_statement.case1												{: NodeCaseList list = new NodeCaseList(); list.add(case1); return list; :}
+	case_statement_list.list case_statement.case1 case_default.case2	{: list.add(case1);if(case2!=null)list.add(case2); return list; :}
+	| case_statement.case1 case_default.case2							
+	{: 
+		NodeCaseList list = new NodeCaseList(); list.add(case1); if(case2!=null)list.add(case2);															
+		return list; 
+	:}
 	;
 
 case_statement=
 	CASE identifier_list.list COLON statement.stm			
 	{: 
-		
 		NodeList list_2 = new NodeList();
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
@@ -517,7 +520,7 @@ case_statement=
 	
 case_default = 
 	/* empty */
-	| DEFAULT COLON statement.stm						{: return new NodeCase(stm); :}
+	| DEFAULT COLON statement.stm						{: System.out.println("coucou");return new NodeCase(stm); :}
 	;
 
 variable_access =
