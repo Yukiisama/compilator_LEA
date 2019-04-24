@@ -81,7 +81,7 @@ begin
 	//b = foo(3, false); // error "Type error in calling expression"
 	//x = foo(3, 7); // error "Type error in calling expression"
 	
-	z2 [ 4 ] = 36; // error "Type error in array access "
+	//z2 [ Thursday ] = 36; // error "Type error in array access "
 	// z2 [ 1 ] = 36;
 	//x = z2 [ 1 ];
 	// b = goo(z2 [ 1 ], 1);
