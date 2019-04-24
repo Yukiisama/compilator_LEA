@@ -52,6 +52,7 @@ Commentary = "/*"~"*/" | "//".*
 
 "new"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.NEW, yyline, yycolumn); }
 "dispose"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.DISPOSE, yyline, yycolumn); }
+"print"			{ System.out.println("*** " + yytext()); return new Symbol(Terminals.PRINT, yyline, yycolumn); }
 "println"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.PRINTLN, yyline, yycolumn); }
 "readln"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.READLN, yyline, yycolumn); }
 "return"		{ System.out.println("*** " + yytext()); return new Symbol(Terminals.RETURN, yyline, yycolumn); }

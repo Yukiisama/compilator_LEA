@@ -44,7 +44,7 @@
 %terminals ARRAY, LBRACKET, RBRACKET, OF, CIRCUMFLEX;
 %terminals STRUCT, LCURLY_BRACKET, RCURLY_BRACKET, COLON;
 %terminals PROCEDURE, FUNCTION, LPAR, RPAR, VAR;
-%terminals NEW, DISPOSE, PRINTLN, READLN, RETURN;
+%terminals NEW, DISPOSE, PRINT,PRINTLN, READLN, RETURN;
 %terminals IF, THEN, ELSE, WHILE;
 %terminals DO, SWITCH, CASE, DEFAULT;
 %terminals PLUS, MINUS, TIMES, DIV;
@@ -452,6 +452,7 @@ simple_statement=
 	| procedure_statement
 	| new_statement
 	| dispose_statement
+	| print_statement
 	| println_statement
 	| readln_statement
 	| return_statement
@@ -524,6 +525,15 @@ dispose_statement=
 	DISPOSE variable_access.stm SEMI	{: return new NodeDispose(stm); :}
 	;
 
+print_statement=		
+	PRINT expression.e SEMI			
+	{: 
+		return new NodeCallFct("print",
+			new TypeFunct("print",new TypeTuple(new TypeFeature("print",e.getType())),
+					new TypeVoid()), new NodeList(e)); 
+	:}	
+	;
+	
 println_statement=		
 	PRINTLN expression.e SEMI			
 	{: 
