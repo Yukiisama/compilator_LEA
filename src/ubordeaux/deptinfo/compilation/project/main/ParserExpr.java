@@ -16,45 +16,46 @@ import ubordeaux.deptinfo.compilation.project.node.*;
 public class ParserExpr extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjcNcO5DKLnKzr5mx1BObc9W8wGS8CGW1nYGHmH3P14MIJLL4H10P7CCPWCAXWeeW2BkE" +
-		"#02A2e0BA8gAeh8e2Rg0cAYw9Q8W9BZ4HzVchudPFpNJtK6Z#yFkqvpjrxhlllFkMgdfrtp" +
-		"UIFqczz7Drq$4wKmVgSksjVRIlzjF##h5#ef$g0FrC#IhGN5sZctMBhjBLcgmfcgfhQR5Cp" +
-		"ojl3oFS5OdmebvIKcTNYb0hPuGzLus8fHePIpKgbkeFiLINvbIrrT7wZJhh69seazH59sVn" +
-		"TDMnQasaF#aSZLPtzLPV3T3fEbU938#lccupQxz83#bXhTRJUan3ulJYdjDUwgZskhrgJ3S" +
-		"nevSuewwzQzJkoupMF$f6yGwnU2wZTTqOyKgo#7vXwrgrTQ5xH8TQtMgYrzN1ggVwQg1Y7Q" +
-		"R6Qg9cQguZLKU5#gNfKB62kPI5QgKYKzvRJSJKEpEzufrnBzEweRKDxcQRdAtxesnaodjGj" +
-		"SkfF0tbhqpPGQVeh9pACr0sDULW3NLBgvdZuQOxGQKQcrDtXAaATPHP5sgCXkVKPzwtysZx" +
-		"QslxU$rM3rGpfXQc#wCkSyzMesjfkfMwI1VlzlxCYUnfAT$QBBwDMNoR8xuup$qFdk#ofro" +
-		"$S#$hGVN46XjQqx36fQqnQQl4hEFiIPkc2RfLCtIThjSDiQrodkCWpcLOaonYeJRf4VN1Me" +
-		"vT8$tqtgWbQVictSOUc2rYePRIkWHUhdKwADqYnOMwGq$eANYTnklkBFNFKdi1V2TxswoC#" +
-		"austrxgONngoFtCFz1uaF4mupBZyuslLBbxFPpngsGHbr1UgCMyrnFvBixMVLWlw0hDOsLc" +
-		"wi#wN$ErmFtDlUlUqQDwN2lq97lvAgtHCrglvxH1h$3tigGjalkCkzgIFRerVPLmXzhGNrl" +
-		"sp$RiZXtPppfnpok#njtOCRipcvxCfNVOeWMp#UOHJkEhCpHsXE#3oYEpIPBBr20doLDDCe" +
-		"PCJofIS$AiWyWsweHFt24yXyTcUFhoNInAhxt7jwy9dZYz5D2kZ2$EY8oOep8yUp9gPRJk$" +
-		"t#ELoj6lE9g8bPjdM0jKdKUqRDbv0U6MMqYhGjK1JcLSIDcUsUA8hq4TxDXhF4SXIePIrb0" +
-		"gMyiPH5thhevfdI7aRCqowbBgIhq0yYdZiwfpxnlnqJQ3cHKySRanTGrODVUa$lpRNnndli" +
-		"VFDzjJwFGau$LBBHgONbfw$2qLMnMnOuna7DPFSvVzJbRnRLIiGFEjuW9JjvdKQh5#JSu9w" +
-		"UUtgQSy59sq7znreYxMXV3GyYi6gTRf3Z1ZZDOPyDzU5EFp58Vr0w3Zw2NGHdrgVb#MpwLw" +
-		"4NXZ8Ci8dXB1t5c2zxNvY0VQpZb9AfIZQIsASg6uLz#k6O5NFkWt6Kt25UmCMViVD2Ohyfh" +
-		"bt89u9nx3ve7reF0$XzO8tajm1aftPv2Ihuh9VeGOqg5Bx6QyY1u0pmP9alpfiDRuHdm#xH" +
-		"Z38cFu7$2EoL$BsmVhWNl2#V3mAyD5y95S4Eu4ToSE4lWbl07S3juPaN$NYzyNU2b4HzzUM" +
-		"F13XjZJJIzuQnpnty1sezjZgU3SlDVYNqEs6nrez1jCViYxErcZqVhxRBzO8q$0maA6oDhD" +
-		"maDS$JgWIz08$FVW9zvUfsjV0Vbje3rIOwpSTGsBaNNmspcvvUWMM1p7Xtfwug8$IPusyR6" +
-		"sYLdWVIuTWUqQy7dLNnau$v0U0VWVYRdcd##yNRgcp2c5HLj$0xu5y6zhJmIdCSyR3v#Hn2" +
-		"PWzyLT0EdsFmMcdzmvR7ut0T$3CQdy11Rcw7O5rjzV$fT5j5V0iOHxqQOzVI3#$r6f7u2kD" +
-		"pi0TIz0vzlvK4LEitXFNiDlWdDnC17cRLYJ#MTYxk#kS1lP#MoLz#uYt5$upBZ2SRJZHSRh" +
-		"pVUQlo9hL6UyJx6zZmcIenxP8wfuhcAZ7DQ5OsBDpy$MQMS5x7tZjZxH#m3AknTpmDhlWsg" +
-		"ItcLQGfiNCsCsvg$ZfLJpr#XZNSbRJ#qEKVwrJ3pjQeotx6HkGwFZ8qzpTylLGwUXJZhi3l" +
-		"mcnM9kStcFhvolybDbTjKldTe3exVNtAszRKrH$sIAh6B8$qEpA9V4waV6cddqyTRaRfHMU" +
-		"RE##M#Sb#uruC2rbSXhtMhtIgtqZtbddHFk1NkSVUOc#yUT0#u#ztKKB7SyGLoqy1TW1tLt" +
-		"Gvk0xU2cm5lhMC7SEM07TXT3#u4juJjhtFNMgGPRegxExIMXTSbRhAxnbtj9hcht69KZ#AR" +
-		"wXQ5TLFTmo4$55uNXjS5gP6xBzqwi#U2UMRV9$kvEUuUDplqpJJFAzYpt1Ryzpg#tkwlxYz" +
-		"MywhxZ$lKVU8#TX#v7UxVxb$kGyUtrRtdjhj$AFrpVmTlc$sMsshM6yOVXDTjxaqh1wlz4d" +
-		"s#u9vtcz8nDeRNzU7rQVUC8Z#tmRt8TQVxtCh$1K6kSI5dxfgSxiM9IneQ8a5#4y0Z$$79W" +
-		"3nE4jdHFOAJGGz3LzhnfUSCaWpHaons1FuKUX6$DvfIk3JCvNnEXW89Cge07XcMJswL3BCn" +
-		"lkp02$yxSovyPfXB9iWcFNB96Y2Ft5308qCC$XiMP619bT1lFtJzA1zdQ5CDsj9dE$IjOBv" +
-		"um5CPSShWzd07q16S03g1u$57qPd#EjFsH70Iung69iXN1r3cAmoIv9WUy45m5amQedPrlY" +
-		"YyD5fdmUYl0S1K2fa=");
+		"U9pjLtTy5LKM$gP4CAiiDhAi8cyL3O4OObnHYH1w5KGaI4T1bo8bObaK51j2C4O46og26ff" +
+		"qH10h8gA8W0KH55XTLsNPrMNj1Jr#CpapRv8txpa1$$6dx$s##SuzzznpRfixvmBsAXIYDh" +
+		"gY9Ix1CPY4F#0m78uQ#2DguWWSYQDmD6eX0t$24jo11p03fPY2gPY6Et4NspoBjr2joZuU2" +
+		"VXu6zjXOKW57#afV1o8tSY8TaKHxQw8Q7TTHBkRKzYrGcCqGKUSYKuu1vtH9KHpBfgXANqL" +
+		"ur9SYMxeWLxeYm4OYCj2D3QgopQknMgimXFOW4ru7aEZn95DE0Jjq0Qp8iM9qlDZotikF$n" +
+		"Y7klgN1nwW1vVHPsGaQ$2EgmFQH#J9$0NZRW1xTdsU9o0UZWPzT40sSX1BlBmLno764xKiG" +
+		"hgS2QJMSPmDavIZoOM9BNptgNPWNUfZhp5zfdQsbdN5adRzw5bblPe8kPZULBB$hHig3vlO" +
+		"8nNarfUHCjJrF8bMjL9QdanBHkfPG5QetkA#JZLj$iRsgQmEqtjOZWFWtsx4KbR9AxzvMnx" +
+		"kdePXb7uUufePwZTU5o3dYdipl9xFmvZVtOr5mLMqzDj3D6z6Q9x9w2BygRyhlbrQQRZQla" +
+		"t7iDAIkDTgOnIYI$DywLRLShNlLU6Qp413s8ExiOzk3UoD1tNkvvkf3HHVSQm5SzmBvTX3U" +
+		"KqVqVVZgTykRd63VCPmzDiNq1UmxFsptuRZsEu2Q$nh8tnh9d0Vs9z1$L#7#x7J5zVYFDTR" +
+		"I4kSBctMlLJlb1vaF9mvT7ALocNOBhiSiUwYvd9BRWD3#59FCpU56Ckp#D7iGqBiHXZi1IJ" +
+		"sRzbM24Vud7vbto0vx0MB#15VWbUnYlOZ2ru7MzW9$yx0FaQxt95ytc#DsMi0ivI2yPhnTE" +
+		"l3S#rTlnwTE1wnx$fNNcETUEekdDCFJWgfyrPFBSFniS0piEGAlZuhTaP$EPQp93IcEbKGt" +
+		"Lc4OaQprSUixFQtC77yklkxCAwt9k9cjxyTcRwQs7m#vX3JPGu6MnNn1nZUAGuLUavVd6FV" +
+		"G$GOo$cy64ZluJV#iJs9ckyY0Q$d#7v$p7CdCt0MDFPAfbbq6Cp#anc5$OkfNDzud6STSsA" +
+		"rAFHp36IzoXesI1btojRfaUohC#vhfLYFk9slLFEcsTdqbkcRzSuQOl4LJupuAKlywdC2D5" +
+		"oUPv7w$sfp5khife7euloflok#RLf6hgQYoZbkf9pKlNqfH6#D50bR##bCxitU2iyWJU#Uh" +
+		"pBHPKyxmR$$TMdoNpbOkxbTDveJDxIlHrTYxSJJ$RYXlaiRr#VF9XdRRRVncEJVNNEMfCdY" +
+		"14u$#BrdlT6hAsV4FDWkIUzPhfZTJAJVknD5kVpDFR6kHKPdFrBgQl5svY5aUuCDQA5JMHH" +
+		"Qr2RmMSlTyOT#MHt5DcyOsUp7jXzFHyEHEHZqWfYAx4FC2po5d8hOhLdTo00xAC0Snpzp8Z" +
+		"hpBqiZoT$JbvAta$U2LXfb6kG2NCWEOFjsLShHZwEd4LkJCuZDo7dazkIMvCxaZkJUv09yq" +
+		"Jo078zyX3wNnw8NvkwowXR7z0Li5nCRbvUDjXdwngM9uIFovnET2#NhPiedwBwHIoNa4kqx" +
+		"Yxw#aZb1ob$h$9SsjHKsPc3atI#1b7cU8p3MDWUZsUjffvZDhB979znkkhNijo5vK8jRsHv" +
+		"C554UO7swMQjsqIx$YfpxctEaNs4ZlUwGAozWVLpvhIBoiDOnprYrqYrvXNdoSuX#bNIdK5" +
+		"C8hWkzeNqkKFZxjPwhhrzD$kqET3c2jP$G9wWvVi8Ppu$qV9eOcR0$cfYB35EnxT6zLCgzM" +
+		"KECPk2aAVgV9cKvslzBOox9s2$a5X0VsNaUud9nE61UgwblKpbYSIHn2mj5yVjZ2byxzwXC" +
+		"9F#LpewbjV3oSbWr8mwlwddtaYhLCvH7gmyrkkByXBbTSgwBiQdEY#MSePoGsNT7#P0vQlA" +
+		"sLgHs2ThNw8EyogMxRhHncStg5JE2SXv0RbnG6uIa9l5PME$mro3FQJZEOPSjMcfVSnJRgj" +
+		"wPVJMSaSlhlF#bijcpy0OH#huLrKQ#urnkNmVg9zSbYTvPMTl99k7ge2$nG6VUtJifO4#Z7" +
+		"7Upufjp2ihbktsqUDPspJMU#7rHgDAlhi5ueuFyVTXe3xmFjavZF5#e6vQoDXtioS$odxPv" +
+		"HGe$UZoI$AYh9CNPAqyBslaENbMdf6dPR4iaeMoG4fTcwU4xwdml94PnFq4pn$XDq1u1WZF" +
+		"Ak4vBtSIquYfn1t40yGzRlifShjwcYMtoKEkjDfzhfGIkLKcIx5CaiTfzIHrfRB2hIkLnrn" +
+		"UxZwNkS#bxdE9DmBvGLvMUJxngChpe3#PAu$875Vti6gsKowJjwcVxPmuibFUrPeTyfLyAL" +
+		"$8v$AP$5$soV$aK$c4#e$bl$8V#3$vYFYdok$BUohjLjxhFlV8FxJCKqwsCkORyhgyvllOu" +
+		"ZutkiyDyWe2FzaiR$BvlNodvM#8RocCuGsnEc#ZuAq86EB2P1xam62UP3DJCdZ$2CVv0PnB" +
+		"T5TqPJj#GNbpiLmKCjCTJhs77lH$0Mr6a4UucPVD6o3VV9P7kd0oNTlDKPsiRIZhXf97iMu" +
+		"KUP2RQvhCDWtcccb4DMQM80pcbnRXv6aM2XYt3#twiDnSqU9dq8fnMxFDsMHcD8I18leg8h" +
+		"SXjoNQ4Us93aH7eYNhWkZ4k9tO$XoYC$ldP9J3wBCVo$tfqycuyscNptA#c$TQYg2SIXU4u" +
+		"QDf22x$2LsT9dm=");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -189,8 +190,8 @@ public class ParserExpr extends Parser {
 			int i = 0;
 			while(it.hasNext()) {
 			String x =  it.next();
-			typeEnvironment.put_enum_value(x,i);
-			stackEnvironment.putVariable(x,new TypeInt(i));
+			typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
+			stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
 			i++;
 			}
 			//typeEnvironment.put_enum_value(t_list.first(),0);
@@ -223,12 +224,16 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_max = _symbols[offset + 3];
 					final String max = (String) _symbol_max.value;
 					 
-		int v_min = typeEnvironment.get_enum_value(min);
-		int v_max = typeEnvironment.get_enum_value(max);
+		TypeItemEnum x = typeEnvironment.get_enum_value(min);
+		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		int v_min = x.getValue();
+		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 		}
-		return new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		one.setFrom_enum(true);
+		return one;
 				}
 			},
 			new Action() {	// [25] array_type = ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2
@@ -311,6 +316,7 @@ public class ParserExpr extends Parser {
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
 			String x =  it.next();
+			
 			list_2.add(new NodeId(x,t));
 			stackEnvironment.putVariable(x,t);
 		}
@@ -358,22 +364,45 @@ public class ParserExpr extends Parser {
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
-		if(t2.getDefined()==false)
+		if(t2.getDefined()==false) {
 			t.setDefined(true);
+			t.setDeclared(0);
+		}
 		else {
-			semanticError(" function already defined",s);
-			System.err.println("ERROR :function already defined" + sa );
-			Main.add_error_type(new String("ERROR NodeCallFct : function already defined" + sa ));
+			semanticError(" function already defined  ",s);
+			System.err.println("ERROR :function already defined  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
 			
 		}
+		
 		sa.setTypeFUNC(t);
-		System.out.println("COUCOU" + sa.getTypeFUNC() );
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
 		return sa;
 				}
 			},
-			RETURN2,	// [46] procedure_definition = procedure_definition_head SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [46] procedure_definition = procedure_definition_head.s SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol s = _symbols[offset + 1];
+					
+		NodeCallFct sa = (NodeCallFct)s;
+		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
+		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		System.out.println("Salut c'est ici -> " + t2);
+		int x = t2.getDeclared();
+		t.setDeclared(++x);
+		if(t.getDeclared()>1) {
+			semanticError(" procedure or function declared twice  ",s);
+			System.err.println("ERROR :procedure or function declared twice  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
+		}
+		
+		sa.setTypeFUNC(t);
+		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
+		
+		return sa;
+				}
+			},
 			Action.RETURN,	// [47] procedure_definition_head = procedure_head
 			new Action() {	// [48] procedure_head = PROCEDURE IDENTIFIER.func LPAR argt_part.list RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -388,11 +417,12 @@ public class ParserExpr extends Parser {
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
 		procedureEnvironment.putFunction(func,lionel_le_boss);
-
+		
 		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list);
 				}
 			},
@@ -410,11 +440,14 @@ public class ParserExpr extends Parser {
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
+			//System.out.println("coucou -------> + " + x.getType());
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
-		procedureEnvironment.putFunction(func,lionel_le_boss);
+		if(procedureEnvironment.is_null(func))
+			procedureEnvironment.putFunction(func,lionel_le_boss);
 
 		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list);
 				}
@@ -475,10 +508,11 @@ public class ParserExpr extends Parser {
 			Action.RETURN,	// [61] simple_statement = procedure_statement
 			Action.RETURN,	// [62] simple_statement = new_statement
 			Action.RETURN,	// [63] simple_statement = dispose_statement
-			Action.RETURN,	// [64] simple_statement = println_statement
-			Action.RETURN,	// [65] simple_statement = readln_statement
-			Action.RETURN,	// [66] simple_statement = return_statement
-			new Action() {	// [67] assignment_statement = variable_access.stm EQ expression.e SEMI
+			Action.RETURN,	// [64] simple_statement = print_statement
+			Action.RETURN,	// [65] simple_statement = println_statement
+			Action.RETURN,	// [66] simple_statement = readln_statement
+			Action.RETURN,	// [67] simple_statement = return_statement
+			new Action() {	// [68] assignment_statement = variable_access.stm EQ expression.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 1];
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
@@ -494,14 +528,14 @@ public class ParserExpr extends Parser {
 		return new NodeAssign(stm, e);
 				}
 			},
-			new Action() {	// [68] procedure_statement = procedure_expression.e SEMI
+			new Action() {	// [69] procedure_statement = procedure_expression.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final Node e = (Node) _symbol_e.value;
 					return e;
 				}
 			},
-			new Action() {	// [69] procedure_expression = IDENTIFIER.func LPAR expression_part.list RPAR
+			new Action() {	// [70] procedure_expression = IDENTIFIER.func LPAR expression_part.list RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_func = _symbols[offset + 1];
 					final String func = (String) _symbol_func.value;
@@ -536,9 +570,9 @@ public class ParserExpr extends Parser {
 				lionel_le_boss, list);
 				}
 			},
-			Action.NONE,  	// [70] expression_part = 
-			Action.RETURN,	// [71] expression_part = expression_list
-			new Action() {	// [72] expression_list = expression_list.list COMMA expression.e
+			Action.NONE,  	// [71] expression_part = 
+			Action.RETURN,	// [72] expression_part = expression_list
+			new Action() {	// [73] expression_list = expression_list.list COMMA expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final NodeList list = (NodeList) _symbol_list.value;
@@ -547,28 +581,38 @@ public class ParserExpr extends Parser {
 					 list.add(e); return list;
 				}
 			},
-			new Action() {	// [73] expression_list = expression.e
+			new Action() {	// [74] expression_list = expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 NodeList list = new NodeList(); list.add(e); return list;
 				}
 			},
-			new Action() {	// [74] new_statement = NEW variable_access.stm SEMI
+			new Action() {	// [75] new_statement = NEW variable_access.stm SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 2];
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
 					return new NodeNew(stm);
 				}
 			},
-			new Action() {	// [75] dispose_statement = DISPOSE variable_access.stm SEMI
+			new Action() {	// [76] dispose_statement = DISPOSE variable_access.stm SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 2];
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
 					 return new NodeDispose(stm);
 				}
 			},
-			new Action() {	// [76] println_statement = PRINTLN expression.e SEMI
+			new Action() {	// [77] print_statement = PRINT expression.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 
+		return new NodeCallFct("print",
+			new TypeFunct("print",new TypeTuple(new TypeFeature("print",e.getType())),
+					new TypeVoid()), new NodeList(e));
+				}
+			},
+			new Action() {	// [78] println_statement = PRINTLN expression.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -578,7 +622,7 @@ public class ParserExpr extends Parser {
 					new TypeVoid()), new NodeList(e));
 				}
 			},
-			new Action() {	// [77] readln_statement = READLN.func expression.e SEMI
+			new Action() {	// [79] readln_statement = READLN.func expression.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol func = _symbols[offset + 1];
 					final Symbol _symbol_e = _symbols[offset + 2];
@@ -589,18 +633,18 @@ public class ParserExpr extends Parser {
 					new TypeVoid()), new NodeList(e));
 				}
 			},
-			new Action() {	// [78] return_statement = RETURN expression.e SEMI
+			new Action() {	// [80] return_statement = RETURN expression.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 return new NodeReturn(e);
 				}
 			},
-			Action.RETURN,	// [79] structured_statement = block
-			Action.RETURN,	// [80] structured_statement = if_statement
-			Action.RETURN,	// [81] structured_statement = while_statement
-			Action.RETURN,	// [82] structured_statement = switch_statement
-			new Action() {	// [83] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
+			Action.RETURN,	// [81] structured_statement = block
+			Action.RETURN,	// [82] structured_statement = if_statement
+			Action.RETURN,	// [83] structured_statement = while_statement
+			Action.RETURN,	// [84] structured_statement = switch_statement
+			new Action() {	// [85] if_statement = IF expression.e THEN statement.stm1 ELSE statement.stm2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -611,7 +655,7 @@ public class ParserExpr extends Parser {
 					 return new NodeIf(e, stm1, stm2);
 				}
 			},
-			new Action() {	// [84] if_statement = IF expression.e THEN statement.stm
+			new Action() {	// [86] if_statement = IF expression.e THEN statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -620,7 +664,7 @@ public class ParserExpr extends Parser {
 					 return new NodeIf(e, stm);
 				}
 			},
-			new Action() {	// [85] while_statement = WHILE expression.e DO statement.stm
+			new Action() {	// [87] while_statement = WHILE expression.e DO statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -629,7 +673,7 @@ public class ParserExpr extends Parser {
 					 return new NodeWhile(e, stm);
 				}
 			},
-			new Action() {	// [86] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
+			new Action() {	// [88] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
@@ -638,7 +682,7 @@ public class ParserExpr extends Parser {
 					 return new NodeSwitch(e, stm);
 				}
 			},
-			new Action() {	// [87] case_statement_list = case_statement_list.list case_statement.case1 case_default.case2
+			new Action() {	// [89] case_statement_list = case_statement_list.list case_statement.case1 case_default.case2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final NodeCaseList list = (NodeCaseList) _symbol_list.value;
@@ -649,7 +693,7 @@ public class ParserExpr extends Parser {
 					 list.add(case1);if(case2!=null)list.add(case2); return list;
 				}
 			},
-			new Action() {	// [88] case_statement_list = case_statement.case1 case_default.case2
+			new Action() {	// [90] case_statement_list = case_statement.case1 case_default.case2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_case1 = _symbols[offset + 1];
 					final NodeList case1 = (NodeList) _symbol_case1.value;
@@ -660,7 +704,7 @@ public class ParserExpr extends Parser {
 		return list;
 				}
 			},
-			new Action() {	// [89] case_statement = CASE identifier_list.list COLON statement.stm
+			new Action() {	// [91] case_statement = CASE identifier_list.list COLON statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 2];
 					final IdentifierList list = (IdentifierList) _symbol_list.value;
@@ -676,214 +720,320 @@ public class ParserExpr extends Parser {
 		return list_2;
 				}
 			},
-			Action.NONE,  	// [90] case_default = 
-			new Action() {	// [91] case_default = DEFAULT COLON statement.stm
+			Action.NONE,  	// [92] case_default = 
+			new Action() {	// [93] case_default = DEFAULT COLON statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 3];
 					final Node stm = (Node) _symbol_stm.value;
 					 System.out.println("coucou");return new NodeCase(stm);
 				}
 			},
-			new Action() {	// [92] variable_access = IDENTIFIER.name
+			new Action() {	// [94] variable_access = IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_name = _symbols[offset + 1];
 					final String name = (String) _symbol_name.value;
 					  
+		int x = 0;
+	
+		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
+			System.out.println("COUCOCUCOCUCOCUCOCYUCOCYC");
+			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
+			return new NodeId("ERROR",new TypeVoid());
+		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
+			
+			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
+			return new NodeId(name,new TypeInt(x));
+		}
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 				}
 			},
-			new Action() {	// [93] variable_access = variable_access.e1 LBRACKET expression.e2 RBRACKET
+			new Action() {	// [95] variable_access = variable_access.e1 LBRACKET expression.e2 RBRACKET
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
-		boolean is_id = false;
-		NodeId id = (NodeId) e1;
+		return new NodeArrayAccess(e1, e2) ; 
+		
+		
+		
+		
+		
+		
+		/* ****************************** */
+		/*if(e1 instanceof NodeArrayAccess) {
+		System.out.println("coucou :: " + e1 + "::" + e2);
+		NodeArrayAccess id = (NodeArrayAccess) e1;
 		Node id2 = (Node) e2;
 		if(e2 instanceof NodeId) {
 				is_id = true; 
 		}
-		TypeArray array = (TypeArray) id.getType(); 
+		TypeArray array = (TypeArray) id.getType();
+		if(!((TypeArrayRange)array.getRangeOREnum()).getFrom_enum()) {
 		Type type = null;
+		System.out.println("ccccc " +((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() );
 		if(is_id) {
 			NodeId id3 = (NodeId) id2;
 			type = (Type)id3.getType();
-		if(type==null || array.getRangeOREnum().getFirst().equals(type)) {
+		if(type==null || ((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() && array.getRangeOREnum().getFirst().equals(type)) {
 			semanticError(" Type error in array access ",e1);
 			System.err.println("ERROR :Type error in array access " + id +" : " + id3 );
 			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in array access " + id +" : " + new NodeId("Error",new TypeInt())));
 			return new NodeArrayAccess(e1, new NodeId("Error",new TypeInt())) ;
 		}
 		}
-		return new NodeArrayAccess(e1, e2) ;
+		}
+		}*/
 				}
 			},
-			new Action() {	// [94] variable_access = expression.e CIRCUMFLEX
+			new Action() {	// [96] variable_access = expression.e CIRCUMFLEX
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 return new NodePtrAccess(e);
 				}
 			},
-			new Action() {	// [95] expression = expression.e1 PLUS expression.e2
+			new Action() {	// [97] expression = expression.e1 PLUS expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("+", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " + " + e2.getType()));
+														}
+													}
+													return new NodeOp("+", e1, e2);
 				}
 			},
-			new Action() {	// [96] expression = expression.e1 MINUS expression.e2
+			new Action() {	// [98] expression = expression.e1 MINUS expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("-", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " - " + e2.getType()));
+														}
+													}
+													return new NodeOp("-", e1, e2);
 				}
 			},
-			new Action() {	// [97] expression = MINUS expression.e
+			new Action() {	// [99] expression = MINUS expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeOp("-", e);
+					 if(e.getType()!=null) {
+														if(!e.getType().equals(new TypeInt())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ "-" + e.getType()));
+														}
+													}
+													return new NodeOp("-", e);
 				}
 			},
-			new Action() {	// [98] expression = expression.e1 TIMES expression.e2
+			new Action() {	// [100] expression = expression.e1 TIMES expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("*", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " * " + e2.getType()));
+														}
+													}
+													return new NodeOp("*", e1, e2);
 				}
 			},
-			new Action() {	// [99] expression = expression.e1 DIV expression.e2
+			new Action() {	// [101] expression = expression.e1 DIV expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("/", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " / " + e2.getType()));
+														}
+													}
+													return new NodeOp("/", e1, e2);
 				}
 			},
-			new Action() {	// [100] expression = expression.e1 AND expression.e2
+			new Action() {	// [102] expression = expression.e1 AND expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("&&", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+										+ e1.getType() + " && " + e2.getType()));
+														}
+													}
+													return new NodeRel("&&", e1, e2);
 				}
 			},
-			new Action() {	// [101] expression = expression.e1 OR expression.e2
+			new Action() {	// [103] expression = expression.e1 OR expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("||", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+										+ e1.getType() + " || " + e2.getType()));
+														}		
+													}
+														return new NodeRel("||", e1, e2);
 				}
 			},
-			new Action() {	// [102] expression = NOT expression.e
+			new Action() {	// [104] expression = NOT expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodeOp("!", e);
+					 if(!e.getType().equals(new TypeBoolean())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+											+ "!" + e.getType()));
+													}
+													return new NodeRel("!", e);
 				}
 			},
-			new Action() {	// [103] expression = expression.e1 INFERIOR expression.e2
+			new Action() {	// [105] expression = expression.e1 INFERIOR expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("<", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " < " + e2.getType()));
+														}
+													}
+													return new NodeRel("<", e1, e2);
 				}
 			},
-			new Action() {	// [104] expression = expression.e1 INFERIOR_EQ expression.e2
+			new Action() {	// [106] expression = expression.e1 INFERIOR_EQ expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("<=", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " <= " + e2.getType()));
+														}
+													}
+													return new NodeRel("<=", e1, e2);
 				}
 			},
-			new Action() {	// [105] expression = expression.e1 SUPERIOR expression.e2
+			new Action() {	// [107] expression = expression.e1 SUPERIOR expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp(">", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) { //OK
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " > " + e2.getType()));
+														}
+													}												
+													return new NodeRel(">", e1, e2);
 				}
 			},
-			new Action() {	// [106] expression = expression.e1 SUPERIOR_EQ expression.e2
+			new Action() {	// [108] expression = expression.e1 SUPERIOR_EQ expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp(">=", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " >= " + e2.getType()));
+														}
+													}
+													return new NodeRel(">=", e1, e2);
 				}
 			},
-			new Action() {	// [107] expression = expression.e1 EQUALS expression.e2
+			new Action() {	// [109] expression = expression.e1 EQUALS expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("==", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " == " + e2.getType()));
+														}
+													}
+													return new NodeRel("==", e1, e2);
 				}
 			},
-			new Action() {	// [108] expression = expression.e1 DIFF expression.e2
+			new Action() {	// [110] expression = expression.e1 DIFF expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("!=", e1, e2);
+					 if(e1.getType()!=null && e2.getType()!=null) { //OK
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " != " + e2.getType()));
+														}
+													}
+													return new NodeRel("!=", e1, e2);
 				}
 			},
-			new Action() {	// [109] expression = LPAR expression.e RPAR
+			new Action() {	// [111] expression = LPAR expression.e RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 return e;
 				}
 			},
-			Action.RETURN,	// [110] expression = procedure_expression
-			Action.RETURN,	// [111] expression = variable_access
-			Action.RETURN,	// [112] expression = literal
-			new Action() {	// [113] literal = INTEGER_LIT.e
+			Action.RETURN,	// [112] expression = procedure_expression
+			Action.RETURN,	// [113] expression = variable_access
+			Action.RETURN,	// [114] expression = literal
+			new Action() {	// [115] literal = INTEGER_LIT.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final Integer e = (Integer) _symbol_e.value;
 					 return new NodeLiteral(new TypeInt(e), e);
 				}
 			},
-			new Action() {	// [114] literal = STRING_LIT.e
+			new Action() {	// [116] literal = STRING_LIT.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final String e = (String) _symbol_e.value;
 					 return new NodeLiteral(new TypeString(), e);
 				}
 			},
-			new Action() {	// [115] literal = TRUE
+			new Action() {	// [117] literal = TRUE
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new NodeLiteral(new TypeBoolean(), true);
 				}
 			},
-			new Action() {	// [116] literal = FALSE
+			new Action() {	// [118] literal = FALSE
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new NodeLiteral(new TypeBoolean(), false);
 				}
 			},
-			new Action() {	// [117] literal = NULL
+			new Action() {	// [119] literal = NULL
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new NodeLiteral(new TypePointer(), null);
 				}

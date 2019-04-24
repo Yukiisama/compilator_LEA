@@ -1,777 +1,707 @@
-*** Fichier data/progr9.lea
-*** /* **************************************************
- ************************************************** */
-*** type
-Stack PUSH
-*** chaine
-*** =
-*** string
-*** ;
-*** entier
-Enregistre chaine TypeString
-*** =
-*** integer
-*** ;
-*** booleen
-Enregistre entier TypeInt_null
-*** =
-*** boolean
-*** ;
-*** named1
-Enregistre booleen TypeBoolean
-*** =
-*** chaine
-*** ;
-*** //named2 = unknown; // error
-*** Months
-Retrouve1 chaine TypeString
-Enregistre named1 TypeNamed_chaine
-*** =
-*** (
-*** January
-*** ,
-*** February
-*** ,
-IdentifierList
-*** March
-*** ,
-IdentifierList
-*** April
-*** ,
-IdentifierList
-*** May
-*** ,
-IdentifierList
-*** June
-*** ,
-IdentifierList
-*** July
-*** ,
-IdentifierList
-*** August
-*** ,
-IdentifierList
-*** September
-*** ,
-IdentifierList
-*** October
-*** ,
-IdentifierList
-*** November
-*** ,
-IdentifierList
-*** December
-*** )
-IdentifierList
-*** ;
-Enregistre January 0
-Enregistre dans stack   January TypeInt_0
-Enregistre February 1
-Enregistre dans stack   February TypeInt_1
-Enregistre March 2
-Enregistre dans stack   March TypeInt_2
-Enregistre April 3
-Enregistre dans stack   April TypeInt_3
-Enregistre May 4
-Enregistre dans stack   May TypeInt_4
-Enregistre June 5
-Enregistre dans stack   June TypeInt_5
-Enregistre July 6
-Enregistre dans stack   July TypeInt_6
-Enregistre August 7
-Enregistre dans stack   August TypeInt_7
-Enregistre September 8
-Enregistre dans stack   September TypeInt_8
-Enregistre October 9
-Enregistre dans stack   October TypeInt_9
-Enregistre November 10
-Enregistre dans stack   November TypeInt_10
-Enregistre December 11
-Enregistre dans stack   December TypeInt_11
-*** DaysOfWeek
-Enregistre Months TypeEnumRange[TypeItemEnum@January=0..TypeItemEnum@December=11]_1
-*** =
-*** (
-*** Sunday
-*** ,
-*** Monday
-*** ,
-IdentifierList
-*** Tuesday
-*** ,
-IdentifierList
-*** Wednesday
-*** ,
-IdentifierList
-*** Thursday
-*** ,
-IdentifierList
-*** Friday
-*** ,
-IdentifierList
-*** Saturday
-*** )
-IdentifierList
-*** ;
-Enregistre Sunday 0
-Enregistre dans stack   Sunday TypeInt_0
-Enregistre Monday 1
-Enregistre dans stack   Monday TypeInt_1
-Enregistre Tuesday 2
-Enregistre dans stack   Tuesday TypeInt_2
-Enregistre Wednesday 3
-Enregistre dans stack   Wednesday TypeInt_3
-Enregistre Thursday 4
-Enregistre dans stack   Thursday TypeInt_4
-Enregistre Friday 5
-Enregistre dans stack   Friday TypeInt_5
-Enregistre Saturday 6
-Enregistre dans stack   Saturday TypeInt_6
-*** //// xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); // error
-*** range1
-Enregistre DaysOfWeek TypeEnumRange[TypeItemEnum@Sunday=0..TypeItemEnum@Saturday=6]_3
-*** =
-*** 64
-*** ..
-*** 81
-*** ;
-*** range2
-Enregistre range1 TypeArrayRange[TypeInt_64..TypeInt_81]
-*** =
-*** Monday
-*** ..
-*** Friday
-*** ;
-Retrouve3 Monday 1
-Retrouve3 Friday 5
-*** //range3 = 81 .. 64; //error
-*** //range4 = Friday .. Unknown; // error
-*** //range5 = Friday .. Monday; // error
-*** //range6 = Monday .. December; //error
-*** //range7 = Friday .. Tuesday; // error "range not valid"
-*** //range8 = Monday .. April; // error "incoherent range"
-*** table1
-Enregistre range2 TypeArrayRange[TypeInt_1..TypeInt_5]
-*** =
-*** array
-*** [
-*** 1
-*** ..
-*** 32
-*** ]
-*** of
-*** integer
-*** ;
-*** table2
-Enregistre table1 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
-*** =
-*** array
-*** [
-*** range1
-*** ]
-*** of
-*** integer
-*** ;
-*** table3
-Enregistre table2 TypeArray(TypeNamed_range1, TypeInt_null)
-*** =
-*** array
-*** [
-*** range2
-*** ]
-*** of
-*** integer
-*** ;
-*** table4
-Enregistre table3 TypeArray(TypeNamed_range2, TypeInt_null)
-*** =
-*** array
-*** [
-*** 1
-*** ..
-*** 32
-*** ]
-*** of
-*** array
-*** [
-*** DaysOfWeek
-*** ]
-*** of
-*** integer
-*** ;
-*** //table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; // error "Range type expected"
-*** //table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
-*** //ptr1 = ^integer;
-*** //ptr2 = ^array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+*** Fichier data/progr6.lea
+*** //
+*** // gestion complexe de la pile
+*** // 
 *** var
-Enregistre table4 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray(TypeNamed_DaysOfWeek, TypeInt_null))
+Stack PUSH
 *** x
-*** ,
-*** y
-*** ,
-IdentifierList
-*** z
 *** :
-IdentifierList
 *** integer
 *** ;
-*** //x : boolean; // error "Variable x yet declared"
-*** b
+*** function
 Create class NodeList
 Create class NodeId
 Enregistre dans stack   x TypeInt_null
+Create class NodeList
+*** fact1
+*** (
+*** k
+*** :
+*** integer
+*** )
 Create class NodeId
-Enregistre dans stack   y TypeInt_null
+Create class NodeList
+*** :
+*** integer
+*** begin
+Enregistre dans stack   k TypeInt_null
+Enregistre fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
+Create class NodeCallFct
+Stack PUSH
+*** if
+*** (
+*** k
+*** ==
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
 Create class NodeId
-Enregistre dans stack   z TypeInt_null
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** return
+*** (
+*** 1
+*** )
+Create class NodeLiteral
+*** ;
+*** else
+Create class NodeReturn
+*** return
+*** (
+*** k
+*** *
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** fact1
+*** (
+*** k
+*** -
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+Create class NodeList
+*** )
+Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
+Etape 126 : ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
+Etape 127 : NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+Create class NodeOp
+*** ;
+*** end
+Create class NodeReturn
+Create class NodeIf
+Create class NodeList
+NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#1:TypeInt_1#), NodeReturn(NodeOp(NodeId#k:TypeInt_null#, fact1_NodeCallFct(NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
+*** function
+Stack PUSH
+Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
+Enregistre fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
+Create class NodeList
+*** fact2
+*** (
+*** k
+*** :
+*** integer
+*** )
+Create class NodeId
+Create class NodeList
+*** :
+*** integer
+*** begin
+Enregistre dans stack   k TypeInt_null
+Enregistre fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
+Create class NodeCallFct
+Stack PUSH
+*** if
+*** (
+*** k
+*** ==
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** return
+*** (
+*** 1
+*** )
+Create class NodeLiteral
+*** ;
+*** else
+Create class NodeReturn
+*** return
+*** (
+*** fact2
+*** (
+*** k
+*** -
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+Create class NodeList
+*** *
+Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
+Etape 126 : ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
+Etape 127 : NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+*** k
+*** )
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+Create class NodeOp
+*** ;
+*** end
+Create class NodeReturn
+Create class NodeIf
+Create class NodeList
+NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#1:TypeInt_1#), NodeReturn(NodeOp(fact2_NodeCallFct(NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))), NodeId#k:TypeInt_null#))))
+*** procedure
+Stack PUSH
+Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
+Enregistre fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
+*** hanoi
+*** (
+*** a
+*** :
+*** string
+*** ,
+Create class NodeId
+Create class NodeList
+*** b
+*** :
+*** string
+*** ,
+Create class NodeId
+*** c
+*** :
+*** string
+*** ,
+Create class NodeId
+*** k
+*** :
+*** integer
+*** )
+Create class NodeId
+*** begin
+Enregistre dans stack   a TypeString
+Enregistre dans stack   b TypeString
+Enregistre dans stack   c TypeString
+Enregistre dans stack   k TypeInt_null
+Enregistre hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Create class NodeCallFct
+Stack PUSH
+*** if
+*** (
+*** k
+*** >
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** hanoi
+*** (
+*** a
+*** ,
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Create class NodeId
+Create class NodeList
+*** c
+*** ,
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Create class NodeId
+*** b
+*** ,
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Create class NodeId
+*** k
+*** -
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+*** ;
+Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Etape 127 : NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+*** print
+Create class NodeIf
+Create class NodeList
+NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), hanoi_NodeCallFct(NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
+*** (
+*** a
+*** )
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Create class NodeId
+*** ;
+*** print
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** ">"
+*** )
+Create class NodeLiteral
+*** ;
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** c
+*** )
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Create class NodeId
+*** ;
+*** if
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** k
+*** >
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** hanoi
+*** (
+*** b
+*** ,
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Retrouve dans stack   b TypeString
+Create class NodeId
+Create class NodeList
+*** a
+*** ,
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Retrouve dans stack   a TypeString
+Create class NodeId
+*** c
+*** ,
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Create class NodeId
+*** k
+*** -
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Retrouve dans stack   k TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+*** ;
+Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Etape 127 : NodeList(NodeId#b:TypeString#, NodeId#a:TypeString#, NodeId#c:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+*** end
+Create class NodeIf
+*** function
+Stack PUSH
+Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
+Enregistre hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
+*** impair
+*** (
+*** i
+*** :
+*** integer
+*** )
+Create class NodeId
 Create class NodeList
 *** :
 *** boolean
 *** ;
-*** z2
+Enregistre dans stack   i TypeInt_null
+Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
+Create class NodeCallFct
+*** function
+Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
+Salut c'est ici -> ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
+Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
+*** pair
+*** (
+*** i
+*** :
+*** integer
+*** )
+Create class NodeId
+Create class NodeList
+*** :
+*** boolean
+*** var
+Enregistre dans stack   i TypeInt_null
+Enregistre pair ([pair:TypeInt_null]) -> TypeBoolean Defined: false Name: pairDeclare : 0
+Create class NodeCallFct
+Stack PUSH
+*** b
+*** :
+*** boolean
+*** ;
+*** begin
 Create class NodeList
 Create class NodeId
 Enregistre dans stack   b TypeBoolean
-*** :
-*** array
-*** [
+Create class NodeList
+*** if
+*** (
+*** i
+*** ==
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Create class NodeId
 *** 1
-*** ..
-*** 32
-*** ]
-*** of
-*** integer
-*** ;
-*** k
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
-*** :
-*** array
-*** [
-*** range2
-*** ]
-*** of
-*** integer
-*** ;
-*** l
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   k TypeArray(TypeNamed_range2, TypeInt_null)
-*** :
-*** array
-*** [
-*** range2
-*** ]
-*** of
-*** boolean
-*** ;
-*** m2
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   l TypeArray(TypeNamed_range2, TypeBoolean)
-*** :
-*** array
-*** [
-*** Monday
-*** ..
-*** Thursday
-*** ]
-Retrouve3 Monday 1
-Retrouve3 Thursday 4
-*** of
-*** boolean
-*** ;
-*** p
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   m2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_4], TypeBoolean)
-*** :
-*** ptr1
-*** ;
-*** m
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   p TypeNamed_ptr1
-*** :
-*** Months
-*** ;
-*** r1
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   m TypeNamed_Months
-*** :
-*** range1
-*** ;
-*** r2
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   r1 TypeNamed_range1
-*** :
-*** range2
-*** ;
-*** month
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   r2 TypeNamed_range2
-*** :
-*** Months
-*** ;
-*** function
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   month TypeNamed_Months
-*** goo
-*** (
-*** i
-*** :
-*** array
-*** [
-*** 1
-*** ..
-*** 32
-*** ]
-*** of
-*** integer
-*** ;
-*** k
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
-*** :
-*** array
-*** [
-*** range2
-*** ]
-*** of
-*** integer
-*** ;
-*** l
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   k TypeArray(TypeNamed_range2, TypeInt_null)
-*** :
-*** boolean
-*** ;
-Enregistre goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Create class NodeCallFct
-*** //function goo(i : integer, j : integer) : boolean; //error "procedure or function declared twice"
-*** function
-Create class NodeList
-*** foo
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
 *** )
-Create class NodeId
-*** :
-*** ^
-*** boolean
-*** var
-Enregistre foo ([foo:TypeInt_null], [foo:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: false Name: foo
-Create class NodeCallFct
-Stack PUSH
-*** result
-*** :
-*** ^
-*** boolean
-*** ;
-*** begin
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   result TypePointer(TypeBoolean)
-Create class NodeList
-*** new
-*** result
-*** ;
-Retrouve dans stack   result TypePointer(TypeBoolean)
-Create class NodeId
-*** //result^ = hoo(i, j); // error "function not declared"
-*** result
-Create class NodeNew
-Create class NodeList
-NodeList(NodeNew(NodeId#result:TypePointer(TypeBoolean)#))
-*** ^
-Retrouve dans stack   result TypePointer(TypeBoolean)
-Create class NodeId
-*** =
-Create class NodePtrAccess
-*** goo
-*** (
-*** i
-*** ,
-Retrouve dans stack   i null
-Create class NodeId
-Create class NodeList
-*** j
-*** )
-Retrouve dans stack   j null
-Create class NodeId
-*** ;
-Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Etape 126 : ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Etape 127 : NodeList(NodeId#i:null#, NodeId#j:null#)
-Create class NodeCallFct
-*** return
-Create class NodeAssign
-*** result
-*** ;
-Retrouve dans stack   result TypePointer(TypeBoolean)
-Create class NodeId
-*** end
-Create class NodeReturn
-*** function
-Stack PUSH
-Retrouve2 foo ([foo:TypeInt_null], [foo:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: false Name: foo
-COUCOU([foo:TypeInt_null], [foo:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: true Name: foo
-Enregistre foo ([foo:TypeInt_null], [foo:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: true Name: foo
-*** goo
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
-*** )
-Create class NodeId
-*** :
-*** boolean
-*** begin
-Enregistre goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Create class NodeCallFct
-Stack PUSH
-*** return
-*** (
-*** i
-*** +
-Retrouve dans stack   i null
-Create class NodeId
-Create class NodeList
-*** j
-*** )
-Retrouve dans stack   j null
-Create class NodeId
-*** ;
-Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Etape 126 : ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Etape 127 : NodeList(NodeId#i:null#, NodeId#j:null#)
-Create class NodeCallFct
-*** return
-Create class NodeAssign
-*** result
-*** ;
-Retrouve dans stack   result TypePointer(TypeBoolean)
-Create class NodeId
-*** end
-Create class NodeReturn
-*** function
-Stack PUSH
-Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-COUCOU([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: true Name: goo
-Enregistre goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: true Name: goo
-*** goo
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
-*** )
-Create class NodeId
-*** :
-*** boolean
-*** begin
-Enregistre goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Create class NodeCallFct
-Stack PUSH
-*** return
-*** false
-*** ;
 Create class NodeLiteral
-*** end
-Create class NodeReturn
-Create class NodeList
-NodeList(NodeReturn(NodeLiteral#false:TypeBoolean#))
-*** // error "function already defined"
-*** begin
-Stack PUSH
-Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: true Name: goo
-***  function already defined ligne 0, colonne 68
-ERROR :function already definedgoo_NodeCallFct(NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#))
-COUCOU([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
-Enregistre goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
+Create class NodeRel
+*** then
 *** b
 *** =
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
 Retrouve dans stack   b TypeBoolean
 Create class NodeId
 *** false
 *** ;
 Create class NodeLiteral
-*** //b = 2; // error "Type error in affectation"
-*** //l = m2; // error "Type error in affectation"
-*** // l = l;
-*** //b = foo(3, 2)^;
-*** //b = goo(3, 7);
-*** //b = foo(3); // error "Type error in calling expression"
-*** //b = foo(3, false); // error "Type error in calling expression"
-*** //x = foo(3, 7); // error "Type error in calling expression"
-*** z2
+*** else
 Create class NodeAssign
-Create class NodeList
-NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#))
-*** [
-Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+*** if
+*** (
+*** i
+*** ==
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
 Create class NodeId
-*** Thursday
-*** ]
-Retrouve dans stack   Thursday TypeInt_4
-Create class NodeId
+*** 0
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** b
 *** =
-***  Type error in array access  ligne 0, colonne 83
-ERROR :Type error in array access NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)# : NodeId#Thursday:TypeInt_4#
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
 Create class NodeId
-Create class NodeId
-Create class NodeArrayAccess
-*** 36
+*** true
 *** ;
 Create class NodeLiteral
-*** // error "Type error in array access "
-*** // z2 [ 1 ] = 36;
-*** //x = z2 [ 1 ];
-*** // b = goo(z2 [ 1 ], 1);
-*** // y = z [ false ]; b = 2; // error "Type error in affectation"
-*** // l = m2; // error "Type error in affectation"
-*** // l = l;
-*** // b = foo(3, 7)^;
-*** // b = goo(3, 7);
-*** // b = foo(3); // error "Type error in calling expression"
-*** // b = foo(3, false); // error "Type error in calling expression"
-*** // x = foo(3, 7); // error "Type error in calling expression"
-*** // z2 [ Thursday ] = 36; // error "Type error in array access "
-*** // z2 [ 1 ] = 36;
-*** // x = z2 [ 1 ];
-*** // b = goo(z2 [ 1 ], 1);
-*** // y = z [ false ]; // error "Type error in array access"
-*** //y = z [ 4 ]; // error "Type error in affectation"
-*** // b = z [ 4 ]; // error "Type error in affectation"
-*** // z = k [ 4 ]; // error "Type error in affectation"
-*** // b = z2 [ Thursday ]; // error "Type error in affectation"
-*** // z2 = 36; // Accessible variable expected
-*** // if (l [ Monday ]) then x = 1;
-*** // if (l [ Monday ]) then x = 1; else x = 2;
-*** // if (z2 [ 7 ]) then x = 1;
-*** // while (z2 [ 7 ]) do x = 1;
-*** // while (z2 [ 7 ]) do 
-*** // 	begin
-*** // 		if (l [ Monday ]) then x = 1; else x = 2;
-*** // 		println x;
-*** // 		readln y;
-*** // 	end
-*** // switch (month) 
-*** // 	begin
-*** // 	case March, April, May:
-*** // 		println ("spring");
-*** // 	case June, July, August:
-*** // 		println("summer");
-*** // 	case September, October, November:
-*** // 		println("autumn");
-*** // 	case February, December, January:
-*** // 		println("winter");
-*** // 	default:
-*** // 		println("none");
-*** // 	end
-*** // x = -(36 + 45 / 7);
-*** // b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-*** // b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-*** // b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
-*** // p = null;
-*** // p = 0; // error "Type error in affectation"
-*** // new p;
-*** // new x; // error "Type error in pointer access expression"
-*** // p^ = 36;
-*** // p^ = false;
-*** // x^ = null; // error "Type error in pointer access expression"
-*** // x = p^;
-*** // dispose p;
-*** // dispose x;  // error "Type error in pointer access expression"/ error "Type error in array access"
-*** // y = z [ 4 ]; // eb = 2; // error "Type error in affectation"
-*** // l = m2; // error "Type error in affectation"
-*** // l = l;
-*** // b = foo(3, 7)^;
-*** // b = goo(3, 7);
-*** // b = foo(3); // error "Type error in calling expression"
-*** // b = foo(3, false); // error "Type error in calling expression"
-*** // x = foo(3, 7); // error "Type error in calling expression"
-*** // z2 [ Thursday ] = 36; // error "Type error in array access "
-*** // z2 [ 1 ] = 36;
-*** // x = z2 [ 1 ];
-*** // b = goo(z2 [ 1 ], 1);
-*** // y = z [ false ]; // error "Type error in array access"
-*** // y = z [ 4 ]; // error "Type error in affectation"
-*** // b = z [ 4 ]; // error "Type error in affectation"
-*** // z = k [ 4 ]; // error "Type error in affectation"
-*** // b = z2 [ Thursday ]; // error "Type error in affectation"
-*** // z2 = 36; // Accessible variable expected
-*** // if (l [ Monday ]) then x = 1;
-*** // if (l [ Monday ]) then x = 1; else x = 2;
-*** // if (z2 [ 7 ]) then x = 1;
-*** // while (z2 [ 7 ]) do x = 1;
-*** // while (z2 [ 7 ]) do 
-*** // 	begin
-*** // 		if (l [ Monday ]) then x = 1; else x = 2;
-*** // 		println x;
-*** // 		readln y;
-*** // 	end
-*** // switch (month) 
-*** // 	begin
-*** // 	case March, April, May:
-*** // 		println ("spring");
-*** // 	case June, July, August:
-*** // 		println("summer");
-*** // 	case September, October, November:
-*** // 		println("autumn");
-*** // 	case February, December, January:
-*** // 		println("winter");
-*** // 	default:
-*** // 		println("none");
-*** // 	end
-*** // x = -(36 + 45 / 7);
-*** // b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-*** // b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-*** // b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
-*** // p = null;
-*** // p = 0; // error "Type error in affectation"
-*** // new p;
-*** // new x; // error "Type error in pointer access expression"
-*** // p^ = 36;
-*** // p^ = false;
-*** // x^ = null; // error "Type error in pointer access expression"
-*** // x = p^;
-*** // dispose p;
-*** // dispose x;  // error "Type error in pointer access expression"ror "Type error in affectation"
-*** // b = z [ 4 ]; // eb = 2; // error "Type error in affectation"
-*** // l = m2; // error "Type error in affectation"
-*** // l = l;
-*** // b = foo(3, 7)^;
-*** // b = goo(3, 7);
-*** // b = foo(3); // error "Type error in calling expression"
-*** // b = foo(3, false); // error "Type error in calling expression"
-*** // x = foo(3, 7); // error "Type error in calling expression"
-*** // z2 [ Thursday ] = 36; // error "Type error in array access "
-*** // z2 [ 1 ] = 36;
-*** // x = z2 [ 1 ];
-*** // b = goo(z2 [ 1 ], 1);
-*** // y = z [ false ]; // error "Type error in array access"
-*** // y = z [ 4 ]; // error "Type error in affectation"
-*** // b = z [ 4 ]; // error "Type error in affectation"
-*** // z = k [ 4 ]; // error "Type error in affectation"
-*** // b = z2 [ Thursday ]; // error "Type error in affectation"
-*** // z2 = 36; // Accessible variable expected
-*** // if (l [ Monday ]) then x = 1;
-*** // if (l [ Monday ]) then x = 1; else x = 2;
-*** // if (z2 [ 7 ]) then x = 1;
-*** // while (z2 [ 7 ]) do x = 1;
-*** // while (z2 [ 7 ]) do 
-*** // 	begin
-*** // 		if (l [ Monday ]) then x = 1; else x = 2;
-*** // 		println x;
-*** // 		readln y;
-*** // 	end
-*** // switch (month) 
-*** // 	begin
-*** // 	case March, April, May:
-*** // 		println ("spring");
-*** // 	case June, July, August:
-*** // 		println("summer");
-*** // 	case September, October, November:
-*** // 		println("autumn");
-*** // 	case February, December, January:
-*** // 		println("winter");
-*** // 	default:
-*** // 		println("none");
-*** // 	end
-*** // x = -(36 + 45 / 7);
-*** // b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-*** // b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-*** // b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
-*** // p = null;
-*** // p = 0; // error "Type error in affectation"
-*** // new p;
-*** // new x; // error "Type error in pointer access expression"
-*** // p^ = 36;
-*** // p^ = false;
-*** // x^ = null; // error "Type error in pointer access expression"
-*** // x = p^;
-*** // dispose p;
-*** // dispose x;  // error "Type error in pointer access expression"ror "Type error in affectation"
-*** // z = k [ 4 ]; // error "Type error in affectation"
-*** // b = z2 [ Thursday ]; // error "Type error in affectation"
-*** // z2 = 36; // Accessible variable expected
-*** // if (l [ Monday ]) then x = 1;
-*** // if (l [ Monday ]) then x = 1; else x = 2;
-*** // if (z2 [ 7 ]) then x = 1;
-*** // while (z2 [ 7 ]) do x = 1;
-*** // while (z2 [ 7 ]) do 
-*** // 	begin
-*** // 		if (l [ Monday ]) then x = 1; else x = 2;
-*** // 		println x;
-*** // 		readln y;
-*** // 	end
-*** // switch (month) 
-*** // 	begin
-*** // 	case March, April, May:
-*** // 		println ("spring");
-*** // 	case June, July, August:
-*** // 		println("summer");
-*** // 	case September, October, November:
-*** // 		println("autumn");
-*** // 	case February, December, January:
-*** // 		println("winter");
-*** // 	default:
-*** // 		println("none");
-*** // 	end
-*** // x = -(36 + 45 / 7);
-*** // b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-*** // b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-*** // b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
-*** // p = null;
-*** // p = 0; // error "Type error in affectation"
-*** // new p;
-*** // new x; // error "Type error in pointer access expression"
-*** // p^ = 36;
-*** // p^ = false;
-*** // x^ = null; // error "Type error in pointer access expression"
-*** // x = p^;
-*** // dispose p;
-*** // dispose x;  // error "Type error in pointer access expression"
-*** end
+*** else
 Create class NodeAssign
+*** b
+*** =
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Create class NodeId
+*** impair
+*** (
+*** i
+*** -
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+Create class NodeList
+*** ;
+Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
+Etape 126 : ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
+Etape 127 : NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+*** return
+Create class NodeAssign
+Create class NodeIf
+Create class NodeIf
+Create class NodeList
+NodeList(NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#true:TypeBoolean#), NodeAssign(NodeId#b:TypeBoolean#, impair_NodeCallFct(NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
+*** (
+*** b
+*** )
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Create class NodeId
+*** ;
+*** end
+Create class NodeReturn
+*** function
+Stack PUSH
+Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: false Name: pairDeclare : 0
+Enregistre pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+*** impair
+*** (
+*** i
+*** :
+*** integer
+*** )
+Create class NodeId
+Create class NodeList
+*** :
+*** boolean
+*** begin
+Enregistre dans stack   i TypeInt_null
+Create class NodeCallFct
+Stack PUSH
+*** if
+*** (
+*** i
+*** ==
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** return
+*** (
+*** true
+*** )
+Create class NodeLiteral
+*** ;
+*** else
+Create class NodeReturn
+*** if
+*** (
+*** i
+*** ==
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Create class NodeId
+*** 0
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** then
+*** return
+*** (
+*** false
+*** )
+Create class NodeLiteral
+*** ;
+*** else
+Create class NodeReturn
+*** return
+*** (
+*** pair
+*** (
+*** i
+*** -
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Retrouve dans stack   i TypeInt_null
+Create class NodeId
+*** 1
+*** )
+Create class NodeLiteral
+Create class NodeOp
+Create class NodeList
+*** )
+Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 127 : NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+Create class NodeCallFct
+*** ;
+*** end
+Create class NodeReturn
+Create class NodeIf
+Create class NodeIf
+Create class NodeList
+NodeList(NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#true:TypeBoolean#), NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeReturn(NodeLiteral#false:TypeBoolean#), NodeReturn(pair_NodeCallFct(NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
+*** begin
+Stack PUSH
+Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
+Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: true Name: impairDeclare : 0
+*** print
+*** (
+*** fact1
+*** (
+*** 6
+*** )
+Create class NodeLiteral
+Create class NodeList
+*** )
+Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
+Etape 126 : ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
+Etape 127 : NodeList(NodeLiteral#6:TypeInt_6#)
+Create class NodeCallFct
+*** ;
+*** println
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
+*** (
+*** fact2
+*** (
+*** 6
+*** )
+Create class NodeLiteral
+Create class NodeList
+*** )
+Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
+Etape 126 : ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
+Etape 127 : NodeList(NodeLiteral#6:TypeInt_6#)
+Create class NodeCallFct
+*** ;
+*** hanoi
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** "A"
+*** ,
+Create class NodeLiteral
+Create class NodeList
+*** "B"
+*** ,
+Create class NodeLiteral
+*** "C"
+*** ,
+Create class NodeLiteral
+*** 4
+*** )
+Create class NodeLiteral
+*** ;
+Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
+Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
+Etape 127 : NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)
+Create class NodeCallFct
+*** println
+*** (
+*** pair
+*** (
+*** 1001
+*** )
+Create class NodeLiteral
+Create class NodeList
+*** )
+Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 127 : NodeList(NodeLiteral#1001:TypeInt_1001#)
+Create class NodeCallFct
+*** ;
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** pair
+*** (
+*** 1000
+*** )
+Create class NodeLiteral
+Create class NodeList
+*** )
+Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
+Etape 127 : NodeList(NodeLiteral#1000:TypeInt_1000#)
+Create class NodeCallFct
+*** ;
+*** end
+Create class NodeList
+Create class NodeCallFct
 
 Stack PUSH
-NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeAssign(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeId#Error:TypeInt_null#), NodeLiteral#36:TypeInt_36#))
+NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
 *** Analyse syntaxique ok
 --- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
 --- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
 --- CheckType NodeLiteral
-*** Erreur de typage (add_by_student) 
-ERROR NodeCallFct : function already definedgoo_NodeCallFct(NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#))
-ERROR NodeArrayAccess : Type error in array access NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)# : NodeId#Error:TypeInt_null#
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+*** Typage correct

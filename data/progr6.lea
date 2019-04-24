@@ -53,7 +53,7 @@ if (i == 1) then
 
 begin
 
-println (fact1 (6));
+print (fact1 (6));
 println (fact2 (6));
 hanoi("A", "B", "C", 4);
 println (pair(1001));
