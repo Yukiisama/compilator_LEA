@@ -11,9 +11,7 @@ public final class NodeId extends NodeExp {
 		this.name = name;
 		this.type = type;
 	}
-	public String getName() {
-		return this.name;
-	}
+
 	public String toString() {
 		return this.getClass().getSimpleName() + "#" + name + ':' + type + '#';
 	}
