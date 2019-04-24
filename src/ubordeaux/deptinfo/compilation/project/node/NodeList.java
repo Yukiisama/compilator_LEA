@@ -2,7 +2,7 @@ package ubordeaux.deptinfo.compilation.project.node;
 
 import java.util.Iterator;
 
-public final class NodeList extends Node {
+public final class NodeList extends NodeStm {
 
 	public NodeList(Node stm) {
 		super(stm);

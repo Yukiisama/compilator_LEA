@@ -1,4 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Binop;
+
 
 public class NodeOp extends NodeExp {
 
@@ -10,6 +12,8 @@ public class NodeOp extends NodeExp {
 		super(op1, op2);
 		this.name = name;
 		// le type d'un opérateur 
+		// On regarde le type du premier paramètre pour savoir le type du NodeExp 
+		// (le type du résultat de l'opération).
 		NodeExp exprFct = (NodeExp) this.get(1);
 		type = exprFct.type;
 	}
@@ -21,7 +25,7 @@ public class NodeOp extends NodeExp {
 		NodeExp exprFct = (NodeExp) this.get(0);
 		type = exprFct.type;
 	}
-	
+
 	@Override
 	public boolean checksType() {
 		super.checksType();
@@ -33,7 +37,7 @@ public class NodeOp extends NodeExp {
 	private NodeExp getOp1() {
 		return (NodeExp) this.get(0);
 	};
-	
+
 	private NodeExp getOp2() {
 		return (NodeExp) this.get(1);
 	}
@@ -45,7 +49,25 @@ public class NodeOp extends NodeExp {
 		else if (this.size()==2)
 			return new NodeOp(name, (NodeExp) getOp1().clone(), (NodeExp) getOp2().clone());
 		return null;
-		};
+	};
 	
+	public void generateIntermediateCode() {
+		if(!this.checksType()) {
+			System.out.println("NodeOp failed on generateIntermediateCode");
+			return;
+		}
+
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
+
+		if(this.name == "+")
+			super.exp = new Binop(Binop.PLUS,this.getOp1().getExp(),this.getOp2().getExp());
+		if(this.name == "-")
+			super.exp = new Binop(Binop.MINUS,this.getOp1().getExp(),this.getOp2().getExp());
+		if(this.name == "*")
+			super.exp = new Binop(Binop.MUL,this.getOp1().getExp(),this.getOp2().getExp());
+		if(this.name == "/")
+			super.exp = new Binop(Binop.DIV,this.getOp1().getExp(),this.getOp2().getExp());
+	}
 
 }

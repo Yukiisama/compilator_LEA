@@ -5,6 +5,12 @@ import java.util.Iterator;
 import ubordeaux.deptinfo.compilation.project.type.TypeFeature;
 import ubordeaux.deptinfo.compilation.project.type.TypeFunct;
 import ubordeaux.deptinfo.compilation.project.type.Type;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Call;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpList;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Name;
+
+import java.util.List;
 
 public final class NodeCallFct extends NodeExp {
 
@@ -88,10 +94,37 @@ public final class NodeCallFct extends NodeExp {
 		}
 		return node;
 	}
-	
+
 	@Override
 	protected String toDotNodeName() {
 		return "NodeCallFct " + name + "()";
+	}
+
+	private ExpList listArgs(int index, List<Node> list) {
+		NodeExp head = (NodeExp) list.get(index);
+		if(index == list.size()-1) {
+			return new ExpList(head.getExp(),null);
+		}
+		ExpList args = new ExpList(head.getExp(), listArgs(index++, list));
+		return args;
+	}
+
+	public void generateIntermediateCode() {
+		if(!this.checksType()) {
+			System.out.println("NodeCallFct failed on generateIntermediateCode");
+			return;
+		}
+
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
+
+		ExpList args = this.listArgs(0, this.elts);
+		
+		LabelLocation label = new LabelLocation(this.name);
+		super.exp = new Call(new Name(label),args);
+
+
 	}
 
 

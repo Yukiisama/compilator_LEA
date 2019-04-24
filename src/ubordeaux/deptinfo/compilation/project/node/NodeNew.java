@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
-public final class NodeNew extends Node {
+public final class NodeNew extends NodeStm {
 
 	public NodeNew(Node stm) {
 		super(stm);

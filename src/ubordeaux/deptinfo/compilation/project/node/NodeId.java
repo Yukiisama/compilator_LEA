@@ -1,5 +1,9 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Call;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpList;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Name;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 
 public final class NodeId extends NodeExp {
@@ -30,5 +34,14 @@ public final class NodeId extends NodeExp {
 	public NodeId clone() {
 		return new NodeId(name, type);
 	}
-
+	
+	public void generateIntermediateCode() {
+		if(!this.checksType()) {
+			System.out.println("NodeCallFct failed on generateIntermediateCode");
+			return;
+		}
+		
+		LabelLocation label = new LabelLocation(this.name);
+		super.exp = new Name(label);
+	}
 }
