@@ -593,6 +593,7 @@ variable_access =
 	:}
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: 
 		boolean is_id = false;
+		/*System.out.println("coucou :: " + e1 + "::" + e2);
 		NodeId id = (NodeId) e1;
 		Node id2 = (Node) e2;
 		if(e2 instanceof NodeId) {
@@ -609,7 +610,7 @@ variable_access =
 			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in array access " + id +" : " + new NodeId("Error",new TypeInt())));
 			return new NodeArrayAccess(e1, new NodeId("Error",new TypeInt())) ;
 		}
-		}
+		}*/
 		return new NodeArrayAccess(e1, e2) ; :}
 	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
