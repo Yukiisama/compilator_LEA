@@ -208,8 +208,8 @@ enumerated_type =
 			int i = 0;
 			while(it.hasNext()) {
 			String x =  it.next();
-			typeEnvironment.put_enum_value(x,i);
-			stackEnvironment.putVariable(x,new TypeInt(i));
+			typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
+			stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
 			i++;
 			}
 			//typeEnvironment.put_enum_value(t_list.first(),0);
@@ -230,12 +230,16 @@ subrange_type =
 		return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
 	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				
 		{: 
-		int v_min = typeEnvironment.get_enum_value(min);
-		int v_max = typeEnvironment.get_enum_value(max);
+		TypeItemEnum x = typeEnvironment.get_enum_value(min);
+		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		int v_min = x.getValue();
+		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 		}
-		return new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max)); 
+		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		one.setFrom_enum(true);
+		return one; 
 		:}
 	;
 
@@ -288,6 +292,7 @@ variable_declaration =
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
 			String x =  it.next();
+			
 			list_2.add(new NodeId(x,t));
 			stackEnvironment.putVariable(x,t);
 		}
@@ -371,6 +376,7 @@ procedure_head =
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
@@ -386,7 +392,9 @@ procedure_head =
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
+			//System.out.println("coucou -------> + " + x.getType());
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
@@ -589,29 +597,57 @@ case_default =
 variable_access =
 	IDENTIFIER.name											
 	{:  
+		int x = 0;
+	
+		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
+			System.out.println("COUCOCUCOCUCOCUCOCYUCOCYC");
+			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
+			return new NodeId("ERROR",new TypeVoid());
+		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
+			
+			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
+			return new NodeId(name,new TypeInt(x));
+		}
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: 
-		boolean is_id = false;
-		/*System.out.println("coucou :: " + e1 + "::" + e2);
-		NodeId id = (NodeId) e1;
+		return new NodeArrayAccess(e1, e2) ; 
+		
+		
+		
+		
+		
+		
+		/* ****************************** */
+		/*if(e1 instanceof NodeArrayAccess) {
+		System.out.println("coucou :: " + e1 + "::" + e2);
+		NodeArrayAccess id = (NodeArrayAccess) e1;
 		Node id2 = (Node) e2;
 		if(e2 instanceof NodeId) {
 				is_id = true; 
 		}
-		TypeArray array = (TypeArray) id.getType(); 
+		TypeArray array = (TypeArray) id.getType();
+		if(!((TypeArrayRange)array.getRangeOREnum()).getFrom_enum()) {
 		Type type = null;
+		System.out.println("ccccc " +((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() );
 		if(is_id) {
 			NodeId id3 = (NodeId) id2;
 			type = (Type)id3.getType();
-		if(type==null || array.getRangeOREnum().getFirst().equals(type)) {
+		if(type==null || ((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() && array.getRangeOREnum().getFirst().equals(type)) {
 			semanticError(" Type error in array access ",e1);
 			System.err.println("ERROR :Type error in array access " + id +" : " + id3 );
 			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in array access " + id +" : " + new NodeId("Error",new TypeInt())));
 			return new NodeArrayAccess(e1, new NodeId("Error",new TypeInt())) ;
 		}
+		}
+		}
 		}*/
-		return new NodeArrayAccess(e1, e2) ; :}
+		
+		
+		
+		
+		:}
 	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
 	;
 

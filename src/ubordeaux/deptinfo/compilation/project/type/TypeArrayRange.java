@@ -3,7 +3,7 @@ package ubordeaux.deptinfo.compilation.project.type;
 import ubordeaux.deptinfo.compilation.project.main.ClonableSymbol;
 
 public class TypeArrayRange extends TypeRange {
-
+	private boolean from_enum = false;
 	public TypeArrayRange(Type min, Type max) {
 		super(min, max);
 	}
@@ -28,7 +28,17 @@ public class TypeArrayRange extends TypeRange {
 
 	@Override
 	public ClonableSymbol clone() {
-		return new TypeArrayRange((Type) first.clone(), (Type) last.clone());
+		TypeArrayRange nw = new TypeArrayRange((Type) first.clone(), (Type) last.clone());
+		nw.setFrom_enum(from_enum);
+		return nw;
+	}
+
+	public boolean getFrom_enum() {
+		return from_enum;
+	}
+
+	public void setFrom_enum(boolean from_enum) {
+		this.from_enum = from_enum;
 	}
 	
 }
