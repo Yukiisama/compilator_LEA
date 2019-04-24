@@ -1,4 +1,7 @@
 package ubordeaux.deptinfo.compilation.project.environment;
+import java.util.Stack;
+
+import ubordeaux.deptinfo.compilation.project.type.*;
 
 
 import ubordeaux.deptinfo.compilation.project.type.Type;
@@ -21,6 +24,7 @@ public class StackEnvironment {
 		//this.table = new HashMap<String, Type>();
 		this.stack = new Stack<Map<String, Type>>();
 		this.str = str;
+		this.stack = new Stack();
 	}
 	
 	public void putVariable(String variable, Type value) {
