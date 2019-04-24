@@ -576,20 +576,129 @@ variable_access =
 ///////////////////////////
 
 expression =
-	expression.e1 PLUS expression.e2  				{: return new NodeOp("+", e1, e2); :}
-	| expression.e1 MINUS expression.e2 			{: return new NodeOp("-", e1, e2); :}
-	| MINUS expression.e @ UNARY_MINUS 				{: return new NodeOp("-", e); :}
-	| expression.e1 TIMES expression.e2 			{: return new NodeOp("*", e1, e2); :}
-	| expression.e1 DIV expression.e2 				{: return new NodeOp("/", e1, e2); :}
-	| expression.e1 AND expression.e2				{: return new NodeRel("&&", e1, e2); :}
-	| expression.e1 OR expression.e2				{: return new NodeRel("||", e1, e2); :}
-	| NOT expression.e								{: return new NodeRel("!", e); :}
-	| expression.e1 INFERIOR expression.e2			{: return new NodeRel("<", e1, e2); :}
-	| expression.e1 INFERIOR_EQ expression.e2		{: return new NodeRel("<=", e1, e2); :}
-	| expression.e1 SUPERIOR expression.e2			{: return new NodeRel(">", e1, e2); :}
-	| expression.e1 SUPERIOR_EQ expression.e2		{: return new NodeRel(">=", e1, e2); :}
-	| expression.e1 EQUALS expression.e2			{: return new NodeRel("==", e1, e2); :}
-	| expression.e1 DIFF expression.e2				{: return new NodeRel("!=", e1, e2); :}
+	expression.e1 PLUS expression.e2  				{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " + " + e2.getType()));
+														}
+													}
+													return new NodeOp("+", e1, e2);
+													:}
+
+	| expression.e1 MINUS expression.e2 			{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " - " + e2.getType()));
+														}
+													}
+													return new NodeOp("-", e1, e2);
+													:}
+	
+	| MINUS expression.e @ UNARY_MINUS 				{: if(e.getType()!=null) {
+														if(!e.getType().equals(new TypeInt())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ "-" + e.getType()));
+														}
+													}
+													return new NodeOp("-", e);
+													:}
+	
+	| expression.e1 TIMES expression.e2 			{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " * " + e2.getType()));
+														}
+													}
+													return new NodeOp("*", e1, e2);
+													:}
+	
+	| expression.e1 DIV expression.e2 				{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+										+ e1.getType() + " / " + e2.getType()));
+														}
+													}
+													return new NodeOp("/", e1, e2);
+													:}
+	
+	| expression.e1 AND expression.e2 				{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+										+ e1.getType() + " && " + e2.getType()));
+														}
+													}
+													return new NodeRel("&&", e1, e2); 
+													:}
+	
+	| expression.e1 OR expression.e2				{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+										+ e1.getType() + " || " + e2.getType()));
+														}		
+													}
+														return new NodeRel("||", e1, e2); 
+													:}
+	
+	| NOT expression.e								{: if(!e.getType().equals(new TypeBoolean())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+											+ "!" + e.getType()));
+													}
+													return new NodeRel("!", e); :}
+	
+	| expression.e1 INFERIOR expression.e2			{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " < " + e2.getType()));
+														}
+													}
+													return new NodeRel("<", e1, e2); 
+													:}
+	
+	| expression.e1 INFERIOR_EQ expression.e2		{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " <= " + e2.getType()));
+														}
+													}
+													return new NodeRel("<=", e1, e2); 
+													:}
+	
+	| expression.e1 SUPERIOR expression.e2			{: if(e1.getType()!=null && e2.getType()!=null) { //OK
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " > " + e2.getType()));
+														}
+													}												
+													return new NodeRel(">", e1, e2); 
+													:}
+	
+	| expression.e1 SUPERIOR_EQ expression.e2		{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " >= " + e2.getType()));
+														}
+													}
+													return new NodeRel(">=", e1, e2); 
+													:}
+	
+	| expression.e1 EQUALS expression.e2			{: if(e1.getType()!=null && e2.getType()!=null) {
+														if(!e1.getType().equals(e2.getType())) { //OK
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " == " + e2.getType()));
+														}
+													}
+													return new NodeRel("==", e1, e2); 
+													:}
+	
+	| expression.e1 DIFF expression.e2				{: if(e1.getType()!=null && e2.getType()!=null) { //OK
+														if(!e1.getType().equals(e2.getType())) {
+								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+										+ e1.getType() + " != " + e2.getType()));
+														}
+													}
+													return new NodeRel("!=", e1, e2); 
+													:}
+	
 	| LPAR expression.e RPAR  						{: return e; :}
 	| procedure_expression
 	| variable_access
