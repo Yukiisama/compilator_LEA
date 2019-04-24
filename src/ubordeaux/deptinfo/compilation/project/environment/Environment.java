@@ -4,6 +4,7 @@ import ubordeaux.deptinfo.compilation.project.main.*;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeFeature;
 import ubordeaux.deptinfo.compilation.project.type.TypeFunct;
+import ubordeaux.deptinfo.compilation.project.type.TypeItemEnum;
 import ubordeaux.deptinfo.compilation.project.type.TypeList;
 import ubordeaux.deptinfo.compilation.project.type.TypeTuple;
 import ubordeaux.deptinfo.compilation.project.type.TypeVoid;
@@ -13,12 +14,12 @@ import java.util.Map;
 public class Environment implements EnvironmentInt {
 
 	private Map<String, Type> table;
-	private Map<String, Integer> table_enum;
+	private Map<String, TypeItemEnum> table_enum;
 	private String str;
 	
 	public Environment(String str) {
 		this.table = new HashMap<String, Type>();
-		this.table_enum = new HashMap<String, Integer>();
+		this.table_enum = new HashMap<String, TypeItemEnum>();
 		this.str = str;
 		
 	}
@@ -62,12 +63,12 @@ public class Environment implements EnvironmentInt {
 		return table.get(variable);
 	}
 	
-	public void put_enum_value(String variable, int value) {
+	public void put_enum_value(String variable, TypeItemEnum value) {
 		table_enum.put(variable, value);
 		System.out.println("Enregistre " + variable + " " + value);
 	}
 	
-	public int get_enum_value(String variable) {
+	public TypeItemEnum get_enum_value(String variable) {
 		System.out.println("Retrouve3 " + variable + " " + table_enum.get(variable));
 		return table_enum.get(variable);
 	}
