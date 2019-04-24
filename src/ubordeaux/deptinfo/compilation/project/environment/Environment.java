@@ -36,22 +36,27 @@ public class Environment implements EnvironmentInt {
 	}
 	public void putFunction(String variable, Type value) {
 		TypeFunct x = (TypeFunct)table.get(variable);
-		if(table.get(variable)!=null && x.getDefined()!= true) {
+		
+		if(table.get(variable)!=null && x.getDefined()!= true ) {
 			table.put(variable, value);
 		}
 		else if(table.get(variable)==null)
 			table.put(variable, value);
-		//table.put(variable, );
+
 		System.out.println("Enregistre " + variable + " " + value);
 	}
 	
 
 
-	
+	public boolean is_null(String variable) {
+		if(table.get(variable)==null) 
+			return true;
+		return false;
+	}
 	public Type getFunction(String variable) {
 		if(table.get(variable) == null) {
 			Main.add_error_type(new String("ERROR NodeCallFct : function not declared " + variable));
-			return new TypeFunct(new String(""), new TypeTuple(), new TypeVoid());
+			return new TypeFunct(new String(""), new TypeTuple(), null);
 		}
 		System.out.println("Retrouve2 " + variable + " " + table.get(variable));
 		return table.get(variable);

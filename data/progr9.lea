@@ -29,8 +29,8 @@ table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
 //table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; // error "Range type expected"
 //table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
 
-ptr1 = ^integer;
-ptr2 = ^array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+//ptr1 = ^integer;
+//ptr2 = ^array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
 
 var
 
@@ -66,75 +66,271 @@ begin
 	return (i+j);
 end
 
-//function goo(i : integer, j : integer) : boolean { return false; } // error "function already defined"
+//function goo(i : integer, j : integer) : boolean begin  return false; end // error "function already defined"
 
 begin
 	b = false;
-	b = 2; // error "Type error in affectation"
-	l = m2; // error "Type error in affectation"
-	l = l;
+	//b = 2; // error "Type error in affectation"
+	//l = m2; // error "Type error in affectation"
+	// l = l;
 	
-	b = foo(3, 7)^;
-	b = goo(3, 7);
-	b = foo(3); // error "Type error in calling expression"
-	b = foo(3, false); // error "Type error in calling expression"
-	x = foo(3, 7); // error "Type error in calling expression"
+	//b = foo(3, 2)^;
+	//b = goo(3, 7);
 	
-	z2 [ Thursday ] = 36; // error "Type error in array access "
-	z2 [ 1 ] = 36;
-	x = z2 [ 1 ];
-	b = goo(z2 [ 1 ], 1);
-	y = z [ false ]; // error "Type error in array access"
-	y = z [ 4 ]; // error "Type error in affectation"
-	b = z [ 4 ]; // error "Type error in affectation"
-	z = k [ 4 ]; // error "Type error in affectation"
-	b = z2 [ Thursday ]; // error "Type error in affectation"
-	z2 = 36; // Accessible variable expected
+	//b = foo(3); // error "Type error in calling expression"
+	//b = foo(3, false); // error "Type error in calling expression"
+	//x = foo(3, 7); // error "Type error in calling expression"
+	
+	//z2 [ Thursday ] = 36; // error "Type error in array access "
+	// z2 [ 1 ] = 36;
+	//x = z2 [ 1 ];
+	// b = goo(z2 [ 1 ], 1);
+	// y = z [ false ]; b = 2; // error "Type error in affectation"
+	// l = m2; // error "Type error in affectation"
+	// l = l;
+	
+	// b = foo(3, 7)^;
+	// b = goo(3, 7);
+	// b = foo(3); // error "Type error in calling expression"
+	// b = foo(3, false); // error "Type error in calling expression"
+	// x = foo(3, 7); // error "Type error in calling expression"
+	
+	// z2 [ Thursday ] = 36; // error "Type error in array access "
+	// z2 [ 1 ] = 36;
+	// x = z2 [ 1 ];
+	// b = goo(z2 [ 1 ], 1);
+	// y = z [ false ]; // error "Type error in array access"
+	//y = z [ 4 ]; // error "Type error in affectation"
+	// b = z [ 4 ]; // error "Type error in affectation"
+	// z = k [ 4 ]; // error "Type error in affectation"
+	// b = z2 [ Thursday ]; // error "Type error in affectation"
+	// z2 = 36; // Accessible variable expected
 	
 
-	if (l [ Monday ]) then x = 1;
-	if (l [ Monday ]) then x = 1; else x = 2;
-	if (z2 [ 7 ]) then x = 1;
-	while (z2 [ 7 ]) do x = 1;
-	while (z2 [ 7 ]) do 
-		begin
-			if (l [ Monday ]) then x = 1; else x = 2;
-			println x;
-			readln y;
-		end
+	// if (l [ Monday ]) then x = 1;
+	// if (l [ Monday ]) then x = 1; else x = 2;
+	// if (z2 [ 7 ]) then x = 1;
+	// while (z2 [ 7 ]) do x = 1;
+	// while (z2 [ 7 ]) do 
+	// 	begin
+	// 		if (l [ Monday ]) then x = 1; else x = 2;
+	// 		println x;
+	// 		readln y;
+	// 	end
 		
-	switch (month) 
-		begin
-		case March, April, May:
-			println ("spring");
+	// switch (month) 
+	// 	begin
+	// 	case March, April, May:
+	// 		println ("spring");
 		
-		case June, July, August:
-			println("summer");
+	// 	case June, July, August:
+	// 		println("summer");
 		
-		case September, October, November:
-			println("autumn");
+	// 	case September, October, November:
+	// 		println("autumn");
 		
-		case February, December, January:
-			println("winter");
+	// 	case February, December, January:
+	// 		println("winter");
 			
-		default:
-			println("none");
-		end
+	// 	default:
+	// 		println("none");
+	// 	end
 
-	x = -(36 + 45 / 7);
-	b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-	b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-	b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+	// x = -(36 + 45 / 7);
+	// b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+	// b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+	// b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
 
-	p = null;
-	p = 0; // error "Type error in affectation"
-	new p;
-	new x; // error "Type error in pointer access expression"
-	p^ = 36;
-	p^ = false;
-	x^ = null; // error "Type error in pointer access expression"
-	x = p^;
-	dispose p;
-	dispose x;  // error "Type error in pointer access expression"
+	// p = null;
+	// p = 0; // error "Type error in affectation"
+	// new p;
+	// new x; // error "Type error in pointer access expression"
+	// p^ = 36;
+	// p^ = false;
+	// x^ = null; // error "Type error in pointer access expression"
+	// x = p^;
+	// dispose p;
+	// dispose x;  // error "Type error in pointer access expression"/ error "Type error in array access"
+	// y = z [ 4 ]; // eb = 2; // error "Type error in affectation"
+	// l = m2; // error "Type error in affectation"
+	// l = l;
+	
+	// b = foo(3, 7)^;
+	// b = goo(3, 7);
+	// b = foo(3); // error "Type error in calling expression"
+	// b = foo(3, false); // error "Type error in calling expression"
+	// x = foo(3, 7); // error "Type error in calling expression"
+	
+	// z2 [ Thursday ] = 36; // error "Type error in array access "
+	// z2 [ 1 ] = 36;
+	// x = z2 [ 1 ];
+	// b = goo(z2 [ 1 ], 1);
+	// y = z [ false ]; // error "Type error in array access"
+	// y = z [ 4 ]; // error "Type error in affectation"
+	// b = z [ 4 ]; // error "Type error in affectation"
+	// z = k [ 4 ]; // error "Type error in affectation"
+	// b = z2 [ Thursday ]; // error "Type error in affectation"
+	// z2 = 36; // Accessible variable expected
+	
+
+	// if (l [ Monday ]) then x = 1;
+	// if (l [ Monday ]) then x = 1; else x = 2;
+	// if (z2 [ 7 ]) then x = 1;
+	// while (z2 [ 7 ]) do x = 1;
+	// while (z2 [ 7 ]) do 
+	// 	begin
+	// 		if (l [ Monday ]) then x = 1; else x = 2;
+	// 		println x;
+	// 		readln y;
+	// 	end
+		
+	// switch (month) 
+	// 	begin
+	// 	case March, April, May:
+	// 		println ("spring");
+		
+	// 	case June, July, August:
+	// 		println("summer");
+		
+	// 	case September, October, November:
+	// 		println("autumn");
+		
+	// 	case February, December, January:
+	// 		println("winter");
+			
+	// 	default:
+	// 		println("none");
+	// 	end
+
+	// x = -(36 + 45 / 7);
+	// b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+	// b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+	// b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+
+	// p = null;
+	// p = 0; // error "Type error in affectation"
+	// new p;
+	// new x; // error "Type error in pointer access expression"
+	// p^ = 36;
+	// p^ = false;
+	// x^ = null; // error "Type error in pointer access expression"
+	// x = p^;
+	// dispose p;
+	// dispose x;  // error "Type error in pointer access expression"ror "Type error in affectation"
+	// b = z [ 4 ]; // eb = 2; // error "Type error in affectation"
+	// l = m2; // error "Type error in affectation"
+	// l = l;
+	
+	// b = foo(3, 7)^;
+	// b = goo(3, 7);
+	// b = foo(3); // error "Type error in calling expression"
+	// b = foo(3, false); // error "Type error in calling expression"
+	// x = foo(3, 7); // error "Type error in calling expression"
+	
+	// z2 [ Thursday ] = 36; // error "Type error in array access "
+	// z2 [ 1 ] = 36;
+	// x = z2 [ 1 ];
+	// b = goo(z2 [ 1 ], 1);
+	// y = z [ false ]; // error "Type error in array access"
+	// y = z [ 4 ]; // error "Type error in affectation"
+	// b = z [ 4 ]; // error "Type error in affectation"
+	// z = k [ 4 ]; // error "Type error in affectation"
+	// b = z2 [ Thursday ]; // error "Type error in affectation"
+	// z2 = 36; // Accessible variable expected
+	
+
+	// if (l [ Monday ]) then x = 1;
+	// if (l [ Monday ]) then x = 1; else x = 2;
+	// if (z2 [ 7 ]) then x = 1;
+	// while (z2 [ 7 ]) do x = 1;
+	// while (z2 [ 7 ]) do 
+	// 	begin
+	// 		if (l [ Monday ]) then x = 1; else x = 2;
+	// 		println x;
+	// 		readln y;
+	// 	end
+		
+	// switch (month) 
+	// 	begin
+	// 	case March, April, May:
+	// 		println ("spring");
+		
+	// 	case June, July, August:
+	// 		println("summer");
+		
+	// 	case September, October, November:
+	// 		println("autumn");
+		
+	// 	case February, December, January:
+	// 		println("winter");
+			
+	// 	default:
+	// 		println("none");
+	// 	end
+
+	// x = -(36 + 45 / 7);
+	// b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+	// b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+	// b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+
+	// p = null;
+	// p = 0; // error "Type error in affectation"
+	// new p;
+	// new x; // error "Type error in pointer access expression"
+	// p^ = 36;
+	// p^ = false;
+	// x^ = null; // error "Type error in pointer access expression"
+	// x = p^;
+	// dispose p;
+	// dispose x;  // error "Type error in pointer access expression"ror "Type error in affectation"
+	// z = k [ 4 ]; // error "Type error in affectation"
+	// b = z2 [ Thursday ]; // error "Type error in affectation"
+	// z2 = 36; // Accessible variable expected
+	
+
+	// if (l [ Monday ]) then x = 1;
+	// if (l [ Monday ]) then x = 1; else x = 2;
+	// if (z2 [ 7 ]) then x = 1;
+	// while (z2 [ 7 ]) do x = 1;
+	// while (z2 [ 7 ]) do 
+	// 	begin
+	// 		if (l [ Monday ]) then x = 1; else x = 2;
+	// 		println x;
+	// 		readln y;
+	// 	end
+		
+	// switch (month) 
+	// 	begin
+	// 	case March, April, May:
+	// 		println ("spring");
+		
+	// 	case June, July, August:
+	// 		println("summer");
+		
+	// 	case September, October, November:
+	// 		println("autumn");
+		
+	// 	case February, December, January:
+	// 		println("winter");
+			
+	// 	default:
+	// 		println("none");
+	// 	end
+
+	// x = -(36 + 45 / 7);
+	// b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+	// b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+	// b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+
+	// p = null;
+	// p = 0; // error "Type error in affectation"
+	// new p;
+	// new x; // error "Type error in pointer access expression"
+	// p^ = 36;
+	// p^ = false;
+	// x^ = null; // error "Type error in pointer access expression"
+	// x = p^;
+	// dispose p;
+	// dispose x;  // error "Type error in pointer access expression"
 
 end

@@ -3,7 +3,8 @@
 // Type fonction arg -> ret
 public class TypeFunct extends TypeComplex {
 
-	private boolean defined;
+	private boolean defined = false;
+	private int declared = 0;
 	private String name;
 
 	public TypeFunct(String name, TypeTuple params, Type ret) {
@@ -30,7 +31,7 @@ public class TypeFunct extends TypeComplex {
 
 	@Override
 	public String toString() {
-		return getParams() + " -> " + getRet() + " Defined: " + defined + " Name: " + name;
+		return getParams() + " -> " + getRet() + " Defined: " + defined + " Name: " + name + "Declare : " + declared;
 	}
 
 	@Override
@@ -45,6 +46,7 @@ public class TypeFunct extends TypeComplex {
 	public TypeFunct clone() {
 		TypeFunct result = new TypeFunct(this.name, this.getParams().clone(), (Type) this.getRet().clone());
 		result.setDefined(defined);
+		result.setDeclared(declared);
 		return result;
 	}
 
@@ -54,6 +56,15 @@ public class TypeFunct extends TypeComplex {
 
 	public boolean getDefined() {
 		return this.defined;
+	}
+	
+
+	public int getDeclared() {
+		return declared;
+	}
+
+	public void setDeclared(int declared) {
+		this.declared = declared;
 	}
 
 	public String getName() {
