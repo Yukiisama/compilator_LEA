@@ -53,6 +53,7 @@ public class Terminals {
 	static public final short PROCEDURE = 45;
 	static public final short DOUBLE_DOT = 46;
 	static public final short CASE = 47;
+<<<<<<< Updated upstream
 	static public final short DEFAULT = 48;
 	static public final short VAR = 49;
 	static public final short OF = 50;
@@ -61,6 +62,16 @@ public class Terminals {
 	static public final short THEN = 53;
 	static public final short ELSE = 54;
 	static public final short DO = 55;
+=======
+	static public final short VAR = 48;
+	static public final short OF = 49;
+	static public final short LCURLY_BRACKET = 50;
+	static public final short RCURLY_BRACKET = 51;
+	static public final short THEN = 52;
+	static public final short ELSE = 53;
+	static public final short DO = 54;
+	static public final short DEFAULT = 55;
+>>>>>>> Stashed changes
 	static public final short TYPE = 56;
 
 	static public final String[] NAMES = {
@@ -112,7 +123,10 @@ public class Terminals {
 		"PROCEDURE",
 		"DOUBLE_DOT",
 		"CASE",
+<<<<<<< Updated upstream
 		"DEFAULT",
+=======
+>>>>>>> Stashed changes
 		"VAR",
 		"OF",
 		"LCURLY_BRACKET",

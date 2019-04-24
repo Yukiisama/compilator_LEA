@@ -325,15 +325,31 @@ Enregistre dans stack   month TypeNamed_Months
 *** (
 *** i
 *** :
+*** array
+*** [
+*** 1
+*** ..
+*** 32
+*** ]
+*** of
 *** integer
-*** ,
-Create class NodeId
+*** ;
+*** k
 Create class NodeList
-*** j
-*** :
-*** integer
-*** )
 Create class NodeId
+Enregistre dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+*** :
+*** array
+*** [
+*** range2
+*** ]
+*** of
+*** integer
+*** ;
+*** l
+Create class NodeList
+Create class NodeId
+Enregistre dans stack   k TypeArray(TypeNamed_range2, TypeInt_null)
 *** :
 *** boolean
 *** ;
@@ -441,16 +457,24 @@ Stack PUSH
 *** +
 Retrouve dans stack   i null
 Create class NodeId
+Create class NodeList
 *** j
 *** )
 Retrouve dans stack   j null
 Create class NodeId
-Create class NodeOp
 *** ;
+Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
+Etape 126 : ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
+Etape 127 : NodeList(NodeId#i:null#, NodeId#j:null#)
+Create class NodeCallFct
+*** return
+Create class NodeAssign
+*** result
+*** ;
+Retrouve dans stack   result TypePointer(TypeBoolean)
+Create class NodeId
 *** end
 Create class NodeReturn
-Create class NodeList
-NodeList(NodeReturn(NodeOp(NodeId#i:null#, NodeId#j:null#)))
 *** function
 Stack PUSH
 Retrouve2 goo ([goo:TypeInt_null], [goo:TypeInt_null]) -> TypeBoolean Defined: false Name: goo
