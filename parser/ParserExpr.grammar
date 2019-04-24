@@ -315,24 +315,47 @@ procedure_definition_list =
 	;
 
 procedure_definition =
-	procedure_definition_head.s block {:
+	procedure_definition_head.s block 
+	{:
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
-		if(t2.getDefined()==false)
+		if(t2.getDefined()==false) {
 			t.setDefined(true);
+			t.setDeclared(0);
+		}
 		else {
-			semanticError(" function already defined",s);
-			System.err.println("ERROR :function already defined" + sa );
-			Main.add_error_type(new String("ERROR NodeCallFct : function already defined" + sa ));
+			semanticError(" function already defined  ",s);
+			System.err.println("ERROR :function already defined  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
 			
 		}
+		
 		sa.setTypeFUNC(t);
-		System.out.println("COUCOU" + sa.getTypeFUNC() );
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
-		return sa;:}
-	| procedure_definition_head SEMI
+		return sa;
+	:}
+	| procedure_definition_head.s SEMI 
+	{:
+		NodeCallFct sa = (NodeCallFct)s;
+		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
+		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		System.out.println("Salut c'est ici -> " + t2);
+		int x = t2.getDeclared();
+		t.setDeclared(++x);
+		if(t.getDeclared()>1) {
+			semanticError(" procedure or function declared twice  ",s);
+			System.err.println("ERROR :procedure or function declared twice  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
+		}
+		
+		sa.setTypeFUNC(t);
+		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
+		
+		return sa;
+	:}
+	
 	;
 
 procedure_definition_head =
@@ -352,7 +375,7 @@ procedure_head =
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
 		procedureEnvironment.putFunction(func,lionel_le_boss);
-
+		
 		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list); 
 	:}
 
@@ -367,7 +390,8 @@ procedure_head =
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
-		procedureEnvironment.putFunction(func,lionel_le_boss);
+		if(procedureEnvironment.is_null(func))
+			procedureEnvironment.putFunction(func,lionel_le_boss);
 
 		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list); 
 	:}
