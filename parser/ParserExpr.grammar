@@ -462,11 +462,26 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 
-		
-		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())) {
-			semanticError("Type error in affectation", e);
-			System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
-			Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+
+		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
+			if(stm.getType() instanceof TypeNamed){
+				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
+				if(t instanceof TypePointer ) {
+					return new NodeAssign(stm, e);
+				}
+			}
+			else {	
+				if(stm.getType() instanceof TypePointer && e.getType() instanceof TypePointer ) {
+					TypeComplex ptr = (TypeComplex)e.getType();
+					if(ptr.size()==0)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) stm.getType()).get(0)),0));
+					else if(ptr.size()==1)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) e.getType()).get(0)),0));
+				}
+				semanticError("Type error in affectation", e);
+				System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
+				Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+			}
 		}
 		return new NodeAssign(stm, e);
 	:}
@@ -517,7 +532,23 @@ expression_list=
 	;
 
 new_statement=
-	NEW variable_access.stm SEMI		{:return new NodeNew(stm); :}
+	NEW variable_access.stm SEMI		
+	{:	
+		NodeId ID = (NodeId) stm;
+		if(ID.getType() instanceof TypePointer)
+			return new NodeNew(stm);
+		else if ( ID.getType() instanceof TypeNamed) {
+			TypeNamed name_type = (TypeNamed) ID.getType();
+			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
+				return new NodeNew(stm);
+		}
+		
+		semanticError(" Type error in pointer access expression ",stm);
+		System.err.println("ERROR : Type error in pointer access expression " + stm);
+		Main.add_error_type(new String("ERROR NodeNew : Type error in pointer access expression " + stm));
+		return new NodeNew(new NodeId("ERROR",new TypeVoid()));
+		
+	:}
 	;
 
 dispose_statement=
@@ -613,7 +644,7 @@ variable_access =
 	IDENTIFIER.name											
 	{:  
 		int x = 0;
-	
+		
 		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
 			return new NodeId("ERROR",new TypeVoid());
@@ -632,7 +663,19 @@ variable_access =
 	:}
 	| expression.e CIRCUMFLEX 	
 	{: 
-		return new NodePtrAccess(e); 
+		NodeId ID = (NodeId) e;
+
+		if(ID.getType() instanceof TypePointer)
+			return new NodePtrAccess(e);
+		else if ( ID.getType() instanceof TypeNamed) {
+			TypeNamed name_type = (TypeNamed) ID.getType();
+			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
+				return new NodePtrAccess(e);
+		}
+		semanticError(" Type error in pointer access expression ",e);
+		System.err.println("ERROR : Type error in pointer access expression " + e);
+		Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
+		return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
 	:}
 	;
 
@@ -782,7 +825,7 @@ expression =
 		return new NodeRel("==", e1, e2); 
 	:}
 	
-	| expression.e1 DIFF expression.e2				
+	| expression.e1 DIFF expression.e2			
 	{: 
 		if(e1.getType()!=null && e2.getType()!=null) { //OK
 			if(!e1.getType().equals(e2.getType())) {
