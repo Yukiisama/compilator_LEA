@@ -1,8 +1,11 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Relop;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Seq;
 
 public final class NodeIf extends NodeStm {
 
@@ -72,11 +75,31 @@ public final class NodeIf extends NodeStm {
 			rel_val = Relop.NE;
 		if(rel.getName() == "!")
 			rel_val = Relop.NOT;
+		
+		//label end
+		LabelLocation end = new LabelLocation();
+		//Jump end
+		Jump jmpEnd = new Jump(end);
+		//Seq T
 		LabelLocation t = new LabelLocation();
-		
+		NodeStm stmT = (NodeStm) this.getThenNode();
+		Seq seqT = new Seq(new Label(t),stmT.getStm());
+		//Seq F
 		LabelLocation f = new LabelLocation();
+		NodeStm stmF = (NodeStm) this.getThenNode();
+		Seq seqF = new Seq(new Label(f),stmF.getStm());
+		//seq4
+		Seq seq4 = new Seq(seqT,jmpEnd);
+		//seq4
+		Seq seq5 = new Seq(seqF,jmpEnd);
+		//seq3
+		Seq seq3 = new Seq(seq4,seq5);
+		//Cjump 
+		Cjump c1 =  new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		//seq2
+		Seq seq2 = new Seq(c1,seq3);
 		
-		super.stm= new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		super.stm = new Seq(seq2,new Label(end));
 
 	}
 
