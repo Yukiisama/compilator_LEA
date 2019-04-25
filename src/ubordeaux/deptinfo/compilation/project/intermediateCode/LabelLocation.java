@@ -21,6 +21,7 @@ public class LabelLocation {
 	public LabelLocation() {
 		this("L" + count++);
 	}
+	
 
 	/**
 	 * Makes a new label whose name is the same as a symbol.

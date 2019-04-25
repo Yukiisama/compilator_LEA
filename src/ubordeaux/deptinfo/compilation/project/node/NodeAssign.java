@@ -1,5 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Mem;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Move;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 
@@ -48,7 +49,7 @@ public final class NodeAssign extends NodeStm {
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
 		
-		super.stm = new Move(this.getLhs().getExp(),this.getRhs().getExp());
+		super.stm = new Move(new Mem(this.getLhs().getExp()),this.getRhs().getExp());
 	}
 
 }

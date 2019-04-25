@@ -1,8 +1,11 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Relop;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Seq;
 
 public final class NodeWhile extends NodeStm {
 
@@ -55,10 +58,24 @@ public final class NodeWhile extends NodeStm {
 			rel_val = Relop.NE;
 		if(rel.getName() == "!")
 			rel_val = Relop.NOT;
+		//Seq T
 		LabelLocation t = new LabelLocation();
+		NodeStm stm = (NodeStm) this.get(1);
+		Seq seqT = new Seq(new Label(t),stm.getStm());
+		//Label while
+		LabelLocation label_while = new LabelLocation();
+		Jump jmp_while = new Jump(label_while);
+		//Seq jmp
+		Seq seq_jmp = new Seq(seqT,jmp_while);
+		//Seq F
 		LabelLocation f = new LabelLocation();
-		super.stm= new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
-
+		Seq seqF = new Seq(seq_jmp,new Label(f));
+		//Seq Cjmp
+		Cjump c = new Cjump(rel_val,rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		Seq seq_Cjmp = new Seq(new Label(label_while),c);
+		
+		//Seq final
+		super.stm = new Seq(seq_Cjmp,seqF);
 	}
 
 }

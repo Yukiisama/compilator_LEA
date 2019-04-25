@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
-
-public final class NodeCaseList extends NodeExp {
+//Student : modify NodeExp to NodeStm
+public final class NodeCaseList extends NodeStm {
 
 	public NodeCaseList() {
 		super();
@@ -17,4 +17,12 @@ public final class NodeCaseList extends NodeExp {
 		return new NodeCaseList();
 	}
 
+	public void generateIntermediateCode() {
+		if(!this.checksType()) {
+			System.out.println("NodeCase failed on generateIntermediateCode");
+			return;
+		}
+	
+		
+	}
 }
