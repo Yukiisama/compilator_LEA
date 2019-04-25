@@ -252,7 +252,11 @@ Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:
 Etape 127 : NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
 Create class NodeCallFct
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 =======
 *** println
 >>>>>>> Stashed changes
@@ -269,7 +273,11 @@ Retrouve dans stack   a TypeString
 Create class NodeId
 *** ;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 =======
 *** println
 >>>>>>> Stashed changes
@@ -586,7 +594,11 @@ Stack PUSH
 Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
 Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: true Name: impairDeclare : 0
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 =======
 *** println
 >>>>>>> Stashed changes
@@ -608,7 +620,11 @@ Create class NodeList
 Create class NodeCallFct
 Create class NodeList
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
+=======
+NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
+>>>>>>> Stashed changes
 =======
 NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
 >>>>>>> Stashed changes
@@ -683,7 +699,11 @@ Create class NodeCallFct
 
 Stack PUSH
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
+=======
+NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
+>>>>>>> Stashed changes
 =======
 NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
 >>>>>>> Stashed changes
