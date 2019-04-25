@@ -24,7 +24,7 @@ end
 procedure hanoi(a: string, b: string, c: string, k: integer)
   begin
   if (k>1) then hanoi(a, c, b, k-1);
-  print(a); print(">"); println(c);
+  println(a); println(">"); println(c);
   if (k>1) then hanoi(b, a, c, k-1);
 end
 

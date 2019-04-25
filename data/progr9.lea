@@ -22,10 +22,17 @@ range2 = Monday .. Friday;
 //range7 = Friday .. Tuesday; // error "range not valid"
 //range8 = Monday .. April; // error "incoherent range"
 
+<<<<<<< Updated upstream
 table1 = array [ 1 .. 32 ] of integer;
 table2 = array [ range3 ] of integer;
 table3 = array [ range2 ] of integer;
 table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+=======
+//table1 = array [ 1 .. 32 ] of integer;
+//table2 = array [ range1 ] of integer;
+//table3 = array [ range2 ] of integer;
+//table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
+>>>>>>> Stashed changes
 //table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; // error "Range type expected"
 //table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
 
@@ -38,9 +45,9 @@ x, y, z : integer;
 //x : boolean; // error "Variable x yet declared"
 b : boolean;
 z2 : array [ 1 .. 32] of integer;
-k : array [ range2 ] of integer;
-l : array [ range2 ] of boolean;
-m2 : array [ Monday .. Thursday ] of boolean;
+//k : array [ range2 ] of integer;
+//l : array [ range2 ] of boolean;
+//m2 : array [ Monday .. Thursday ] of boolean;
 p : ptr1;
 m : Months;
 r1: range1;
@@ -49,7 +56,7 @@ r2: range2;
 month : Months;
 
 function goo(i : integer, j : integer) : boolean;
-//function goo(i : integer, j : integer) : boolean; //error "procedure or function declared twice"
+function goo(i : integer, j : integer) : boolean; //error "procedure or function declared twice"
 
 function foo(i : integer, j : integer) : ^boolean
 var
@@ -66,7 +73,8 @@ begin
 	return (i+j);
 end
 
-//function goo(i : integer, j : integer) : boolean begin  return false; end // error "function already defined"
+
+function goo(i : integer, j : integer) : boolean begin  return false; end // error "function already defined"
 
 begin
 	b = false;
@@ -74,14 +82,14 @@ begin
 	//l = m2; // error "Type error in affectation"
 	// l = l;
 	
-	//b = foo(3, 2)^;
-	//b = goo(3, 7);
+	//b = chou(3, 2)^;
+	b = goo(3, 7);
 	
 	//b = foo(3); // error "Type error in calling expression"
 	//b = foo(3, false); // error "Type error in calling expression"
 	//x = foo(3, 7); // error "Type error in calling expression"
 	
-	//z2 [ Thursday ] = 36; // error "Type error in array access "
+	z2 [ MONDAY] = 36; // error "Type error in array access "
 	// z2 [ 1 ] = 36;
 	//x = z2 [ 1 ];
 	// b = goo(z2 [ 1 ], 1);

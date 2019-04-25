@@ -251,7 +251,11 @@ Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [ha
 Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
 Etape 127 : NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
 Create class NodeCallFct
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 Create class NodeIf
 Create class NodeList
 NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), hanoi_NodeCallFct(NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
@@ -264,7 +268,11 @@ Retrouve dans stack   a TypeString
 Retrouve dans stack   a TypeString
 Create class NodeId
 *** ;
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 Create class NodeList
 Create class NodeCallFct
 *** (
@@ -577,7 +585,11 @@ NodeList(NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeR
 Stack PUSH
 Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
 Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: true Name: impairDeclare : 0
+<<<<<<< Updated upstream
 *** print
+=======
+*** println
+>>>>>>> Stashed changes
 *** (
 *** fact1
 *** (
@@ -595,7 +607,11 @@ Create class NodeCallFct
 Create class NodeList
 Create class NodeCallFct
 Create class NodeList
+<<<<<<< Updated upstream
 NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
+=======
+NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
+>>>>>>> Stashed changes
 *** (
 *** fact2
 *** (
@@ -666,7 +682,11 @@ Create class NodeList
 Create class NodeCallFct
 
 Stack PUSH
+<<<<<<< Updated upstream
 NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
+=======
+NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
+>>>>>>> Stashed changes
 *** Analyse syntaxique ok
 --- CheckType NodeList
 --- CheckType NodeCallFct
