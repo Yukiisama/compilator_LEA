@@ -2,6 +2,7 @@ package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.type.TypeRange;
 import ubordeaux.deptinfo.compilation.project.type.TypeItemEnum;
+import ubordeaux.deptinfo.compilation.project.main.Main;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeArray;
 import ubordeaux.deptinfo.compilation.project.type.TypeComplex;
@@ -11,8 +12,13 @@ public final class NodeArrayAccess extends NodeExp {
 	// t [i]
 	public NodeArrayAccess(NodeExp t, Node i) {
 		super(t, i);
+		if (t.type instanceof TypeComplex) {
 		if ((t!=null) && (((TypeComplex) t.type).size() == 2))
 			type = ((TypeComplex) t.type).get(1);
+		}
+		else {
+			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in affectation"));
+		}
 	}
 
 	@Override

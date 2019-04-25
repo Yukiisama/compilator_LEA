@@ -253,7 +253,7 @@ array_type =
 range_type =
 	enumerated_type
 	| subrange_type
-	| named_type
+	| named_type 
 	;
 
 pointer_type =
@@ -552,7 +552,19 @@ new_statement=
 	;
 
 dispose_statement=
-	DISPOSE variable_access.stm SEMI	{: return new NodeDispose(stm); :}
+	DISPOSE variable_access.stm SEMI	{: 
+		NodeId id = (NodeId) stm;
+		if(id.getType() instanceof TypePointer)
+			return new NodeDispose(stm);
+		else
+		{
+			semanticError(" Type error in pointer access expression ",stm);
+			System.err.println("ERROR : Type error in pointer access expression " + stm);
+			Main.add_error_type(new String("ERROR NodeDispose : Type error in pointer access expression " + stm));
+			return new NodeDispose(new NodeId("ERROR",new TypeVoid()));
+		}
+		:}
+		
 	;
 
 print_statement=		
@@ -654,6 +666,12 @@ variable_access =
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
 		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeNamed) {
+			TypeNamed named =  (TypeNamed) stackEnvironment.getVariableValue(name) ;
+			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
+		}
+		
+		
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 
@@ -667,15 +685,12 @@ variable_access =
 
 		if(ID.getType() instanceof TypePointer)
 			return new NodePtrAccess(e);
-		else if ( ID.getType() instanceof TypeNamed) {
-			TypeNamed name_type = (TypeNamed) ID.getType();
-			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
-				return new NodePtrAccess(e);
-		}
+		else {
 		semanticError(" Type error in pointer access expression ",e);
 		System.err.println("ERROR : Type error in pointer access expression " + e);
 		Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
 		return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+		}
 	:}
 	;
 
