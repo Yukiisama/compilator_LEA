@@ -10,6 +10,14 @@ public class ExpList implements IntermediateCode {
 		this.tail = tail;
 	}
 
+	public Exp getHead() {
+		return head;
+	}
+
+	public ExpList getTail() {
+		return tail;
+	}
+
 	@Override
 	public void canonicalTransformation() {
 		// TODO Auto-generated method stub

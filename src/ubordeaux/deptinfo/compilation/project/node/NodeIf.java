@@ -73,7 +73,9 @@ public final class NodeIf extends NodeStm {
 		if(rel.getName() == "!")
 			rel_val = Relop.NOT;
 		LabelLocation t = new LabelLocation();
+		
 		LabelLocation f = new LabelLocation();
+		
 		super.stm= new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
 
 	}
