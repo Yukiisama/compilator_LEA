@@ -85,7 +85,7 @@
 ////====Integer/String====\\\\
 
 %typeof INTEGER_LIT = "Integer";
-%typeof init_enumerated_type = "Integer";
+%typeof init_enumerated_type = "TypeEnumRange";
 %typeof STRING_LIT = "String";
 %typeof IDENTIFIER = "String";
 
@@ -166,6 +166,7 @@ type_declaration =
 					}
 				}
 		}
+	System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAA" + name);
 		typeEnvironment.putVariable(name.get_name(),t);
 		return new TypeFeature(name.get_name(),t);
 	:}	
@@ -204,7 +205,7 @@ index_type =
 	;
 
 enumerated_type =
-	init_enumerated_type LPAR identifier_list.t_list RPAR
+	init_enumerated_type.init LPAR identifier_list.t_list RPAR
 		{: 
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
@@ -225,29 +226,44 @@ init_enumerated_type = {:return new TypeEnumRange();:}
 subrange_type =
 	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max	
 	{: 
+		boolean test_range_type = true;
 		if(min > max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+			test_range_type = false;
 		}
-		return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); 
+		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+		type_range.setRange_type(test_range_type);
+		return type_range;
 	:}
 
 	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				
 	{: 
+		boolean test_range_type = true;
 		TypeItemEnum x = typeEnvironment.get_enum_value(min);
 		TypeItemEnum y = typeEnvironment.get_enum_value(max);
 		int v_min = x.getValue();
 		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
+			test_range_type = false;
 		}
+		
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
 		one.setFrom_enum(true);
+		one.setRange_type(test_range_type);
 		return one; 
 	:}
 	;
 
 array_type =
-	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2			{: return new TypeArray(t1,t2); :}
+	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
+										TypeArray array = new TypeArray(t1,t2);
+										TypeRange test_range_type = array.getRangeOREnum();
+										if(test_range_type.isRange_type()==false || test_range_type == null){
+		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+															}
+															
+															return array; :}
 	;
 
 range_type =
@@ -323,7 +339,7 @@ procedure_definition_list =
 	;
 
 procedure_definition =
-	procedure_definition_head.s block 
+	procedure_definition_head.s block
 	{:
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
@@ -482,7 +498,6 @@ procedure_expression=
 		TypeFunct lionel_le_boss = (TypeFunct)procedureEnvironment.getFunction(func);
 		//Case Nb params differents
 		if(lionel_le_boss.getParams().size() != list.size()) {
-			
 			semanticError("Type error in calling expression",list);
 			System.err.println("ERROR : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list);
 			Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list));
@@ -730,7 +745,7 @@ expression =
 	| expression.e1 INFERIOR expression.e2			
 	{:
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 						+ e1.getType() + " < " + e2.getType()));
 			}
@@ -741,7 +756,7 @@ expression =
 	| expression.e1 INFERIOR_EQ expression.e2		
 	{:
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 						+ e1.getType() + " <= " + e2.getType()));
 			}
@@ -752,7 +767,7 @@ expression =
 	| expression.e1 SUPERIOR expression.e2			
 	{:
 		if(e1.getType()!=null && e2.getType()!=null) { //OK
-			if(!e1.getType().equals(e2.getType())) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) {
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " > " + e2.getType()));
 			}
@@ -763,7 +778,7 @@ expression =
 	| expression.e1 SUPERIOR_EQ expression.e2		
 	{:
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " >= " + e2.getType()));
 			}
