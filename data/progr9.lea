@@ -22,23 +22,13 @@ range2 = Monday .. Friday;
 //range7 = Friday .. Tuesday; // error "range not valid"
 //range8 = Monday .. April; // error "incoherent range"
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 table1 = array [ 1 .. 32 ] of integer;
 table2 = array [ range3 ] of integer;
 table3 = array [ range2 ] of integer;
 table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
-=======
-=======
->>>>>>> Stashed changes
-//table1 = array [ 1 .. 32 ] of integer;
-//table2 = array [ range1 ] of integer;
-//table3 = array [ range2 ] of integer;
-//table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
+
 //table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; // error "Range type expected"
 //table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
 
