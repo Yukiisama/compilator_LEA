@@ -166,8 +166,9 @@ type_declaration =
 					}
 				}
 		}
-	System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAA" + name);
 		typeEnvironment.putVariable(name.get_name(),t);
+		System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + t);
+		//typeEnvironment.putEnumToName((TypeEnumRange) t,name.get_name());
 		return new TypeFeature(name.get_name(),t);
 	:}	
 	;
@@ -207,16 +208,18 @@ index_type =
 enumerated_type =
 	init_enumerated_type.init LPAR identifier_list.t_list RPAR
 		{: 
+			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			//String name = typeEnvironment.getEnumToName(enum_range);
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
 			while(it.hasNext()) {
 				String x =  it.next();
 				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
 				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
+				//typeEnvironment.putIDtoName(x,name);
 				i++;
 			}
-
-			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			return enum_range;
 		:}
 	;
 	
@@ -232,7 +235,7 @@ subrange_type =
 			test_range_type = false;
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
-		type_range.setRange_type(test_range_type);
+		//type_range.setRange_type(test_range_type);
 		return type_range;
 	:}
 
@@ -247,29 +250,37 @@ subrange_type =
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 			test_range_type = false;
 		}
-		
+		//if(typeEnvironment.getIDtoName(min)==null || typeEnvironment.getIDtoName(max)==null) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : enum doesn't exist " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
+		//if(!typeEnvironment.getIDtoName(min).equals(typeEnvironment.getIDtoName(max))) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
 		one.setFrom_enum(true);
-		one.setRange_type(test_range_type);
+		//one.setRange_type(test_range_type);
 		return one; 
 	:}
 	;
 
 array_type =
 	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
+						/*
 										TypeArray array = new TypeArray(t1,t2);
 										TypeRange test_range_type = array.getRangeOREnum();
 										if(test_range_type.isRange_type()==false || test_range_type == null){
 		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
 															}
-															
+													*/		
 															return array; :}
 	;
 
 range_type =
 	enumerated_type
 	| subrange_type
-	| named_type
+	| named_type 
 	;
 
 pointer_type =
@@ -478,11 +489,26 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 
-		
-		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())) {
-			semanticError("Type error in affectation", e);
-			System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
-			Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+
+		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
+			if(stm.getType() instanceof TypeNamed){
+				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
+				if(t instanceof TypePointer ) {
+					return new NodeAssign(stm, e);
+				}
+			}
+			else {	
+				if(stm.getType() instanceof TypePointer && e.getType() instanceof TypePointer ) {
+					TypeComplex ptr = (TypeComplex)e.getType();
+					if(ptr.size()==0)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) stm.getType()).get(0)),0));
+					else if(ptr.size()==1)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) e.getType()).get(0)),0));
+				}
+				semanticError("Type error in affectation", e);
+				System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
+				Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+			}
 		}
 		return new NodeAssign(stm, e);
 	:}
@@ -532,11 +558,39 @@ expression_list=
 	;
 
 new_statement=
-	NEW variable_access.stm SEMI		{:return new NodeNew(stm); :}
+	NEW variable_access.stm SEMI		
+	{:	
+		NodeId ID = (NodeId) stm;
+		if(ID.getType() instanceof TypePointer)
+			return new NodeNew(stm);
+		else if ( ID.getType() instanceof TypeNamed) {
+			TypeNamed name_type = (TypeNamed) ID.getType();
+			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
+				return new NodeNew(stm);
+		}
+		
+		semanticError(" Type error in pointer access expression ",stm);
+		System.err.println("ERROR : Type error in pointer access expression " + stm);
+		Main.add_error_type(new String("ERROR NodeNew : Type error in pointer access expression " + stm));
+		return new NodeNew(new NodeId("ERROR",new TypeVoid()));
+		
+	:}
 	;
 
 dispose_statement=
-	DISPOSE variable_access.stm SEMI	{: return new NodeDispose(stm); :}
+	DISPOSE variable_access.stm SEMI	{: 
+		NodeId id = (NodeId) stm;
+		if(id.getType() instanceof TypePointer)
+			return new NodeDispose(stm);
+		else
+		{
+			semanticError(" Type error in pointer access expression ",stm);
+			System.err.println("ERROR : Type error in pointer access expression " + stm);
+			Main.add_error_type(new String("ERROR NodeDispose : Type error in pointer access expression " + stm));
+			return new NodeDispose(new NodeId("ERROR",new TypeVoid()));
+		}
+		:}
+		
 	;
 
 print_statement=		
@@ -628,7 +682,7 @@ variable_access =
 	IDENTIFIER.name											
 	{:  
 		int x = 0;
-	
+		
 		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
 			return new NodeId("ERROR",new TypeVoid());
@@ -638,6 +692,12 @@ variable_access =
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
 		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeNamed) {
+			TypeNamed named =  (TypeNamed) stackEnvironment.getVariableValue(name) ;
+			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
+		}
+		
+		
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 
@@ -647,7 +707,16 @@ variable_access =
 	:}
 	| expression.e CIRCUMFLEX 	
 	{: 
-		return new NodePtrAccess(e); 
+		NodeId ID = (NodeId) e;
+
+		if(ID.getType() instanceof TypePointer)
+			return new NodePtrAccess(e);
+		else {
+		semanticError(" Type error in pointer access expression ",e);
+		System.err.println("ERROR : Type error in pointer access expression " + e);
+		Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
+		return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+		}
 	:}
 	;
 
@@ -797,7 +866,7 @@ expression =
 		return new NodeRel("==", e1, e2); 
 	:}
 	
-	| expression.e1 DIFF expression.e2				
+	| expression.e1 DIFF expression.e2			
 	{: 
 		if(e1.getType()!=null && e2.getType()!=null) { //OK
 			if(!e1.getType().equals(e2.getType())) {
