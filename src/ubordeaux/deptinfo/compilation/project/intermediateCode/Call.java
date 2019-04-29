@@ -12,13 +12,6 @@ public class Call extends Exp {
 	
     @Override
     public String toString() {
-        String string="IC: Call " +func.toString() +"( ";
-        ExpList args_clone = args;
-        while(args_clone.getTail()!=null) {
-            string = string + args_clone.getHead().toString() +", ";
-        }
-        string = string.substring(0,string.length()-1);
-        string =string + ")";
-        return string;
+        return "Call( " + func.toString() +", "+ args.toString() +" )";
     }
 }

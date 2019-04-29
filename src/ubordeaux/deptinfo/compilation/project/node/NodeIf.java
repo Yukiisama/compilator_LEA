@@ -120,8 +120,7 @@ public final class NodeIf extends NodeStm {
 							labelF)
 					);
 		}
-
-
+		System.out.println(super.stm.toString());
 	}
 
 }

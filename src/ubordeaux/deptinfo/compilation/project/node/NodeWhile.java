@@ -37,7 +37,9 @@ public final class NodeWhile extends NodeStm {
 			System.out.println("NodeWhile failed on generateIntermediateCode");
 			return;
 		}
-
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
 		NodeRel rel = (NodeRel) getExp();
 		int rel_val=-1;
 		if(rel.getName() == "&&")
@@ -61,6 +63,7 @@ public final class NodeWhile extends NodeStm {
 		//Seq T
 		LabelLocation t = new LabelLocation();
 		NodeStm stm = (NodeStm) this.get(1);
+		System.out.println("this is stm de while---------" + stm.toString() );
 		Seq seqT = new Seq(new Label(t),stm.getStm());
 		//Label while
 		LabelLocation label_while = new LabelLocation();
@@ -76,6 +79,8 @@ public final class NodeWhile extends NodeStm {
 		
 		//Seq final
 		super.stm = new Seq(seq_Cjmp,seqF);
+		
+		System.out.println(super.stm.toString());
 	}
 
 }

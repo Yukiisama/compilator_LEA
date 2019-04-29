@@ -8,4 +8,11 @@ public class Const extends Exp {
 		this.value = value;
 	}
 
+	@Override
+	public String toString() {
+		return "Const ( " + this.value + " )";
+	}
+	
+	
+
 }

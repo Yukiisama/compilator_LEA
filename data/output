@@ -1,419 +1,248 @@
-*** Fichier data/progr5.lea
+*** Fichier data/progr2.lea
+*** //
+*** // gestion des variables statiques
+*** //
 *** var
-*** x
+Stack PUSH
+*** y
 *** :
 *** integer
 *** ;
-*** function
+*** b
 Create class NodeList
 Create class NodeId
-Enregistre x TypeInt_null
+Enregistre dans stack   y TypeInt_null
 Create class NodeList
-*** sum
-*** (
-*** i
 *** :
-*** integer
-*** ,
+*** boolean
+*** ;
+*** c
+Create class NodeList
 Create class NodeId
-Create class NodeList
-*** j
+Enregistre dans stack   b TypeBoolean
 *** :
-*** integer
-*** )
+*** string
+*** ;
+*** d
+Create class NodeList
 Create class NodeId
+Enregistre dans stack   c TypeString
 *** :
-*** integer
-*** var
-Create class NodeList
-Coucou c'est ici ::::
-NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
-Create class NodeCallFct
-*** k
-*** :
-*** integer
+*** array
+*** [
+*** 1
+*** ..
+*** 10
+*** ]
+*** of
+*** string
 *** ;
 *** begin
 Create class NodeList
 Create class NodeId
-Enregistre k TypeInt_null
-Create class NodeList
-*** return
-*** (
-*** i
-*** +
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** ;
-*** end
-Create class NodeReturn
-Create class NodeList
-NodeList(NodeReturn(NodeOp(NodeId#i:null#, NodeId#j:null#)))
-*** function
-Create class NodeList
-*** pgcd
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
-*** )
-Create class NodeId
-*** :
-*** integer
-*** begin
-Create class NodeList
-Coucou c'est ici ::::
-NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
-Create class NodeCallFct
-*** while
-*** (
-*** i
-*** !=
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** do
-*** if
-*** (
-*** i
-*** >
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** then
-*** i
+Enregistre dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+*** y
 *** =
-Retrouve i null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
 Create class NodeId
-*** i
-*** -
-Retrouve i null
-Create class NodeId
-*** j
-*** ;
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** else
-Create class NodeAssign
-*** j
-*** =
-Retrouve j null
-Create class NodeId
-*** j
-*** -
-Retrouve j null
-Create class NodeId
-*** i
-*** ;
-Retrouve i null
-Create class NodeId
-Create class NodeOp
-*** return
-Create class NodeAssign
-Create class NodeIf
-Create class NodeWhile
-Create class NodeList
-NodeList(NodeWhile(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeIf(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeAssign(NodeId#i:null#, NodeOp(NodeId#i:null#, NodeId#j:null#)), NodeAssign(NodeId#j:null#, NodeOp(NodeId#j:null#, NodeId#i:null#)))))
-*** (
-*** i
-*** )
-Retrouve i null
-Create class NodeId
-*** ;
-*** end
-Create class NodeReturn
-*** begin
-*** x
-*** =
-Retrouve x TypeInt_null
-Create class NodeId
-*** 5
+*** 0x7FFFFFFF
 *** ;
 Create class NodeLiteral
-*** x
+*** b
 Create class NodeAssign
 Create class NodeList
-NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#))
 *** =
-Retrouve x TypeInt_null
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
 Create class NodeId
-*** sum
-*** (
+*** true
+*** ;
+Create class NodeLiteral
+*** c
+Create class NodeAssign
+*** =
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Create class NodeId
+*** "a"
+*** ;
+Create class NodeLiteral
+*** d
+Create class NodeAssign
+*** [
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Create class NodeId
+*** 1
+*** ]
+Create class NodeLiteral
+*** =
+Create class NodeArrayAccess
+*** "A"
+*** ;
+Create class NodeLiteral
+*** d
+Create class NodeAssign
+*** [
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Create class NodeId
+*** 2
+*** ]
+Create class NodeLiteral
+*** =
+Create class NodeArrayAccess
+*** "B"
+*** ;
+Create class NodeLiteral
+*** d
+Create class NodeAssign
+*** [
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Create class NodeId
 *** 3
-*** ,
+*** ]
 Create class NodeLiteral
-Create class NodeList
-*** 5
-*** )
-Create class NodeLiteral
+*** =
+Create class NodeArrayAccess
+*** "C"
 *** ;
-Create class NodeCallFct
+Create class NodeLiteral
+*** d
+Create class NodeAssign
+*** [
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Create class NodeId
+*** 10
+*** ]
+Create class NodeLiteral
+*** =
+Create class NodeArrayAccess
+*** "Z"
+*** ;
+Create class NodeLiteral
 *** println
 Create class NodeAssign
-*** sum
-*** (
-*** 3
-*** ,
-Create class NodeLiteral
-Create class NodeList
-*** 5
-*** )
-Create class NodeLiteral
+*** y
 *** ;
-Create class NodeCallFct
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
 *** println
 Create class NodeList
 Create class NodeCallFct
-*** (
-*** pgcd
-*** (
-*** 78
-*** ,
-Create class NodeLiteral
-Create class NodeList
-*** 90
-*** )
-Create class NodeLiteral
-*** )
-Create class NodeCallFct
+*** b
 *** ;
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Retrouve dans stack   b TypeBoolean
+Create class NodeId
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** c
+*** ;
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Retrouve dans stack   c TypeString
+Create class NodeId
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** d
+*** [
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Retrouve dans stack   d TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)
+Create class NodeId
+*** 2
+*** ]
+Create class NodeLiteral
+*** ;
+Create class NodeArrayAccess
 *** end
 Create class NodeList
 Create class NodeCallFct
 
-NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_null#, NodeLiteral#90:TypeInt_null#)))))
-*** Analyse syntaxique ok
-*** Fichier data/progr5.lea
-*** var
-*** x
-*** :
-*** integer
-*** ;
-*** function
-Create class NodeList
-Create class NodeId
-Enregistre x TypeInt_null
-Create class NodeList
-*** sum
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
-*** )
-Create class NodeId
-*** :
-*** integer
-*** var
-Create class NodeList
-Coucou c'est ici ::::
-NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
-Create class NodeCallFct
-*** k
-*** :
-*** integer
-*** ;
-*** begin
-Create class NodeList
-Create class NodeId
-Enregistre k TypeInt_null
-Create class NodeList
-*** return
-*** (
-*** i
-*** +
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** ;
-*** end
-Create class NodeReturn
-Create class NodeList
-NodeList(NodeReturn(NodeOp(NodeId#i:null#, NodeId#j:null#)))
-*** function
-Create class NodeList
-*** pgcd
-*** (
-*** i
-*** :
-*** integer
-*** ,
-Create class NodeId
-Create class NodeList
-*** j
-*** :
-*** integer
-*** )
-Create class NodeId
-*** :
-*** integer
-*** begin
-Create class NodeList
-Coucou c'est ici ::::
-NodeList(NodeId#i:TypeInt_null#, NodeId#j:TypeInt_null#)
-Create class NodeCallFct
-*** while
-*** (
-*** i
-*** !=
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** do
-*** if
-*** (
-*** i
-*** >
-Retrouve i null
-Create class NodeId
-*** j
-*** )
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** then
-*** i
-*** =
-Retrouve i null
-Create class NodeId
-*** i
-*** -
-Retrouve i null
-Create class NodeId
-*** j
-*** ;
-Retrouve j null
-Create class NodeId
-Create class NodeOp
-*** else
-Create class NodeAssign
-*** j
-*** =
-Retrouve j null
-Create class NodeId
-*** j
-*** -
-Retrouve j null
-Create class NodeId
-*** i
-*** ;
-Retrouve i null
-Create class NodeId
-Create class NodeOp
-*** return
-Create class NodeAssign
-Create class NodeIf
-Create class NodeWhile
-Create class NodeList
-NodeList(NodeWhile(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeIf(NodeOp(NodeId#i:null#, NodeId#j:null#), NodeAssign(NodeId#i:null#, NodeOp(NodeId#i:null#, NodeId#j:null#)), NodeAssign(NodeId#j:null#, NodeOp(NodeId#j:null#, NodeId#i:null#)))))
-*** (
-*** i
-*** )
-Retrouve i null
-Create class NodeId
-*** ;
-*** end
-Create class NodeReturn
-*** begin
-*** x
-*** =
-Retrouve x TypeInt_null
-Create class NodeId
-*** 5
-*** ;
-Create class NodeLiteral
-*** x
-Create class NodeAssign
-Create class NodeList
-NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#))
-*** =
-Retrouve x TypeInt_null
-Create class NodeId
-*** sum
-*** (
-*** 3
-*** ,
-Create class NodeLiteral
-Create class NodeList
-*** 5
-*** )
-Create class NodeLiteral
-*** ;
-Create class NodeCallFct
-*** println
-Create class NodeAssign
-*** sum
-*** (
-*** 3
-*** ,
-Create class NodeLiteral
-Create class NodeList
-*** 5
-*** )
-Create class NodeLiteral
-*** ;
-Create class NodeCallFct
-*** println
-Create class NodeList
-Create class NodeCallFct
-*** (
-*** pgcd
-*** (
-*** 78
-*** ,
-Create class NodeLiteral
-Create class NodeList
-*** 90
-*** )
-Create class NodeLiteral
-*** )
-Create class NodeCallFct
-*** ;
-*** end
-Create class NodeList
-Create class NodeCallFct
-
-NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_null#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_null#, NodeLiteral#5:TypeInt_null#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_null#, NodeLiteral#90:TypeInt_null#)))))
-*** Analyse syntaxique ok
+Stack PUSH
+NodeList(NodeAssign(NodeId#y:TypeInt_null#, NodeLiteral#null:TypeInt_null#), NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#true:TypeBoolean#), NodeAssign(NodeId#c:TypeString#, NodeLiteral#"a":TypeString#), NodeAssign(NodeArrayAccess(NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#"A":TypeString#), NodeAssign(NodeArrayAccess(NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#, NodeLiteral#2:TypeInt_2#), NodeLiteral#"B":TypeString#), NodeAssign(NodeArrayAccess(NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#, NodeLiteral#3:TypeInt_3#), NodeLiteral#"C":TypeString#), NodeAssign(NodeArrayAccess(NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#, NodeLiteral#10:TypeInt_10#), NodeLiteral#"Z":TypeString#), println_NodeCallFct(NodeList(NodeId#y:TypeInt_null#)), println_NodeCallFct(NodeList(NodeId#b:TypeBoolean#)), println_NodeCallFct(NodeList(NodeId#c:TypeString#)), println_NodeCallFct(NodeList(NodeArrayAccess(NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#, NodeLiteral#2:TypeInt_2#))))
 --- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeLiteral
 --- CheckType NodeAssign
 --- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
 --- CheckType NodeCallFct
-*** Erreur de typage: pas le même nombre de paramètres 
-*** Erreur de typage
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(y) )
+--- CheckType NodeLiteral

@@ -35,7 +35,16 @@ public final class NodeCallFct extends NodeExp {
 	public Type getType() {
 		return ((TypeFunct) this.type).getRet();
 	}
-
+	public Type getTypeFUNC() {
+		return ((TypeFunct) this.type);
+	}
+	public void setTypeFUNC(Type f) {
+		this.type = f;
+	}
+	
+	public String getName() {
+		return name ;
+	}
 	public String toString() {
 		return name + '_' + super.toString();
 	}
@@ -44,7 +53,8 @@ public final class NodeCallFct extends NodeExp {
 	// On parcourt aussi les paramètres de la fonction
 	// et on regarde que les types sont égaux
 	public boolean checksType() {
-		super.checksType();
+		boolean result2 =super.checksType();
+
 		boolean result = true;
 		Iterator<Node> itArgs = this.getArgs().iterator();
 		Iterator<Type> itParams = ((TypeFunct) type).getParams().iterator();
@@ -58,7 +68,8 @@ public final class NodeCallFct extends NodeExp {
 			// chaque paramètre est une feature nom : type
 			Type paramType = ((TypeFeature) itParams.next()).getType();
 			if (!paramType.equals(argType)) {
-				System.err.println("*** Erreur de typage " + argType + " != " + paramType);
+				
+				System.err.println("*** Erreur de typage  " + argType + " != " + paramType);
 				result = false;
 				break;
 			}
@@ -103,7 +114,6 @@ public final class NodeCallFct extends NodeExp {
 			System.out.println("NodeCallFct failed on generateIntermediateCode");
 			return;
 		}
-		
 		ExpList args = new ExpList(null,null);
 		
 		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
@@ -116,10 +126,7 @@ public final class NodeCallFct extends NodeExp {
 		
 		LabelLocation label = new LabelLocation(this.name);
 		super.exp = new Call(new Name(label),args);
-
-
+		System.out.println("Callfct =>" + super.exp.toString());
+		
 	}
-
-
-
 }

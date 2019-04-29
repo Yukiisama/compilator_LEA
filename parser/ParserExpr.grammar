@@ -1,5 +1,6 @@
 %package "ubordeaux.deptinfo.compilation.project.main";
 %class "ParserExpr";
+%import "ubordeaux.deptinfo.compilation.project.main.*";
 %import "ubordeaux.deptinfo.compilation.project.node.*";
 %import "ubordeaux.deptinfo.compilation.project.type.*";
 %import "ubordeaux.deptinfo.compilation.project.environment.*";
@@ -43,7 +44,7 @@
 %terminals ARRAY, LBRACKET, RBRACKET, OF, CIRCUMFLEX;
 %terminals STRUCT, LCURLY_BRACKET, RCURLY_BRACKET, COLON;
 %terminals PROCEDURE, FUNCTION, LPAR, RPAR, VAR;
-%terminals NEW, DISPOSE, PRINTLN, READLN, RETURN;
+%terminals NEW, DISPOSE, PRINT,PRINTLN, READLN, RETURN;
 %terminals IF, THEN, ELSE, WHILE;
 %terminals DO, SWITCH, CASE, DEFAULT;
 %terminals PLUS, MINUS, TIMES, DIV;
@@ -84,7 +85,7 @@
 ////====Integer/String====\\\\
 
 %typeof INTEGER_LIT = "Integer";
-%typeof init_enumerated_type = "Integer";
+%typeof init_enumerated_type = "TypeEnumRange";
 %typeof STRING_LIT = "String";
 %typeof IDENTIFIER = "String";
 
@@ -93,7 +94,8 @@
 %typeof literal = "NodeLiteral";
 
 ////====TYPE====\\\\
-
+%typeof type_declaration_head = "TypeNamed";
+%typeof type_declaration = "Type";
 %typeof type_declaration_part, type = "Type";
 %typeof index_type = "Type";
 %typeof range_type = "Type";
@@ -103,7 +105,7 @@
 
 ////====LIST====\\\\
 
-//%typeof type_declaration_list = "TypeList";
+%typeof type_declaration_list = "TypeList";
 %typeof variable_declaration, variable_declaration_list = "NodeList";
 %typeof case_statement = "NodeList";
 %typeof expression_part = "NodeList";
@@ -122,15 +124,21 @@
 %goal program;
 
 program =
+	push_stack
 	type_declaration_part		
 	variable_declaration_part		
 	procedure_definition_part		
 	BEGIN
-	statement_list.l						
+	statement_list.l
 	END
+	pop_stack
 	{: return l; :}
 	;
 
+	push_stack = {: stackEnvironment.push_stack(); return new Symbol(0); :}
+	;
+	pop_stack =  {: stackEnvironment.pop_stack();  return new Symbol(0); :}
+	;
 ////////////////////////////////////////////////
 //////    DECLARATION DES TYPES NOMMES    //////
 ////////////////////////////////////////////////
@@ -141,12 +149,28 @@ type_declaration_part =
 	;
 
 type_declaration_list =
-	type_declaration_list.list type_declaration.t		//{: list.add(t); return list; :}
-	| type_declaration.t								//{: TypeList list = new TypeList(); list.add(t); return list; :}
+	type_declaration_list.list type_declaration.t		{: list.add(t); return list; :}
+	| type_declaration.t								{: TypeList list = new TypeList(t);  return list; :}
 	;
 
 type_declaration =
-	type_declaration_head.name EQ type.t SEMI			//{: return new NodeId(name, t); :}	
+	type_declaration_head.name EQ type.t SEMI			
+	{:
+		if(!t.equals(new TypeInt()) && !t.equals(new TypeBoolean()) 
+				&& !t.equals(new TypeString())) {
+				if(t instanceof TypeNamed) {
+					if(typeEnvironment.getVariableValue(((TypeNamed)t).get_name())==null) {
+						semanticError("Error : Named type assigned doesn't exist " + name + ": " + t,t);
+						System.err.println("ERROR :Named type assigned doesn't exist  " + name + ": " + t);
+						Main.add_error_type(new String("ERROR Type declaration : Named type assigned doesn't exist  "+ name + ": " + t ));
+					}
+				}
+		}
+		typeEnvironment.putVariable(name.get_name(),t);
+		System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + t);
+		//typeEnvironment.putEnumToName((TypeEnumRange) t,name.get_name());
+		return new TypeFeature(name.get_name(),t);
+	:}	
 	;
 	
 type_declaration_head =
@@ -182,39 +206,81 @@ index_type =
 	;
 
 enumerated_type =
-	init_enumerated_type LPAR identifier_list.t_list RPAR
+	init_enumerated_type.init LPAR identifier_list.t_list RPAR
 		{: 
+			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			//String name = typeEnvironment.getEnumToName(enum_range);
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
 			while(it.hasNext()) {
-			String x =  it.next();
-			typeEnvironment.put_enum_value(x,i);
-			typeEnvironment.putVariable(x,new TypeInt(i));
-			i++;
+				String x =  it.next();
+				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
+				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
+				//typeEnvironment.putIDtoName(x,name);
+				i++;
 			}
-			//typeEnvironment.put_enum_value(t_list.first(),0);
-			//typeEnvironment.put_enum_value(t_list.last(),t_list.size()-1);
-			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
-:}
+			return enum_range;
+		:}
 	;
 	
-init_enumerated_type = 
-							{:	return new TypeEnumRange();	:}
+init_enumerated_type = {:return new TypeEnumRange();:}
 	;
 
 subrange_type =
-	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max				{: return new TypeArrayRange(new TypeInt(min), new TypeInt(max)); :}
-	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				{: return new TypeArrayRange(new TypeNamed(min), new TypeNamed(max)); :}
+	INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max	
+	{: 
+		boolean test_range_type = true;
+		if(min > max) {
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+			test_range_type = false;
+		}
+		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+		//type_range.setRange_type(test_range_type);
+		return type_range;
+	:}
+
+	| IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max				
+	{: 
+		boolean test_range_type = true;
+		TypeItemEnum x = typeEnvironment.get_enum_value(min);
+		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		int v_min = x.getValue();
+		int v_max = y.getValue();
+		if(v_min > v_max) {
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
+			test_range_type = false;
+		}
+		//if(typeEnvironment.getIDtoName(min)==null || typeEnvironment.getIDtoName(max)==null) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : enum doesn't exist " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
+		//if(!typeEnvironment.getIDtoName(min).equals(typeEnvironment.getIDtoName(max))) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
+		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		one.setFrom_enum(true);
+		//one.setRange_type(test_range_type);
+		return one; 
+	:}
 	;
 
 array_type =
-	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2			{: return new TypeArray(t1,t2); :}
+	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
+						
+										TypeArray array = new TypeArray(t1,t2);
+										/*TypeRange test_range_type = array.getRangeOREnum();
+										if(test_range_type.isRange_type()==false || test_range_type == null){
+		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+															}
+													*/		
+															return array; :}
 	;
 
 range_type =
 	enumerated_type
 	| subrange_type
-	| named_type
+	| named_type 
 	;
 
 pointer_type =
@@ -250,21 +316,23 @@ variable_declaration_list=
 	;
 
 variable_declaration =
-	identifier_list.list COLON type.t SEMI {: 
-		
+	identifier_list.list COLON type.t SEMI 
+		{: 
 		NodeList list_2 = new NodeList();
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
 			String x =  it.next();
+			
 			list_2.add(new NodeId(x,t));
-			typeEnvironment.putVariable(x,t);
+			stackEnvironment.putVariable(x,t);
 		}
-		return list_2; :}
+		return list_2; 
+		:}
 	;
 		
 
 identifier_list =
-	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); System.err.println(list.toString()); return list; :}
+	identifier_list.list COMMA IDENTIFIER.name				{: list.add(name); return list; :}
 	| IDENTIFIER.name										{: IdentifierList list = new IdentifierList(); list.add(name); return list; :}
 	;
 
@@ -282,8 +350,46 @@ procedure_definition_list =
 	;
 
 procedure_definition =
-	procedure_definition_head block
-	| procedure_definition_head SEMI
+	procedure_definition_head.s block
+	{:
+		NodeCallFct sa = (NodeCallFct)s;
+		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
+		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		if(t2.getDefined()==false) {
+			t.setDefined(true);
+			t.setDeclared(0);
+		}
+		else {
+			semanticError(" function already defined  ",s);
+			System.err.println("ERROR :function already defined  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
+			
+		}
+		
+		sa.setTypeFUNC(t);
+		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
+		
+		return sa;
+	:}
+	| procedure_definition_head.s SEMI 
+	{:
+		NodeCallFct sa = (NodeCallFct)s;
+		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
+		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		int x = t2.getDeclared();
+		t.setDeclared(++x);
+		if(t.getDeclared()>1) {
+			semanticError(" procedure or function declared twice  ",s);
+			System.err.println("ERROR :procedure or function declared twice  " + sa );
+			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
+		}
+		
+		sa.setTypeFUNC(t);
+		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
+		
+		return sa;
+	:}
+	
 	;
 
 procedure_definition_head =
@@ -299,26 +405,32 @@ procedure_head =
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
 		procedureEnvironment.putFunction(func,lionel_le_boss);
+		
+		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list); 
+	:}
 
-		return new NodeCallFct(func,new TypeFunct(func, lionel, new TypeVoid()), list); :}
-
-	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	{: 
+	| FUNCTION IDENTIFIER.func LPAR argt_part.list RPAR COLON type.t	
+	{: 
 		
 		TypeTuple lionel = new TypeTuple();
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
-			NodeId x = (NodeId) it.next();		
+			NodeId x = (NodeId) it.next();	
 			lionel.add( new TypeFeature(func,x.getType()));
+			stackEnvironment.putVariable(x.getName(),x.getType());
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
-		procedureEnvironment.putFunction(func,lionel_le_boss);
+		if(procedureEnvironment.is_null(func))
+			procedureEnvironment.putFunction(func,lionel_le_boss);
 
-		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list); :}
+		return new NodeCallFct(func,new TypeFunct(func, lionel, t), list); 
+	:}
 	;
 
 argt_part =
@@ -340,10 +452,12 @@ argt =
 ////////////////////////////////////////////
 
 block=
+	push_stack
 	variable_declaration_part
 	BEGIN
-	statement_list.l 
+	statement_list.l
 	END
+	pop_stack
 	{:return l;:}
 	;
 
@@ -353,7 +467,7 @@ block=
 
 statement_list=
 	statement_list.list statement.stm		{: list.add(stm); return list; :}
-	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); System.out.println(list.toString()); return list; :}
+	| statement.stm							{: NodeList list = new NodeList(); list.add(stm); return list; :}
 	;
 
 statement=
@@ -366,13 +480,38 @@ simple_statement=
 	| procedure_statement
 	| new_statement
 	| dispose_statement
+	| print_statement
 	| println_statement
 	| readln_statement
 	| return_statement
 	;
 
 assignment_statement=
-	variable_access.stm EQ expression.e SEMI	{: return new NodeAssign(stm, e); :}
+	variable_access.stm EQ expression.e SEMI	
+	{: 
+
+		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
+			if(stm.getType() instanceof TypeNamed){
+				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
+				if(t instanceof TypePointer ) {
+					return new NodeAssign(stm, e);
+				}
+			}
+			else {	
+				if(stm.getType() instanceof TypePointer && e.getType() instanceof TypePointer ) {
+					TypeComplex ptr = (TypeComplex)e.getType();
+					if(ptr.size()==0)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) stm.getType()).get(0)),0));
+					else if(ptr.size()==1)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) e.getType()).get(0)),0));
+				}
+				semanticError("Type error in affectation", e);
+				System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
+				Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+			}
+		}
+		return new NodeAssign(stm, e);
+	:}
 	;
 
 procedure_statement=
@@ -380,12 +519,32 @@ procedure_statement=
 	;
 
 procedure_expression=
-	IDENTIFIER.func LPAR expression_part.list RPAR	{: 	
+	IDENTIFIER.func LPAR expression_part.list RPAR	
+	{: 	
 		TypeFunct lionel_le_boss = (TypeFunct)procedureEnvironment.getFunction(func);
-		System.out.println("Etape 126 : " + lionel_le_boss);
+		//Case Nb params differents
+		if(lionel_le_boss.getParams().size() != list.size()) {
+			semanticError("Type error in calling expression",list);
+			System.err.println("ERROR : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list);
+			Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list));
+		}
+		//Prepare to test the type of parameters
+		Iterator<Node> l = list.iterator();
+		Iterator <Type> t = lionel_le_boss.getParams().iterator();
+		while(l.hasNext() && t.hasNext()) {
+			NodeExp n = (NodeExp) l.next();
+			TypeFeature m = (TypeFeature) t.next();
+			//Type Parameters different
+			if(m.get(0)!=null && n.getType()!= null && !n.getType().equals(m.get(0))) {
+				semanticError(" Type error in calling expression",list);
+				System.err.println("ERROR : Type error in calling expression <BAD TYPES PARAMS>" + lionel_le_boss + "  : " + list);
+				Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <BAD TYPES PARAMS>" + lionel_le_boss + "  : " + list));
+			}
+		}
+		
 		return new NodeCallFct(func, 
-			lionel_le_boss, list); 
-		:}
+				lionel_le_boss, list);
+	:}
 	;
 
 expression_part=
@@ -399,21 +558,66 @@ expression_list=
 	;
 
 new_statement=
-	NEW variable_access.stm SEMI		{: return new NodeNew(stm); :}
+	NEW variable_access.stm SEMI		
+	{:	
+		NodeId ID = (NodeId) stm;
+		if(ID.getType() instanceof TypePointer)
+			return new NodeNew(stm);
+		else if ( ID.getType() instanceof TypeNamed) {
+			TypeNamed name_type = (TypeNamed) ID.getType();
+			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
+				return new NodeNew(stm);
+		}
+		
+		semanticError(" Type error in pointer access expression ",stm);
+		System.err.println("ERROR : Type error in pointer access expression " + stm);
+		Main.add_error_type(new String("ERROR NodeNew : Type error in pointer access expression " + stm));
+		return new NodeNew(new NodeId("ERROR",new TypeVoid()));
+		
+	:}
 	;
 
 dispose_statement=
-	DISPOSE variable_access.stm SEMI	{: return new NodeDispose(stm); :}
+	DISPOSE variable_access.stm SEMI	{: 
+		NodeId id = (NodeId) stm;
+		if(id.getType() instanceof TypePointer)
+			return new NodeDispose(stm);
+		else
+		{
+			semanticError(" Type error in pointer access expression ",stm);
+			System.err.println("ERROR : Type error in pointer access expression " + stm);
+			Main.add_error_type(new String("ERROR NodeDispose : Type error in pointer access expression " + stm));
+			return new NodeDispose(new NodeId("ERROR",new TypeVoid()));
+		}
+		:}
+		
 	;
 
+print_statement=		
+	PRINT expression.e SEMI			
+	{: 
+		return new NodeCallFct("print",
+			new TypeFunct("print",new TypeTuple(new TypeFeature("print",e.getType())),
+					new TypeVoid()), new NodeList(e)); 
+	:}	
+	;
+	
 println_statement=		
-	PRINTLN expression.e SEMI			{: return new NodeCallFct("println",
-			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())), new TypeVoid()), new NodeList(e)); :}	
+	PRINTLN expression.e SEMI			
+	{: 
+		return new NodeCallFct("println",
+			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())),
+					new TypeVoid()), new NodeList(e)); 
+	:}	
 	;
 	
 readln_statement=
-	READLN.func expression.e SEMI		{: return new NodeCallFct("readln", 
-			new TypeFunct("readln",new TypeTuple(new TypeFeature("readln",e.getType())), new TypeVoid()), new NodeList(e)); :}
+	READLN.func expression.e SEMI		
+	{: 
+		return new NodeCallFct("readln", 
+			new TypeFunct("readln",new TypeTuple(new TypeFeature("readln",e.getType())),
+					new TypeVoid()), new NodeList(e)); 
+	:}
 	;
 	
 return_statement=
@@ -442,20 +646,31 @@ switch_statement =
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.case1 case_default.case2	{: list.add(case1); list.add(case2); return list; :}
-	| case_statement.case1												{: NodeCaseList list = new NodeCaseList(); list.add(case1); return list; :}
+	case_statement_list.list case_statement.case1 case_default.case2	
+	{:
+		list.add(case1);
+		if(case2!=null) list.add(case2);
+		return list; 
+	:}
+	| case_statement.case1 case_default.case2							
+	{: 
+		NodeCaseList list = new NodeCaseList(); list.add(case1); 
+		if(case2!=null) list.add(case2);															
+		return list; 
+	:}
 	;
 
 case_statement=
-	CASE identifier_list.list COLON statement.stm			{: 
-		
+	CASE identifier_list.list COLON statement.stm			
+	{: 
 		NodeList list_2 = new NodeList();
 		Iterator<String> it = list.iterator();
 		while(it.hasNext()) {
 			String x =  it.next();
 			list_2.add(new NodeCase(x,stm));
 		}
-		return list_2; :}
+		return list_2; 
+	:}
 	;
 	
 case_default = 
@@ -464,9 +679,45 @@ case_default =
 	;
 
 variable_access =
-	IDENTIFIER.name											{: return new NodeId(name, typeEnvironment.getVariableValue(name)); :}
-	| variable_access.e1 LBRACKET expression.e2 RBRACKET	{: return new NodeArrayAccess(e1, e2) ; :}
-	| expression.e CIRCUMFLEX 								{: return new NodePtrAccess(e); :}
+	IDENTIFIER.name											
+	{:  
+		int x = 0;
+		
+		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
+			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
+			return new NodeId("ERROR",new TypeVoid());
+		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
+			
+			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
+			return new NodeId(name,new TypeInt(x));
+		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeNamed) {
+			TypeNamed named =  (TypeNamed) stackEnvironment.getVariableValue(name) ;
+			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
+		}
+		
+		
+		return new NodeId(name, stackEnvironment.getVariableValue(name));
+	:}
+
+	| variable_access.e1 LBRACKET expression.e2 RBRACKET	
+	{: 
+		return new NodeArrayAccess(e1, e2) ; 
+	:}
+	| expression.e CIRCUMFLEX 	
+	{: 
+		NodeId ID = (NodeId) e;
+
+		if(ID.getType() instanceof TypePointer)
+			return new NodePtrAccess(e);
+		else {
+		semanticError(" Type error in pointer access expression ",e);
+		System.err.println("ERROR : Type error in pointer access expression " + e);
+		Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
+		return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+		}
+	:}
 	;
 
 ///////////////////////////
@@ -474,20 +725,158 @@ variable_access =
 ///////////////////////////
 
 expression =
-	expression.e1 PLUS expression.e2  				{: return new NodeOp("+", e1, e2); :}
-	| expression.e1 MINUS expression.e2 			{: return new NodeOp("-", e1, e2); :}
-	| MINUS expression.e @ UNARY_MINUS 				{: return new NodeOp("-", e); :}
-	| expression.e1 TIMES expression.e2 			{: return new NodeOp("*", e1, e2); :}
-	| expression.e1 DIV expression.e2 				{: return new NodeOp("/", e1, e2); :}
-	| expression.e1 AND expression.e2				{: return new NodeOp("&&", e1, e2); :}
-	| expression.e1 OR expression.e2				{: return new NodeOp("||", e1, e2); :}
-	| NOT expression.e								{: return new NodeOp("!", e); :}
-	| expression.e1 INFERIOR expression.e2			{: return new NodeOp("<", e1, e2); :}
-	| expression.e1 INFERIOR_EQ expression.e2		{: return new NodeOp("<=", e1, e2); :}
-	| expression.e1 SUPERIOR expression.e2			{: return new NodeOp(">", e1, e2); :}
-	| expression.e1 SUPERIOR_EQ expression.e2		{: return new NodeOp(">=", e1, e2); :}
-	| expression.e1 EQUALS expression.e2			{: return new NodeOp("==", e1, e2); :}
-	| expression.e1 DIFF expression.e2				{: return new NodeOp("!=", e1, e2); :}
+	expression.e1 PLUS expression.e2  				
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+					+ e1.getType() + " + " + e2.getType()));
+			}
+		}
+		return new NodeOp("+", e1, e2);
+	:}
+
+	| expression.e1 MINUS expression.e2 			
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ e1.getType() + " - " + e2.getType()));
+			}
+		}
+		return new NodeOp("-", e1, e2);
+	:}
+	
+	| MINUS expression.e @ UNARY_MINUS 				
+	{: 
+		if(e.getType()!=null) {
+			if(!e.getType().equals(new TypeInt())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ "-" + e.getType()));
+			}
+		}
+		return new NodeOp("-", e);
+	:}
+	
+	| expression.e1 TIMES expression.e2 			
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+					+ e1.getType() + " * " + e2.getType()));
+			}
+		}
+		return new NodeOp("*", e1, e2);
+	:}
+	
+	| expression.e1 DIV expression.e2
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ e1.getType() + " / " + e2.getType()));
+			}
+		}
+		return new NodeOp("/", e1, e2);
+	:}
+	
+	| expression.e1 AND expression.e2 				
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+						+ e1.getType() + " && " + e2.getType()));
+			}
+		}
+		return new NodeRel("&&", e1, e2); 
+	:}
+	
+	| expression.e1 OR expression.e2				
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+						+ e1.getType() + " || " + e2.getType()));
+			}		
+		}
+		return new NodeRel("||", e1, e2); 
+	:}
+	
+	| NOT expression.e								
+	{:
+		if(!e.getType().equals(new TypeBoolean())) {
+			Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+					+ "!" + e.getType()));
+		}
+		return new NodeRel("!", e);
+	:}
+	
+	| expression.e1 INFERIOR expression.e2			
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+						+ e1.getType() + " < " + e2.getType()));
+			}
+		}
+		return new NodeRel("<", e1, e2); 
+	:}
+	
+	| expression.e1 INFERIOR_EQ expression.e2		
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+						+ e1.getType() + " <= " + e2.getType()));
+			}
+		}
+		return new NodeRel("<=", e1, e2); 
+	:}
+	
+	| expression.e1 SUPERIOR expression.e2			
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) { //OK
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) {
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " > " + e2.getType()));
+			}
+		}												
+		return new NodeRel(">", e1, e2); 
+	:}
+	
+	| expression.e1 SUPERIOR_EQ expression.e2		
+	{:
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " >= " + e2.getType()));
+			}
+		}
+		return new NodeRel(">=", e1, e2); 
+	:}
+	
+	| expression.e1 EQUALS expression.e2			
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " == " + e2.getType()));
+			}
+		}
+		return new NodeRel("==", e1, e2); 
+	:}
+	
+	| expression.e1 DIFF expression.e2			
+	{: 
+		if(e1.getType()!=null && e2.getType()!=null) { //OK
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " != " + e2.getType()));
+			}
+		}
+		return new NodeRel("!=", e1, e2); 
+	:}
+	
 	| LPAR expression.e RPAR  						{: return e; :}
 	| procedure_expression
 	| variable_access

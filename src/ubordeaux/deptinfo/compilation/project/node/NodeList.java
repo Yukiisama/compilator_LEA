@@ -2,6 +2,8 @@ package ubordeaux.deptinfo.compilation.project.node;
 
 import java.util.Iterator;
 
+import ubordeaux.deptinfo.compilation.project.intermediateCode.StmList;
+
 public final class NodeList extends NodeStm {
 
 	public NodeList(Node stm) {
@@ -50,5 +52,27 @@ public final class NodeList extends NodeStm {
 		}
 		return x;
 	}
+	
+	public void generateIntermediateCode() {
+		if(!this.checksType()) {
+			System.out.println("NodeCaseList failed on generateIntermediateCode");
+			return;
+		}
+		
+		//On va stocker les cases dans une StmList.
+		StmList stms = new StmList(null, null);
+		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
+		for(int i = this.size()-1; i>=0; i--) {
+			NodeStm stm = (NodeStm) this.get(0);
+			stm.generateIntermediateCode();//Genère le code intermédiaire des noeuds fils.
+			stms.add(stm.getStm());
+		}
+
+		super.stm = stms;
+
+		System.out.println(super.stm.toString());
+			
+	}
+	
 
 }

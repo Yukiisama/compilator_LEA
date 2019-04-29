@@ -57,8 +57,7 @@ public final class NodeCase extends NodeStm {
 			LabelLocation c = new LabelLocation(nameValue);
 			super.stm = new Seq(new Label(c), stm_cast.getStm());
 		}
-		
-	
+		System.out.println(super.stm.toString());
 	}
 
 }

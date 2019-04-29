@@ -68,6 +68,8 @@ public class NodeOp extends NodeExp {
 			super.exp = new Binop(Binop.MUL,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "/")
 			super.exp = new Binop(Binop.DIV,this.getOp1().getExp(),this.getOp2().getExp());
+		
+		System.out.println(super.exp.toString());
 	}
 
 }

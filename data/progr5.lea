@@ -1,6 +1,8 @@
 
 var
 x : integer;
+b : boolean;
+//p : integer;
 
 function sum(i : integer, j : integer) : integer
 var k:integer;
@@ -19,7 +21,13 @@ begin
 end
 
 begin
+//p^ = null;
 x = 5;
+//b = !(true > false);
+//b = !(2 >= false) || (x != 1)&& (p != null); // // error "Type error in comparison"
+//b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+//b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+//b = 1 - false;
 x = sum(3, 5);
 println sum(3, 5);
 println(pgcd(78, 90));

@@ -41,6 +41,8 @@ public final class NodeReturn extends NodeStm {
 		//	-un exp équivalent à la valeur de retour.
 		//Ensuite, on aurait construit un Seq avec pour fils droit un Move vers un Temp
 		//et pour fils gauche un Jump vers un le Label de retour. 
+		
+		System.out.println(super.stm.toString());
 	}
 
 }

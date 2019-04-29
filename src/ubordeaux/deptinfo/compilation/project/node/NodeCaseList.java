@@ -39,5 +39,7 @@ public final class NodeCaseList extends NodeStm {
 		}
 		
 		super.stm = cases;
+		
+		System.out.println(super.stm.toString());
 	}
 }

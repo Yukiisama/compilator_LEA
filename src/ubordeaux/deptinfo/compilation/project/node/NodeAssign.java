@@ -28,7 +28,7 @@ public final class NodeAssign extends NodeStm {
 
 	private NodeExp getLhs() {
 		return (NodeExp) this.get(0);
-	};
+	}
 
 	private NodeExp getRhs() {
 		return (NodeExp) this.get(1);
@@ -50,6 +50,7 @@ public final class NodeAssign extends NodeStm {
 			this.get(i).generateIntermediateCode();
 		
 		super.stm = new Move(new Mem(this.getLhs().getExp()),this.getRhs().getExp());
+		System.out.println(super.stm.toString());
 	}
 
 }

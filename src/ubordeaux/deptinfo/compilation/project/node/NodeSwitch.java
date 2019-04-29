@@ -42,7 +42,7 @@ public final class NodeSwitch extends NodeStm {
 		
 		super.stm = new ExpStm(this.getNodeStm().getStm(), this.getNodeExp().getExp());
 		
-	
+		System.out.println(super.stm.toString());
 	}
 	
 }

@@ -15,7 +15,9 @@ public final class NodeId extends NodeExp {
 		this.name = name;
 		this.type = type;
 	}
-
+	public String getName() {
+		return this.name;
+	}
 	public String toString() {
 		return this.getClass().getSimpleName() + "#" + name + ':' + type + '#';
 	}
@@ -43,5 +45,7 @@ public final class NodeId extends NodeExp {
 		
 		LabelLocation label = new LabelLocation(this.name);
 		super.exp = new Name(label);
+		
+		System.out.println(super.exp.toString());
 	}
 }
