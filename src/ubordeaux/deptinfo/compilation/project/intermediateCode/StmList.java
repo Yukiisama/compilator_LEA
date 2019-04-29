@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.intermediateCode;
 
-public class StmList {
+public class StmList extends Stm{
 	private Stm head;
 	private StmList tail;
 
