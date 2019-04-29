@@ -17,6 +17,12 @@ public class ExpList implements IntermediateCode {
 	public ExpList getTail() {
 		return tail;
 	}
+	
+	public void add(Exp exp) {
+		ExpList t = new ExpList(this.head,this.tail);
+		this.head = exp;
+		this.tail = t;
+	}
 
 	@Override
 	public void canonicalTransformation() {

@@ -103,10 +103,17 @@ public final class NodeCallFct extends NodeExp {
 			System.out.println("NodeCallFct failed on generateIntermediateCode");
 			return;
 		}
-
-		//Genère le code intermédiaire des noeuds fils.
+		
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
+		
+		ExpList args = new ExpList(null,null);
+		
+		for(int i = this.size()-1; i>=0; i--) {
+			NodeExp exp = (NodeExp) this.get(0);
+			exp.generateIntermediateCode();//Genère le code intermédiaire des noeuds fils.
+			args.add(exp.getExp());
+		}
 
 		ExpList args = this.listArgs(0, this.elts);
 		

@@ -19,7 +19,7 @@ public final class NodeCaseList extends NodeStm {
 
 	public void generateIntermediateCode() {
 		if(!this.checksType()) {
-			System.out.println("NodeCase failed on generateIntermediateCode");
+			System.out.println("NodeCaseList failed on generateIntermediateCode");
 			return;
 		}
 	
