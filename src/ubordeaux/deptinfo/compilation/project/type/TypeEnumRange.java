@@ -6,10 +6,12 @@ public class TypeEnumRange extends TypeRange {
 
 	private String name;
 	private static int uniqName;
+	private String list[];
 	
 	public TypeEnumRange(TypeItemEnum min, TypeItemEnum max) {
 		super(min, max);
 		this.name = Integer.toString(uniqName++);
+		this.list = new String[(max.getValue()-min.getValue())+1];
 	}
 
 	public TypeEnumRange(String name, TypeItemEnum first, TypeItemEnum max) {
@@ -51,4 +53,20 @@ public class TypeEnumRange extends TypeRange {
 		return true;
 	}
 
+	public String[] getList() {
+		return list;
+	}
+
+	public void setList(String[] list) {
+		this.list = list;
+	}
+
+	public String[] getListName(int i) {
+		return list;
+	}
+
+	public void setListName(int i,String name) {
+		this.list[i] = name;
+	}
+	
 }
