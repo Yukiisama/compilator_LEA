@@ -166,8 +166,9 @@ type_declaration =
 					}
 				}
 		}
-	System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAA" + name);
 		typeEnvironment.putVariable(name.get_name(),t);
+		System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + t);
+		//typeEnvironment.putEnumToName((TypeEnumRange) t,name.get_name());
 		return new TypeFeature(name.get_name(),t);
 	:}	
 	;
@@ -207,16 +208,18 @@ index_type =
 enumerated_type =
 	init_enumerated_type.init LPAR identifier_list.t_list RPAR
 		{: 
+			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			//String name = typeEnvironment.getEnumToName(enum_range);
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
 			while(it.hasNext()) {
 				String x =  it.next();
 				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
 				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
+				//typeEnvironment.putIDtoName(x,name);
 				i++;
 			}
-
-			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			return enum_range;
 		:}
 	;
 	
@@ -232,7 +235,7 @@ subrange_type =
 			test_range_type = false;
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
-		type_range.setRange_type(test_range_type);
+		//type_range.setRange_type(test_range_type);
 		return type_range;
 	:}
 
@@ -247,22 +250,30 @@ subrange_type =
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 			test_range_type = false;
 		}
-		
+		//if(typeEnvironment.getIDtoName(min)==null || typeEnvironment.getIDtoName(max)==null) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : enum doesn't exist " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
+		//if(!typeEnvironment.getIDtoName(min).equals(typeEnvironment.getIDtoName(max))) {
+			//Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + v_min + " > " + v_max));
+			//test_range_type = false;
+		//}
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
 		one.setFrom_enum(true);
-		one.setRange_type(test_range_type);
+		//one.setRange_type(test_range_type);
 		return one; 
 	:}
 	;
 
 array_type =
 	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
+						/*
 										TypeArray array = new TypeArray(t1,t2);
 										TypeRange test_range_type = array.getRangeOREnum();
 										if(test_range_type.isRange_type()==false || test_range_type == null){
 		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
 															}
-															
+													*/		
 															return array; :}
 	;
 
