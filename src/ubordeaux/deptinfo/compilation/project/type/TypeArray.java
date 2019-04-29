@@ -21,7 +21,7 @@ public class TypeArray extends TypeComplex {
 		return (TypeRange) this.get(0);
 	}
 
-	private Type getType() {
+	public Type getType() {
 		return this.get(1);
 	}
 

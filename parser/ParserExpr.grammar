@@ -254,6 +254,7 @@ subrange_type =
 			test_range_type = false;
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+		type_range.setFrom_enum(false);
 		//type_range.setRange_type(test_range_type);
 		return type_range;
 	:}
@@ -296,12 +297,16 @@ subrange_type =
 array_type =
 	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
 		System.out.println("Coucou" + t1 + ": "+ t2);
+		TypeArray array = new TypeArray(t1,t2);
 		if(t1 instanceof TypeNamed) {
 		if(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name())==null){
 			Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
 		}
+		else {
+			array = new TypeArray(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name()),t2);
+			}
 		}
-		TypeArray array = new TypeArray(t1,t2);
+		
 		
 															
 															
@@ -526,14 +531,30 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 	
-		System.out.println("cacacaca  " + stm + ";;; " + e );
-		if(stm.getType() instanceof TypeArray){
+		System.out.println("LALALALALALALLLA " + stm + " : " + e);
+		TypeArray tab = null;
+		TypeArray tab2 = null;
+		if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray) {
+			tab = (TypeArray) stm.getType();
+			tab2 = (TypeArray) e.getType();
+			System.out.println("LALALAL  " + tab + ":" + tab2);
+		}
+		if(stm.getType() instanceof TypeArray && !(e.getType() instanceof TypeArray)){
 			
 				semanticError(" Accessible variable expected", stm);
 				System.err.println(new String("ERROR  :  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
 				Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
 			
 		}
+		else if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getFirst()!= ((TypeArrayRange)tab2.getRangeOREnum()).getFirst())
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getLast()!= ((TypeArrayRange)tab2.getRangeOREnum()).getLast())){
+			semanticError(" ERROR  : Type error in affectation", stm);
+			System.err.println(new String("ERROR  : Type error in affectation (i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR  : Type error in affectation  ( i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+
+		}
+		
 		else if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
 			if(stm.getType() instanceof TypeNamed){
 				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
@@ -729,11 +750,8 @@ variable_access =
 	{:  
 		int x = 0;
 		
-		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
-			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
-			return new NodeId("ERROR",new TypeVoid());
-		}
-		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
+		
+		if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
 			
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
@@ -749,6 +767,37 @@ variable_access =
 
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	
 	{: 
+		System.out.println("var acc " +e1 + " : " +e2.getType() );
+		NodeId err = null;
+		NodeId err_tab= null;
+		if(e2 instanceof NodeId ) {
+			err = (NodeId)e2;
+			err_tab = (NodeId)e1;
+			if(err_tab.getType() instanceof TypeArray) {
+				TypeArray t = (TypeArray) err_tab.getType();
+				System.out.println("var acc2 "+ ((TypeArrayRange)t.getRangeOREnum()).getFrom_enum() + t.getRangeOREnum().getFirst() + " :: " + typeEnvironment.get_enum_value(err.getName()));
+				
+				if(typeEnvironment.get_enum_value(err.getName())!=null && !((TypeArrayRange)t.getRangeOREnum()).getFrom_enum()) {
+					System.out.println("ababab " + err.getName() + "  : " + typeEnvironment.get_enum_value(err.getName()) );
+					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+					return new NodeArrayAccess(e1, e2) ;
+				}
+				//if(!(t.getType()e2.getType()))
+					//Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+			}
+		}
+		
+		if (e2 instanceof NodeLiteral) {
+			NodeLiteral x = (NodeLiteral)e2;
+			NodeId y = (NodeId)e1;
+			if(y.getType() instanceof TypeArray) {
+				Type type1 = x.getType();
+				TypeArray type2 = (TypeArray) y.getType();
+				System.out.println("xcoucou" + type1 + "  : " + type2.getRangeOREnum().getFirst());
+				if( !(type1.equals(type2.getRangeOREnum().getFirst())))
+					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " ));
+			}
+		}
 		return new NodeArrayAccess(e1, e2) ; 
 	:}
 	| expression.e CIRCUMFLEX 	
