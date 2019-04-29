@@ -267,9 +267,9 @@ subrange_type =
 
 array_type =
 	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
-						/*
+						
 										TypeArray array = new TypeArray(t1,t2);
-										TypeRange test_range_type = array.getRangeOREnum();
+										/*TypeRange test_range_type = array.getRangeOREnum();
 										if(test_range_type.isRange_type()==false || test_range_type == null){
 		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
 															}
