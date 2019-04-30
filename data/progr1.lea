@@ -1,8 +1,9 @@
 var
 a: integer;
-
+b: boolean;
 begin
 a = 100;
+b = a>=0;
 while (a >= 0) do 
 	begin
 	println (a);

@@ -33,35 +33,36 @@ public class Terminals {
 	static public final short SWITCH = 25;
 	static public final short NEW = 26;
 	static public final short DISPOSE = 27;
-	static public final short PRINTLN = 28;
-	static public final short READLN = 29;
-	static public final short RETURN = 30;
-	static public final short WHILE = 31;
-	static public final short ARRAY = 32;
-	static public final short STRUCT = 33;
-	static public final short STR = 34;
-	static public final short INT = 35;
-	static public final short BOOL = 36;
-	static public final short COLON = 37;
-	static public final short BEGIN = 38;
-	static public final short LBRACKET = 39;
-	static public final short RBRACKET = 40;
-	static public final short COMMA = 41;
-	static public final short END = 42;
-	static public final short EQ = 43;
-	static public final short FUNCTION = 44;
-	static public final short PROCEDURE = 45;
-	static public final short DOUBLE_DOT = 46;
-	static public final short CASE = 47;
-	static public final short DEFAULT = 48;
-	static public final short VAR = 49;
-	static public final short OF = 50;
-	static public final short LCURLY_BRACKET = 51;
-	static public final short RCURLY_BRACKET = 52;
-	static public final short THEN = 53;
-	static public final short ELSE = 54;
-	static public final short DO = 55;
-	static public final short TYPE = 56;
+	static public final short PRINT = 28;
+	static public final short PRINTLN = 29;
+	static public final short READLN = 30;
+	static public final short RETURN = 31;
+	static public final short WHILE = 32;
+	static public final short ARRAY = 33;
+	static public final short STRUCT = 34;
+	static public final short STR = 35;
+	static public final short INT = 36;
+	static public final short BOOL = 37;
+	static public final short COLON = 38;
+	static public final short BEGIN = 39;
+	static public final short LBRACKET = 40;
+	static public final short RBRACKET = 41;
+	static public final short COMMA = 42;
+	static public final short END = 43;
+	static public final short EQ = 44;
+	static public final short FUNCTION = 45;
+	static public final short PROCEDURE = 46;
+	static public final short DOUBLE_DOT = 47;
+	static public final short CASE = 48;
+	static public final short DEFAULT = 49;
+	static public final short VAR = 50;
+	static public final short OF = 51;
+	static public final short LCURLY_BRACKET = 52;
+	static public final short RCURLY_BRACKET = 53;
+	static public final short THEN = 54;
+	static public final short ELSE = 55;
+	static public final short DO = 56;
+	static public final short TYPE = 57;
 
 	static public final String[] NAMES = {
 		"EOF",
@@ -92,6 +93,7 @@ public class Terminals {
 		"SWITCH",
 		"NEW",
 		"DISPOSE",
+		"PRINT",
 		"PRINTLN",
 		"READLN",
 		"RETURN",

@@ -8,4 +8,11 @@ public class Name extends Exp {
 		this.label = label;
 	}
 
+	@Override
+	public String toString() {
+		return "Name ( " + label.toString() + " )";
+	}
+	
+	
+
 }

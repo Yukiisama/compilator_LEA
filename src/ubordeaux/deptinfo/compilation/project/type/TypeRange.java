@@ -4,6 +4,7 @@ public abstract class TypeRange extends TypeAtomic {
 
 	protected Type first;
 	protected Type last;
+	private boolean range_type = false;
 
 	public TypeRange(Type min, Type max) {
 		super();
@@ -11,6 +12,14 @@ public abstract class TypeRange extends TypeAtomic {
 		this.last = max;
 	}
 
+	public boolean isRange_type() {
+		return range_type;
+	}
+	
+	public void setRange_type(boolean range_type) {
+		this.range_type = range_type;
+	}
+	
 	public Type getFirst() {
 		return first;
 	}

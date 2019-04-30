@@ -23,6 +23,7 @@ public class Main {
 					System.err.println("*** Fichier " + arg);
 					Node result = (Node) parser.parse(input);
 					System.out.println(result.toString());
+					result.generateIntermediateCode();
 					System.err.println("*** Analyse syntaxique ok");
 					if (checksType) {
 						
