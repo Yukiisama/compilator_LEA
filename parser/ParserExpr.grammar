@@ -132,9 +132,13 @@ program =
 	statement_list.l
 	END
 	pop_stack
-	{: return l; :}
+	{: 
+		return l;
+	:}
 	;
-
+///////////////////////////////////////
+////////	UTILITIES STACK   ////////
+/////////////////////////////////////
 	push_stack = {: stackEnvironment.push_stack(); return new Symbol(0); :}
 	;
 	pop_stack =  {: stackEnvironment.pop_stack();  return new Symbol(0); :}
@@ -159,6 +163,8 @@ type_declaration =
 		if(!t.equals(new TypeInt()) && !t.equals(new TypeBoolean()) 
 				&& !t.equals(new TypeString())) {
 				if(t instanceof TypeNamed) {
+					
+					//We want to check if the TypeNamed exists.
 					if(typeEnvironment.getVariableValue(((TypeNamed)t).get_name())==null) {
 						semanticError("Error : Named type assigned doesn't exist " + name + ": " + t,t);
 						System.err.println("ERROR :Named type assigned doesn't exist  " + name + ": " + t);
@@ -167,26 +173,19 @@ type_declaration =
 				}
 		}
 		typeEnvironment.putVariable(name.get_name(),t);
-		System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + t + name);
 		
-		//Enum case 
+		//Enum case register the name of the enumeration into his members as 3rd argument
 		TypeEnumRange enu = null;
 		if (t instanceof TypeEnumRange) {
 			enu = (TypeEnumRange) t;
 			int i = 0 ;
 			for(String s : enu.getList()) {
-				
 				typeEnvironment.put_enum_value(s,new TypeItemEnum(i,s,name.get_name()));
-				System.out.println("PARLAAAAAAAAAA" + typeEnvironment.get_enum_value(s) );
 				stackEnvironment.putVariable(s,new TypeItemEnum(i,s,name.get_name()));
-				//typeEnvironment.putIDtoName(x,name);
 				i++;
 			}
 		}
-		
-				
-				
-		//typeEnvironment.putEnumToName((TypeEnumRange) t,name.get_name());
+
 		return new TypeFeature(name.get_name(),t);
 	:}	
 	;
@@ -227,15 +226,15 @@ enumerated_type =
 	init_enumerated_type.init LPAR identifier_list.t_list RPAR
 		{: 
 			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
-			//String name = typeEnvironment.getEnumToName(enum_range);
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
+			//Register all ItemEnum 
 			while(it.hasNext()) {
 				String x =  it.next();
 				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
 				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
+				//List of name for later use 
 				enum_range.setListName(i,x);
-				//typeEnvironment.putIDtoName(x,name);
 				i++;
 			}
 			return enum_range;
@@ -255,7 +254,6 @@ subrange_type =
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
 		type_range.setFrom_enum(false);
-		//type_range.setRange_type(test_range_type);
 		return type_range;
 	:}
 
@@ -264,53 +262,47 @@ subrange_type =
 		boolean test_range_type = true;
 		TypeItemEnum x = typeEnvironment.get_enum_value(min);
 		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		
+		//Case ItemEnum doesn't exist
 		if(x==null || y ==null) {
 			Main.add_error_type(new String("ERROR ItemEnum : enum don't exist "));
 			return new TypeArrayRange(new TypeInt(-1), new TypeInt(-1));
 		}
+		//We get the values for the typeArrayRange
 		int v_min = x.getValue();
 		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 			test_range_type = false;
 		}
+		//Incoherent range (not from the same Enum)
 		if(x.getEnum_name()!= y.getEnum_name()){
 			semanticError("Error TypeArrayRange : incoherent range " + x + " : " + y,x);
 			System.err.println("ERROR TypeArrayRange : incoherent range   " + x + " : " + y);
 			Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + x + " : " + y));
 		}
-		//if(typeEnvironment.getIDtoName(min)==null || typeEnvironment.getIDtoName(max)==null) {
-			//Main.add_error_type(new String("ERROR TypeArrayRange : enum doesn't exist " + v_min + " > " + v_max));
-			//test_range_type = false;
-		//}
-		//if(!typeEnvironment.getIDtoName(min).equals(typeEnvironment.getIDtoName(max))) {
-			//Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + v_min + " > " + v_max));
-			//test_range_type = false;
-		//}
+		
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		//Range is an enumeration 
 		one.setFrom_enum(true);
-		//one.setRange_type(test_range_type);
 		return one; 
 	:}
 	;
 
 array_type =
-	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	{:
-		System.out.println("Coucou" + t1 + ": "+ t2);
+	ARRAY LBRACKET range_type.t1 RBRACKET OF type.t2	
+	{:
+
 		TypeArray array = new TypeArray(t1,t2);
 		if(t1 instanceof TypeNamed) {
-		if(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name())==null){
-			Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+			if(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name())==null)
+				Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+			else 
+				array = new TypeArray(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name()),t2);
+				
 		}
-		else {
-			array = new TypeArray(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name()),t2);
-			}
-		}
-		
-		
-															
-															
-															return array; :}
+		return array; 
+	:}
 	;
 
 range_type =
@@ -360,6 +352,7 @@ variable_declaration =
 			String x =  it.next();
 			
 			list_2.add(new NodeId(x,t));
+			//If variable is already declared
 			if(stackEnvironment.getVariableValue(x)!=null) {
 				semanticError("Error VARIABLE Declaration : Variable x yet declared " + x ,list);
 				System.err.println("ERROR VARIABLE Declaration  : Variable x yet declared  " + x );
@@ -397,6 +390,7 @@ procedure_definition =
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		
 		if(t2.getDefined()==false) {
 			t.setDefined(true);
 			t.setDeclared(1);
@@ -407,7 +401,7 @@ procedure_definition =
 			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
 			
 		}
-		
+		//Set the new information about definition of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -418,6 +412,7 @@ procedure_definition =
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		//Must be only declared once
 		int x = t2.getDeclared();
 		t.setDeclared(++x);
 		if(t.getDeclared()>1) {
@@ -425,7 +420,7 @@ procedure_definition =
 			System.err.println("ERROR :procedure or function declared twice  " + sa );
 			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
 		}
-		
+		//Set the new information about declaration of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -500,7 +495,9 @@ block=
 	statement_list.l
 	END
 	pop_stack
-	{:return l;:}
+	{:
+		return l;
+	:}
 	;
 
 ////////////////////////////
@@ -537,23 +534,21 @@ assignment_statement=
 		if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray) {
 			tab = (TypeArray) stm.getType();
 			tab2 = (TypeArray) e.getType();
-			System.out.println("LALALAL  " + tab + ":" + tab2);
 		}
+		
 		if(stm.getType() instanceof TypeArray && !(e.getType() instanceof TypeArray)){
-			
-				semanticError(" Accessible variable expected", stm);
-				System.err.println(new String("ERROR  :  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
-				Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
-			
+			semanticError(" Accessible variable expected", stm);
+			System.err.println(new String("ERROR  :  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));	
 		}
 		
 		else if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray
 			&&(((TypeArrayRange)tab.getRangeOREnum()).getFirst()!= ((TypeArrayRange)tab2.getRangeOREnum()).getFirst())
 			&&(((TypeArrayRange)tab.getRangeOREnum()).getLast()!= ((TypeArrayRange)tab2.getRangeOREnum()).getLast())){
+			
 			semanticError(" ERROR  : Type error in affectation", stm);
 			System.err.println(new String("ERROR  : Type error in affectation (i.e range not same) " + stm.getType() + "  : " + stm.getType()));
 			Main.add_error_type(new String("ERROR  : Type error in affectation  ( i.e range not same) " + stm.getType() + "  : " + stm.getType()));
-
 		}
 		
 		else if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
@@ -578,7 +573,6 @@ assignment_statement=
 		}
 	
 		return new NodeAssign(stm, e);
-		//return null;
 	:}
 	;
 
@@ -750,10 +744,8 @@ variable_access =
 	IDENTIFIER.name											
 	{:  
 		int x = 0;
-		
-		
+
 		if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
-			
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
 		}
@@ -762,20 +754,18 @@ variable_access =
 			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
 		}
 		
-		
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 	:}
 
 	| variable_access.e1 LBRACKET expression.e2 RBRACKET	
 	{: 
-		System.out.println("var acc " +e1 + " : " +e2.getType() );
 		NodeId err = null;
 		NodeId err_tab= null;
 		//Case when it's a malformed expression as z = integer ; a = z[4] except z isn't an array -> error
 		if (e1 instanceof NodeId) {
 			err_tab = (NodeId) e1;
 			if(!(err_tab.getType() instanceof TypeArray)) {
-				System.out.println("ERROR ICI acc " +e1 + " : " +e2.getType() );
+				System.out.println("ERROR TypeArrayRange : Type error in affection  " +e1 + " : " +e2.getType() );
 				Main.add_error_type(new String("ERROR TypeArrayRange : Type error in affection , " + err_tab + " isn't an array "));
 				return new NodeArrayAccess(new NodeId("ERROR",new TypeArray(new TypeArrayRange(new TypeInt(-1), new TypeInt(-1)),new TypeInt(-1))), e2) ;
 			}
@@ -786,16 +776,11 @@ variable_access =
 			err_tab = (NodeId)e1;
 			if(err_tab.getType() instanceof TypeArray) {
 				TypeArray t = (TypeArray) err_tab.getType();
-				System.out.println("var acc2 "+ ((TypeArrayRange)t.getRangeOREnum()).getFrom_enum() + t.getRangeOREnum().getFirst() + " :: " + typeEnvironment.get_enum_value(err.getName()));
-				
 				if(typeEnvironment.get_enum_value(err.getName())!=null && !((TypeArrayRange)t.getRangeOREnum()).getFrom_enum()) {
-					System.out.println("ababab " + err.getName() + "  : " + typeEnvironment.get_enum_value(err.getName()) );
+					System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName() + "  : " + typeEnvironment.get_enum_value(err.getName()) );
 					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
 					return new NodeArrayAccess(e1, e2) ;
 				}
-				
-				//if(!(t.getType()e2.getType()))
-					//Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
 			}
 		}
 		if (e2 instanceof NodeLiteral) {
@@ -805,7 +790,6 @@ variable_access =
 				Type type1 = x.getType();
 				TypeArray type2 = (TypeArray) y.getType();
 				if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
-					
 					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
 					return new NodeArrayAccess(e1, e2) ;
 				}
@@ -897,7 +881,7 @@ expression =
 	| expression.e1 AND expression.e2 				
 	{: 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
 						+ e1.getType() + " && " + e2.getType()));
 			}
@@ -908,7 +892,7 @@ expression =
 	| expression.e1 OR expression.e2				
 	{: 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
 						+ e1.getType() + " || " + e2.getType()));
 			}		
@@ -949,7 +933,7 @@ expression =
 	
 	| expression.e1 SUPERIOR expression.e2			
 	{:
-		if(e1.getType()!=null && e2.getType()!=null) { //OK
+		if(e1.getType()!=null && e2.getType()!=null) { 
 			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) {
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " > " + e2.getType()));
@@ -972,7 +956,7 @@ expression =
 	| expression.e1 EQUALS expression.e2			
 	{: 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " == " + e2.getType()));
 			}
@@ -982,7 +966,7 @@ expression =
 	
 	| expression.e1 DIFF expression.e2			
 	{: 
-		if(e1.getType()!=null && e2.getType()!=null) { //OK
+		if(e1.getType()!=null && e2.getType()!=null) { 
 			if(!e1.getType().equals(e2.getType())) {
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " != " + e2.getType()));
