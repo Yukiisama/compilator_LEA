@@ -28,18 +28,12 @@ public final class NodeCaseList extends NodeStm {
 			System.out.println("NodeCaseList failed on generateIntermediateCode");
 			return;
 		}
+		System.out.println("NodeCaseList =>(");
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
+		System.out.println(" )");
 		
-		//On va stocker les cases dans une StmList.
-		StmList cases = new StmList(null, null);
-		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
-		for(int i = this.size()-1; i>=0; i--) {
-			NodeStm stm = (NodeStm) this.get(0);
-			stm.generateIntermediateCode();//Genère le code intermédiaire des noeuds fils.
-			cases.add(stm.getStm());
-		}
 		
-		super.stm = cases;
-		
-		System.out.println(super.stm.toString());
 	}
 }

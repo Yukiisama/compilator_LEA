@@ -638,7 +638,11 @@ if_statement =
 	;
 
 while_statement=
-	WHILE expression.e DO statement.stm 							{: return new NodeWhile(e, stm); :}
+	WHILE expression.e DO statement.stm 							{: NodeWhile while2 = new NodeWhile(e, stm); 
+	System.out.println("While ici " + while2); return while2;
+	:}
+	
+	
 	;
 
 switch_statement =

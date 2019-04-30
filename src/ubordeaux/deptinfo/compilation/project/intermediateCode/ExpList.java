@@ -1,6 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.intermediateCode;
 
-public class ExpList extends Exp implements IntermediateCode {
+public class ExpList implements IntermediateCode {
 	private Exp head;
 	private ExpList tail;
 

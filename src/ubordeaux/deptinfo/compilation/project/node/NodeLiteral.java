@@ -40,7 +40,7 @@ public final class NodeLiteral extends NodeExp {
 	
 	public void generateIntermediateCode() {
 		if(!this.checksType()) {
-			System.out.println("NodeCaseList failed on generateIntermediateCode");
+			System.out.println("NodeLiteral failed on generateIntermediateCode");
 			return;
 		}
 		
@@ -63,6 +63,7 @@ public final class NodeLiteral extends NodeExp {
 		}
 		if(type.equals(new TypeInt())) {
 			int val = (int) this.value;
+			
 			super.exp = new Const(val);
 		}
 	}

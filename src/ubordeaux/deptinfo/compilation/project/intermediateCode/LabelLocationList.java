@@ -22,16 +22,23 @@ public class LabelLocationList {
 
 	@Override
     public String toString() {
-        String string="LabelLocationList ( " +head.toString() +", ";
-        LabelLocationList args_clone = tail;
-        while(args_clone.getTail()!=null) {
-            string = string + args_clone.getHead().toString() +", ";
-            args_clone = args_clone.getTail();
-        }
-        //à cause de la derniere virgule.
-        string = string.substring(0,string.length()-2);
-        string =string + " )";
-        return string;
+		if(head!=null) {
+	        String string1="LabelLocationList ( " +head.toString() +", ";
+	        LabelLocationList args_clone = this;
+
+	        System.out.println("qjdlfjqsdjflqjsdfljqklsdfjlqsjdfljsd=============" );
+	        while(args_clone.getTail()!=null) {
+	            string1 = string1 + args_clone.getHead().toString() +", ";
+	            args_clone = args_clone.getTail();
+	        }
+	        //à cause de la derniere virgule.
+	        string1 = string1.substring(0,string1.length()-2);
+	        string1 =string1 + " )";
+	        
+	        return string1;
+		}else {
+			return "LabelLocationList()";
+		}
     }
 
 }

@@ -731,7 +731,8 @@ public class ParserExpr extends Parser {
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					final Symbol _symbol_stm = _symbols[offset + 4];
 					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeWhile(e, stm);
+					 NodeWhile while2 = new NodeWhile(e, stm); 
+	System.out.println("While ici " + while2); return while2;
 				}
 			},
 			new Action() {	// [88] switch_statement = SWITCH expression.e BEGIN case_statement_list.stm END

@@ -56,6 +56,9 @@ public final class NodeIf extends NodeStm {
 			return;
 		}
 
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
 		NodeRel rel = (NodeRel) getExpNode();
 		int rel_val=-1;
 		if(rel.getName() == "&&")

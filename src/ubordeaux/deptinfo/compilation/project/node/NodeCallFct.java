@@ -115,10 +115,10 @@ public final class NodeCallFct extends NodeExp {
 			return;
 		}
 		ExpList args = new ExpList(null,null);
-		
+
 		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
 		for(int i = this.size()-1; i>=0; i--) {
-			NodeExp exp = (NodeExp) this.get(0);
+			NodeExp exp = (NodeExp) this.getArgs().get(i);
 			exp.generateIntermediateCode();//Genère le code intermédiaire des noeuds fils.
 			args.add(exp.getExp());
 		}

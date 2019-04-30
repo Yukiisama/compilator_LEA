@@ -50,7 +50,7 @@ public final class NodeAssign extends NodeStm {
 			this.get(i).generateIntermediateCode();
 		
 		super.stm = new Move(new Mem(this.getLhs().getExp()),this.getRhs().getExp());
-		System.out.println(super.stm.toString());
+		System.out.println("NodeAssign =>" + super.stm.toString());
 	}
 
 }

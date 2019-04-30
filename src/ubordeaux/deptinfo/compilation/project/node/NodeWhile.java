@@ -6,6 +6,8 @@ import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Relop;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Seq;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Stm;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.StmList;
 
 public final class NodeWhile extends NodeStm {
 
@@ -37,6 +39,7 @@ public final class NodeWhile extends NodeStm {
 			System.out.println("NodeWhile failed on generateIntermediateCode");
 			return;
 		}
+		System.out.println("CI : NodeWhile");
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
@@ -62,9 +65,22 @@ public final class NodeWhile extends NodeStm {
 			rel_val = Relop.NOT;
 		//Seq T
 		LabelLocation t = new LabelLocation();
-		NodeStm stm = (NodeStm) this.get(1);
+		System.out.println("dsqfffffffffffffffq======================================dsfqqqqqqqqqqqq" +this.get(1).toString() );
+		
+		
+		//add alls stms in NodeList to stmList
+		StmList  slist = new StmList(null,null);
+		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
+		/*
+		for(int i = this.get(1).size()-1; i>=0; i--) {
+			NodeStm nstm = 
+			Stm stm = this.get(1).get(i).getStm();
+			slist.add(stm);
+		}
+		*/
+		
 		System.out.println("this is stm de while---------" + stm.toString() );
-		Seq seqT = new Seq(new Label(t),stm.getStm());
+		Seq seqT = new Seq(new Label(t),slist);
 		//Label while
 		LabelLocation label_while = new LabelLocation();
 		Jump jmp_while = new Jump(label_while);
@@ -80,7 +96,7 @@ public final class NodeWhile extends NodeStm {
 		//Seq final
 		super.stm = new Seq(seq_Cjmp,seqF);
 		
-		System.out.println(super.stm.toString());
+		System.out.println("NodeWhile =>"+ super.stm.toString());
 	}
 
 }

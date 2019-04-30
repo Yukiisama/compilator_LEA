@@ -27,15 +27,20 @@ public class StmList extends Stm{
 
 	@Override
     public String toString() {
-        String string="StmList ( " +head.toString() +", ";
-        StmList args_clone = tail;
-        while(args_clone.getTail()!=null) {
-            string = string + args_clone.getHead().toString() +", ";
-            args_clone = args_clone.getTail();
-        }
-        //à cause de la derniere virgule.
-        string = string.substring(0,string.length()-2);
-        string =string + " )";
-        return string;
+		if(head != null) {
+	        String string="StmList ( " +head.toString() +", ";
+	        StmList args_clone = tail;
+	        while(args_clone.getTail()!=null) {
+	            string = string + args_clone.getHead().toString() +", ";
+	            args_clone = args_clone.getTail();
+	        }
+	        //à cause de la derniere virgule.
+	        string = string.substring(0,string.length()-2);
+	        string =string + " )";
+	        return string;
+		}else {
+			return "StmList End";
+		}
+
     }
 }
