@@ -80,6 +80,7 @@ public final class NodeIf extends NodeStm {
 		if(rel.getName() == "!")
 			rel_val = Relop.NOT;
 		
+		System.out.println("args type in nodeif ========================" + this.get(1));
 		
 		
 		//Label T

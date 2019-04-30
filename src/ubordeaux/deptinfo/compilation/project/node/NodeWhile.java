@@ -39,10 +39,14 @@ public final class NodeWhile extends NodeStm {
 			System.out.println("NodeWhile failed on generateIntermediateCode");
 			return;
 		}
+		
+		
 		System.out.println("CI : NodeWhile");
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
+		
+		
 		NodeRel rel = (NodeRel) getExp();
 		int rel_val=-1;
 		if(rel.getName() == "&&")
@@ -65,22 +69,12 @@ public final class NodeWhile extends NodeStm {
 			rel_val = Relop.NOT;
 		//Seq T
 		LabelLocation t = new LabelLocation();
-		System.out.println("dsqfffffffffffffffq======================================dsfqqqqqqqqqqqq" +this.get(1).toString() );
+		
+		NodeList nlist = (NodeList) this.get(1);
 		
 		
-		//add alls stms in NodeList to stmList
-		StmList  slist = new StmList(null,null);
-		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
-		/*
-		for(int i = this.get(1).size()-1; i>=0; i--) {
-			NodeStm nstm = 
-			Stm stm = this.get(1).get(i).getStm();
-			slist.add(stm);
-		}
-		*/
 		
-		System.out.println("this is stm de while---------" + stm.toString() );
-		Seq seqT = new Seq(new Label(t),slist);
+		Seq seqT = new Seq(new Label(t),nlist.getStm());
 		//Label while
 		LabelLocation label_while = new LabelLocation();
 		Jump jmp_while = new Jump(label_while);

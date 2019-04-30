@@ -573,7 +573,7 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final Node e = (Node) _symbol_e.value;
-					return e;
+					return new NodeReturn((NodeExp)e);
 				}
 			},
 			new Action() {	// [70] procedure_expression = IDENTIFIER.func LPAR expression_part.list RPAR
@@ -668,9 +668,9 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 
-		return new NodeCallFct("print",
+		return new NodeReturn(new NodeCallFct("print",
 			new TypeFunct("print",new TypeTuple(new TypeFeature("print",e.getType())),
-					new TypeVoid()), new NodeList(e));
+					new TypeVoid()), new NodeList(e)));
 				}
 			},
 			new Action() {	// [78] println_statement = PRINTLN expression.e SEMI
@@ -678,9 +678,9 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 
-		return new NodeCallFct("println",
+		return new NodeReturn(new NodeCallFct("println",
 			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())),
-					new TypeVoid()), new NodeList(e));
+					new TypeVoid()), new NodeList(e)));
 				}
 			},
 			new Action() {	// [79] readln_statement = READLN.func expression.e SEMI

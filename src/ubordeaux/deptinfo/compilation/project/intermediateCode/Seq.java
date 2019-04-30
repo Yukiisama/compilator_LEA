@@ -8,6 +8,10 @@ public class Seq extends Stm {
 		this.left = left;
 		this.right = right;
 	}
+	
+	public void addR(Stm stm) {
+		this.right = stm;
+	}
 
 	@Override
 	public String toString() {

@@ -515,7 +515,7 @@ assignment_statement=
 	;
 
 procedure_statement=
-	procedure_expression.e SEMI {:return e;:}
+	procedure_expression.e SEMI {:return new NodeReturn((NodeExp)e);:}
 	;
 
 procedure_expression=
@@ -596,18 +596,18 @@ dispose_statement=
 print_statement=		
 	PRINT expression.e SEMI			
 	{: 
-		return new NodeCallFct("print",
+		return new NodeReturn(new NodeCallFct("print",
 			new TypeFunct("print",new TypeTuple(new TypeFeature("print",e.getType())),
-					new TypeVoid()), new NodeList(e)); 
+					new TypeVoid()), new NodeList(e))); 
 	:}	
 	;
 	
 println_statement=		
 	PRINTLN expression.e SEMI			
 	{: 
-		return new NodeCallFct("println",
+		return new NodeReturn(new NodeCallFct("println",
 			new TypeFunct("println",new TypeTuple(new TypeFeature("println",e.getType())),
-					new TypeVoid()), new NodeList(e)); 
+					new TypeVoid()), new NodeList(e))); 
 	:}	
 	;
 	
