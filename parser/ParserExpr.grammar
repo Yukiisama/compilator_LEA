@@ -250,7 +250,7 @@ subrange_type =
 	{: 
 		boolean test_range_type = true;
 		if(min > max) {
-			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + min + " > " + max));
 			test_range_type = false;
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
@@ -531,7 +531,7 @@ simple_statement=
 assignment_statement=
 	variable_access.stm EQ expression.e SEMI	
 	{: 	
-		System.out.println("LALALALALALALLLA " + stm + " : " + e);
+		
 		TypeArray tab = null;
 		TypeArray tab2 = null;
 		if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray) {
@@ -546,6 +546,7 @@ assignment_statement=
 				Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
 			
 		}
+		
 		else if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray
 			&&(((TypeArrayRange)tab.getRangeOREnum()).getFirst()!= ((TypeArrayRange)tab2.getRangeOREnum()).getFirst())
 			&&(((TypeArrayRange)tab.getRangeOREnum()).getLast()!= ((TypeArrayRange)tab2.getRangeOREnum()).getLast())){
@@ -770,6 +771,16 @@ variable_access =
 		System.out.println("var acc " +e1 + " : " +e2.getType() );
 		NodeId err = null;
 		NodeId err_tab= null;
+		//Case when it's a malformed expression as z = integer ; a = z[4] except z isn't an array -> error
+		if (e1 instanceof NodeId) {
+			err_tab = (NodeId) e1;
+			if(!(err_tab.getType() instanceof TypeArray)) {
+				System.out.println("ERROR ICI acc " +e1 + " : " +e2.getType() );
+				Main.add_error_type(new String("ERROR TypeArrayRange : Type error in affection , " + err_tab + " isn't an array "));
+				return new NodeArrayAccess(new NodeId("ERROR",new TypeArray(new TypeArrayRange(new TypeInt(-1), new TypeInt(-1)),new TypeInt(-1))), e2) ;
+			}
+		}
+		
 		if(e2 instanceof NodeId ) {
 			err = (NodeId)e2;
 			err_tab = (NodeId)e1;
@@ -782,20 +793,25 @@ variable_access =
 					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
 					return new NodeArrayAccess(e1, e2) ;
 				}
+				
 				//if(!(t.getType()e2.getType()))
 					//Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
 			}
 		}
-		
 		if (e2 instanceof NodeLiteral) {
 			NodeLiteral x = (NodeLiteral)e2;
 			NodeId y = (NodeId)e1;
 			if(y.getType() instanceof TypeArray) {
 				Type type1 = x.getType();
 				TypeArray type2 = (TypeArray) y.getType();
-				System.out.println("xcoucou" + type1 + "  : " + type2.getRangeOREnum().getFirst());
+				if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
+					
+					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
+					return new NodeArrayAccess(e1, e2) ;
+				}
+
 				if( !(type1.equals(type2.getRangeOREnum().getFirst())))
-					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " ));
+					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + type1));
 			}
 		}
 		return new NodeArrayAccess(e1, e2) ; 
