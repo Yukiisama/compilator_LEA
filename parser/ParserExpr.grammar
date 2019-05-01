@@ -781,6 +781,12 @@ variable_access =
 					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
 					return new NodeArrayAccess(e1, e2) ;
 				}
+				if(typeEnvironment.get_enum_value(err.getName())==null) {
+					System.out.println("coucou icix");
+					System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName());
+					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+					return new NodeArrayAccess(e1, new NodeId("ERROR",new TypeVoid())) ;
+				}
 			}
 		}
 		if (e2 instanceof NodeLiteral) {
