@@ -84,7 +84,7 @@ begin
 	z2 [ 1 ] = 36;
 	x = z2 [ 1 ];
 	b = goo(z2 [ 1 ], 1);
-	//y = z [ false ]; // error "Type error in array access"
+	//y = z2 [ false ]; // error "Type error in array access"
 	//y = z [ 4 ]; // error "Type error in affectation"
 	//b = z [ 4 ]; // error "Type error in affectation"
 	//z = k [ 4 ]; // error "Type error in affectation"

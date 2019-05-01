@@ -1,7 +1,4 @@
-*** Fichier data/progr6.lea
-*** //
-*** // gestion complexe de la pile
-*** // 
+*** Fichier data/progr5.lea
 *** var
 Stack PUSH
 *** x
@@ -13,684 +10,191 @@ Create class NodeList
 Create class NodeId
 Enregistre dans stack   x TypeInt_null
 Create class NodeList
-*** fact1
-*** (
-*** k
-*** :
-*** integer
-*** )
-Create class NodeId
-Create class NodeList
-*** :
-*** integer
-*** begin
-Enregistre dans stack   k TypeInt_null
-Enregistre fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
-Create class NodeCallFct
-Stack PUSH
-*** if
-*** (
-*** k
-*** ==
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** return
-*** (
-*** 1
-*** )
-Create class NodeLiteral
-*** ;
-*** else
-Create class NodeReturn
-*** return
-*** (
-*** k
-*** *
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** fact1
-*** (
-*** k
-*** -
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeOp
-Create class NodeList
-*** )
-Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
-Etape 126 : ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
-Etape 127 : NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
-Create class NodeOp
-*** ;
-*** end
-Create class NodeReturn
-Create class NodeIf
-Create class NodeList
-NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#1:TypeInt_1#), NodeReturn(NodeOp(NodeId#k:TypeInt_null#, fact1_NodeCallFct(NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
-*** function
-Stack PUSH
-Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1Declare : 0
-Enregistre fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
-Create class NodeList
-*** fact2
-*** (
-*** k
-*** :
-*** integer
-*** )
-Create class NodeId
-Create class NodeList
-*** :
-*** integer
-*** begin
-Enregistre dans stack   k TypeInt_null
-Enregistre fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
-Create class NodeCallFct
-Stack PUSH
-*** if
-*** (
-*** k
-*** ==
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** return
-*** (
-*** 1
-*** )
-Create class NodeLiteral
-*** ;
-*** else
-Create class NodeReturn
-*** return
-*** (
-*** fact2
-*** (
-*** k
-*** -
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeOp
-Create class NodeList
-*** *
-Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
-Etape 126 : ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
-Etape 127 : NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
-*** k
-*** )
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-Create class NodeOp
-*** ;
-*** end
-Create class NodeReturn
-Create class NodeIf
-Create class NodeList
-NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#1:TypeInt_1#), NodeReturn(NodeOp(fact2_NodeCallFct(NodeList(NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))), NodeId#k:TypeInt_null#))))
-*** procedure
-Stack PUSH
-Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2Declare : 0
-Enregistre fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
-*** hanoi
-*** (
-*** a
-*** :
-*** string
-*** ,
-Create class NodeId
-Create class NodeList
-*** b
-*** :
-*** string
-*** ,
-Create class NodeId
-*** c
-*** :
-*** string
-*** ,
-Create class NodeId
-*** k
-*** :
-*** integer
-*** )
-Create class NodeId
-*** begin
-Enregistre dans stack   a TypeString
-Enregistre dans stack   b TypeString
-Enregistre dans stack   c TypeString
-Enregistre dans stack   k TypeInt_null
-Enregistre hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Create class NodeCallFct
-Stack PUSH
-*** if
-*** (
-*** k
-*** >
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** hanoi
-*** (
-*** a
-*** ,
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Create class NodeId
-Create class NodeList
-*** c
-*** ,
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Create class NodeId
-*** b
-*** ,
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Create class NodeId
-*** k
-*** -
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeOp
-*** ;
-Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Etape 127 : NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-*** print
-=======
-*** println
->>>>>>> Stashed changes
-=======
-*** println
->>>>>>> Stashed changes
-Create class NodeIf
-Create class NodeList
-NodeList(NodeIf(NodeRel(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#), hanoi_NodeCallFct(NodeList(NodeId#a:TypeString#, NodeId#c:TypeString#, NodeId#b:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
-*** (
-*** a
-*** )
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Create class NodeId
-*** ;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-*** print
-=======
-*** println
->>>>>>> Stashed changes
-=======
-*** println
->>>>>>> Stashed changes
-Create class NodeList
-Create class NodeCallFct
-*** (
-*** ">"
-*** )
-Create class NodeLiteral
-*** ;
-*** println
-Create class NodeList
-Create class NodeCallFct
-*** (
-*** c
-*** )
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Create class NodeId
-*** ;
-*** if
-Create class NodeList
-Create class NodeCallFct
-*** (
-*** k
-*** >
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** hanoi
-*** (
-*** b
-*** ,
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Retrouve dans stack   b TypeString
-Create class NodeId
-Create class NodeList
-*** a
-*** ,
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Retrouve dans stack   a TypeString
-Create class NodeId
-*** c
-*** ,
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Retrouve dans stack   c TypeString
-Create class NodeId
-*** k
-*** -
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Retrouve dans stack   k TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeOp
-*** ;
-Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Etape 127 : NodeList(NodeId#b:TypeString#, NodeId#a:TypeString#, NodeId#c:TypeString#, NodeOp(NodeId#k:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
-*** end
-Create class NodeIf
-*** function
-Stack PUSH
-Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: false Name: hanoiDeclare : 0
-Enregistre hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
-*** impair
+*** sum
 *** (
 *** i
 *** :
 *** integer
-*** )
+*** ,
 Create class NodeId
 Create class NodeList
-*** :
-*** boolean
-*** ;
-Enregistre dans stack   i TypeInt_null
-Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
-Create class NodeCallFct
-*** function
-Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
-Salut c'est ici -> ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 0
-Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
-*** pair
-*** (
-*** i
+*** j
 *** :
 *** integer
 *** )
 Create class NodeId
-Create class NodeList
 *** :
-*** boolean
+*** integer
 *** var
-Enregistre dans stack   i TypeInt_null
-Enregistre pair ([pair:TypeInt_null]) -> TypeBoolean Defined: false Name: pairDeclare : 0
+Enregistre sum ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: sumDeclare : 0
 Create class NodeCallFct
 Stack PUSH
-*** b
+*** k
 *** :
-*** boolean
+*** integer
 *** ;
 *** begin
 Create class NodeList
 Create class NodeId
-Enregistre dans stack   b TypeBoolean
+Enregistre dans stack   k TypeInt_null
 Create class NodeList
-*** if
-*** (
-*** i
-*** ==
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** b
-*** =
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Create class NodeId
-*** false
-*** ;
-Create class NodeLiteral
-*** else
-Create class NodeAssign
-*** if
-*** (
-*** i
-*** ==
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Create class NodeId
-*** 0
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** b
-*** =
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Create class NodeId
-*** true
-*** ;
-Create class NodeLiteral
-*** else
-Create class NodeAssign
-*** b
-*** =
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Create class NodeId
-*** impair
-*** (
-*** i
-*** -
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
-Create class NodeOp
-Create class NodeList
-*** ;
-Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
-Etape 126 : ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
-Etape 127 : NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
 *** return
-Create class NodeAssign
-Create class NodeIf
-Create class NodeIf
-Create class NodeList
-NodeList(NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#true:TypeBoolean#), NodeAssign(NodeId#b:TypeBoolean#, impair_NodeCallFct(NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
 *** (
-*** b
-*** )
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
-Retrouve dans stack   b TypeBoolean
+*** i
+*** +
 Create class NodeId
+*** j
+*** )
+Create class NodeId
+Create class NodeOp
 *** ;
 *** end
 Create class NodeReturn
+Create class NodeList
 *** function
 Stack PUSH
-Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: false Name: pairDeclare : 0
-Enregistre pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-*** impair
+Retrouve2 sum ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: sumDeclare : 0
+Enregistre sum ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: true Name: sumDeclare : 1
+Create class NodeList
+*** pgcd
 *** (
 *** i
 *** :
 *** integer
-*** )
+*** ,
 Create class NodeId
 Create class NodeList
+*** j
 *** :
-*** boolean
+*** integer
+*** )
+Create class NodeId
+*** :
+*** integer
 *** begin
-Enregistre dans stack   i TypeInt_null
+Enregistre pgcd ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: pgcdDeclare : 0
 Create class NodeCallFct
 Stack PUSH
+*** while
+*** (
+*** i
+*** !=
+Create class NodeId
+*** j
+*** )
+Create class NodeId
+Create class NodeRel
+*** do
 *** if
 *** (
 *** i
-*** ==
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
+*** >
 Create class NodeId
-*** 1
+*** j
 *** )
-Create class NodeLiteral
+Create class NodeId
 Create class NodeRel
 *** then
-*** return
-*** (
-*** true
-*** )
-Create class NodeLiteral
-*** ;
-*** else
-Create class NodeReturn
-*** if
-*** (
 *** i
-*** ==
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
+*** =
 Create class NodeId
-*** 0
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** return
-*** (
-*** false
-*** )
-Create class NodeLiteral
-*** ;
-*** else
-Create class NodeReturn
-*** return
-*** (
-*** pair
-*** (
 *** i
 *** -
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
-Retrouve dans stack   i TypeInt_null
 Create class NodeId
-*** 1
-*** )
-Create class NodeLiteral
+*** j
+*** ;
+Create class NodeId
 Create class NodeOp
+*** else
+Create class NodeAssign
+*** j
+*** =
+Create class NodeId
+*** j
+*** -
+Create class NodeId
+*** i
+*** ;
+Create class NodeId
+Create class NodeOp
+*** return
+Create class NodeAssign
+Create class NodeIf
+Create class NodeWhile
 Create class NodeList
+*** (
+*** i
 *** )
-Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 127 : NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
-Create class NodeCallFct
+Create class NodeId
 *** ;
 *** end
 Create class NodeReturn
-Create class NodeIf
-Create class NodeIf
-Create class NodeList
-NodeList(NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeReturn(NodeLiteral#true:TypeBoolean#), NodeIf(NodeRel(NodeId#i:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeReturn(NodeLiteral#false:TypeBoolean#), NodeReturn(pair_NodeCallFct(NodeList(NodeOp(NodeId#i:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))))
 *** begin
 Stack PUSH
-Retrouve2 impair ([impair:TypeInt_null]) -> TypeBoolean Defined: false Name: impairDeclare : 1
-Enregistre impair ([impair:TypeInt_null]) -> TypeBoolean Defined: true Name: impairDeclare : 0
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-*** print
-=======
-*** println
->>>>>>> Stashed changes
-=======
-*** println
->>>>>>> Stashed changes
-*** (
-*** fact1
-*** (
-*** 6
-*** )
-Create class NodeLiteral
-Create class NodeList
-*** )
-Retrouve2 fact1 ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
-Etape 126 : ([fact1:TypeInt_null]) -> TypeInt_null Defined: true Name: fact1Declare : 0
-Etape 127 : NodeList(NodeLiteral#6:TypeInt_6#)
-Create class NodeCallFct
+Retrouve2 pgcd ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: pgcdDeclare : 0
+Enregistre pgcd ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: true Name: pgcdDeclare : 1
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 5
 *** ;
-*** println
-Create class NodeList
-Create class NodeCallFct
-Create class NodeList
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
-=======
-NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
->>>>>>> Stashed changes
-=======
-NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))))
->>>>>>> Stashed changes
-*** (
-*** fact2
-*** (
-*** 6
-*** )
 Create class NodeLiteral
+*** x
+Create class NodeAssign
 Create class NodeList
-*** )
-Retrouve2 fact2 ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
-Etape 126 : ([fact2:TypeInt_null]) -> TypeInt_null Defined: true Name: fact2Declare : 0
-Etape 127 : NodeList(NodeLiteral#6:TypeInt_6#)
-Create class NodeCallFct
-*** ;
-*** hanoi
-Create class NodeList
-Create class NodeCallFct
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** sum
 *** (
-*** "A"
+*** 3
 *** ,
 Create class NodeLiteral
 Create class NodeList
-*** "B"
-*** ,
-Create class NodeLiteral
-*** "C"
-*** ,
-Create class NodeLiteral
-*** 4
+*** 5
 *** )
 Create class NodeLiteral
 *** ;
-Retrouve2 hanoi ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
-Etape 126 : ([hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeString], [hanoi:TypeInt_null]) -> TypeVoid Defined: true Name: hanoiDeclare : 0
-Etape 127 : NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)
+Retrouve2 sum ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: true Name: sumDeclare : 1
 Create class NodeCallFct
 *** println
+Create class NodeAssign
+*** sum
 *** (
-*** pair
-*** (
-*** 1001
-*** )
+*** 3
+*** ,
 Create class NodeLiteral
 Create class NodeList
+*** 5
 *** )
-Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 127 : NodeList(NodeLiteral#1001:TypeInt_1001#)
-Create class NodeCallFct
+Create class NodeLiteral
 *** ;
+Retrouve2 sum ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: true Name: sumDeclare : 1
+Create class NodeCallFct
 *** println
 Create class NodeList
 Create class NodeCallFct
 *** (
-*** pair
+*** pgcd
 *** (
-*** 1000
-*** )
+*** 78
+*** ,
 Create class NodeLiteral
 Create class NodeList
+*** 90
 *** )
-Retrouve2 pair ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 126 : ([pair:TypeInt_null]) -> TypeBoolean Defined: true Name: pairDeclare : 0
-Etape 127 : NodeList(NodeLiteral#1000:TypeInt_1000#)
+Create class NodeLiteral
+*** )
+Retrouve2 pgcd ([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: true Name: pgcdDeclare : 1
 Create class NodeCallFct
 *** ;
 *** end
@@ -698,50 +202,40 @@ Create class NodeList
 Create class NodeCallFct
 
 Stack PUSH
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-NodeList(print_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
-=======
-NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
->>>>>>> Stashed changes
-=======
-NodeList(println_NodeCallFct(NodeList(fact1_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), println_NodeCallFct(NodeList(fact2_NodeCallFct(NodeList(NodeLiteral#6:TypeInt_6#)))), hanoi_NodeCallFct(NodeList(NodeLiteral#"A":TypeString#, NodeLiteral#"B":TypeString#, NodeLiteral#"C":TypeString#, NodeLiteral#4:TypeInt_4#)), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1001:TypeInt_1001#)))), println_NodeCallFct(NodeList(pair_NodeCallFct(NodeList(NodeLiteral#1000:TypeInt_1000#)))))
->>>>>>> Stashed changes
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeAssign(NodeId#x:TypeInt_null#, sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#5:TypeInt_5#))), println_NodeCallFct(NodeList(sum_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#5:TypeInt_5#)))), println_NodeCallFct(NodeList(pgcd_NodeCallFct(NodeList(NodeLiteral#78:TypeInt_78#, NodeLiteral#90:TypeInt_90#)))))
 *** Analyse syntaxique ok
 --- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeCallFct
+--- CheckType NodeAssign
+--- CheckType NodeId
 --- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
 --- CheckType NodeCallFct
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
 --- CheckType NodeLiteral
 --- CheckType NodeLiteral
 --- CheckType NodeCallFct
 --- CheckType NodeCallFct
 --- CheckType NodeLiteral
+--- CheckType NodeLiteral
 --- CheckType NodeCallFct
 --- CheckType NodeCallFct
+--- CheckType NodeLiteral
 --- CheckType NodeLiteral
 --- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeCallFct
+--- CheckType NodeAssign
+--- CheckType NodeId
 --- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
 --- CheckType NodeCallFct
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
 --- CheckType NodeLiteral
 --- CheckType NodeLiteral
 --- CheckType NodeCallFct
 --- CheckType NodeCallFct
 --- CheckType NodeLiteral
+--- CheckType NodeLiteral
 --- CheckType NodeCallFct
 --- CheckType NodeCallFct
+--- CheckType NodeLiteral
 --- CheckType NodeLiteral
 *** Typage correct

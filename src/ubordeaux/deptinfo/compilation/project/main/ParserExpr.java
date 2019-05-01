@@ -92,17 +92,18 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 6];
 					final Node l = (Node) _symbol_l.value;
-					 return l;
+					 
+		return l;
 				}
 			},
 			new Action() {	// [1] push_stack = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					stackEnvironment.push_stack();return new Symbol(0);
+					 stackEnvironment.push_stack(); return new Symbol(0);
 				}
 			},
 			new Action() {	// [2] pop_stack = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					stackEnvironment.pop_stack();return new Symbol(0);
+					 stackEnvironment.pop_stack();  return new Symbol(0);
 				}
 			},
 			Action.NONE,  	// [3] type_declaration_part = 
@@ -133,6 +134,8 @@ public class ParserExpr extends Parser {
 		if(!t.equals(new TypeInt()) && !t.equals(new TypeBoolean()) 
 				&& !t.equals(new TypeString())) {
 				if(t instanceof TypeNamed) {
+					
+					//We want to check if the TypeNamed exists.
 					if(typeEnvironment.getVariableValue(((TypeNamed)t).get_name())==null) {
 						semanticError("Error : Named type assigned doesn't exist " + name + ": " + t,t);
 						System.err.println("ERROR :Named type assigned doesn't exist  " + name + ": " + t);
@@ -141,6 +144,19 @@ public class ParserExpr extends Parser {
 				}
 		}
 		typeEnvironment.putVariable(name.get_name(),t);
+		
+		//Enum case register the name of the enumeration into his members as 3rd argument
+		TypeEnumRange enu = null;
+		if (t instanceof TypeEnumRange) {
+			enu = (TypeEnumRange) t;
+			int i = 0 ;
+			for(String s : enu.getList()) {
+				typeEnvironment.put_enum_value(s,new TypeItemEnum(i,s,name.get_name()));
+				stackEnvironment.putVariable(s,new TypeItemEnum(i,s,name.get_name()));
+				i++;
+			}
+		}
+
 		return new TypeFeature(name.get_name(),t);
 				}
 			},
@@ -181,27 +197,31 @@ public class ParserExpr extends Parser {
 			},
 			Action.RETURN,	// [19] index_type = enumerated_type
 			Action.RETURN,	// [20] index_type = subrange_type
-			new Action() {	// [21] enumerated_type = init_enumerated_type LPAR identifier_list.t_list RPAR
+			new Action() {	// [21] enumerated_type = init_enumerated_type.init LPAR identifier_list.t_list RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_init = _symbols[offset + 1];
+					final TypeEnumRange init = (TypeEnumRange) _symbol_init.value;
 					final Symbol _symbol_t_list = _symbols[offset + 3];
 					final IdentifierList t_list = (IdentifierList) _symbol_t_list.value;
 					 
+			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
+			//Register all ItemEnum 
 			while(it.hasNext()) {
-			String x =  it.next();
-			typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
-			stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
-			i++;
+				String x =  it.next();
+				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
+				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
+				//List of name for later use 
+				enum_range.setListName(i,x);
+				i++;
 			}
-			//typeEnvironment.put_enum_value(t_list.first(),0);
-			//typeEnvironment.put_enum_value(t_list.last(),t_list.size()-1);
-			return new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
+			return enum_range;
 				}
 			},
 			new Action() {	// [22] init_enumerated_type = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-						return new TypeEnumRange();
+					return new TypeEnumRange();
 				}
 			},
 			new Action() {	// [23] subrange_type = INTEGER_LIT.min DOUBLE_DOT INTEGER_LIT.max
@@ -211,10 +231,14 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_max = _symbols[offset + 3];
 					final Integer max = (Integer) _symbol_max.value;
 					 
+		boolean test_range_type = true;
 		if(min > max) {
-			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + min + " > " + max));
+			test_range_type = false;
 		}
-		return new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
+		type_range.setFrom_enum(false);
+		return type_range;
 				}
 			},
 			new Action() {	// [24] subrange_type = IDENTIFIER.min DOUBLE_DOT IDENTIFIER.max
@@ -224,14 +248,31 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_max = _symbols[offset + 3];
 					final String max = (String) _symbol_max.value;
 					 
+		boolean test_range_type = true;
 		TypeItemEnum x = typeEnvironment.get_enum_value(min);
 		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		
+		//Case ItemEnum doesn't exist
+		if(x==null || y ==null) {
+			Main.add_error_type(new String("ERROR ItemEnum : enum don't exist "));
+			return new TypeArrayRange(new TypeInt(-1), new TypeInt(-1));
+		}
+		//We get the values for the typeArrayRange
 		int v_min = x.getValue();
 		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
+			test_range_type = false;
 		}
+		//Incoherent range (not from the same Enum)
+		if(x.getEnum_name()!= y.getEnum_name()){
+			semanticError("Error TypeArrayRange : incoherent range " + x + " : " + y,x);
+			System.err.println("ERROR TypeArrayRange : incoherent range   " + x + " : " + y);
+			Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + x + " : " + y));
+		}
+		
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		//Range is an enumeration 
 		one.setFrom_enum(true);
 		return one;
 				}
@@ -242,7 +283,17 @@ public class ParserExpr extends Parser {
 					final Type t1 = (Type) _symbol_t1.value;
 					final Symbol _symbol_t2 = _symbols[offset + 6];
 					final Type t2 = (Type) _symbol_t2.value;
-					 return new TypeArray(t1,t2);
+					
+
+		TypeArray array = new TypeArray(t1,t2);
+		if(t1 instanceof TypeNamed) {
+			if(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name())==null)
+				Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+			else 
+				array = new TypeArray(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name()),t2);
+				
+		}
+		return array;
 				}
 			},
 			Action.RETURN,	// [26] range_type = enumerated_type
@@ -318,7 +369,14 @@ public class ParserExpr extends Parser {
 			String x =  it.next();
 			
 			list_2.add(new NodeId(x,t));
-			stackEnvironment.putVariable(x,t);
+			//If variable is already declared
+			if(stackEnvironment.getVariableValue(x)!=null) {
+				semanticError("Error VARIABLE Declaration : Variable " + x  + " yet declared " ,list);
+				System.err.println("ERROR VARIABLE Declaration  : Variable " + x  + " yet declared "  );
+				Main.add_error_type(new String("ERROR VARIABLE Declaration  : Variable " + x  +"  yet declared " ));
+			}
+			else
+				stackEnvironment.putVariable(x,t);
 		}
 		return list_2;
 				}
@@ -329,7 +387,7 @@ public class ParserExpr extends Parser {
 					final IdentifierList list = (IdentifierList) _symbol_list.value;
 					final Symbol _symbol_name = _symbols[offset + 3];
 					final String name = (String) _symbol_name.value;
-					 list.add(name); System.err.println(list.toString()); return list;
+					 list.add(name); return list;
 				}
 			},
 			new Action() {	// [40] identifier_list = IDENTIFIER.name
@@ -364,9 +422,10 @@ public class ParserExpr extends Parser {
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		
 		if(t2.getDefined()==false) {
 			t.setDefined(true);
-			t.setDeclared(0);
+			t.setDeclared(1);
 		}
 		else {
 			semanticError(" function already defined  ",s);
@@ -374,7 +433,7 @@ public class ParserExpr extends Parser {
 			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
 			
 		}
-		
+		//Set the new information about definition of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -388,7 +447,7 @@ public class ParserExpr extends Parser {
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
-		System.out.println("Salut c'est ici -> " + t2);
+		//Must be only declared once
 		int x = t2.getDeclared();
 		t.setDeclared(++x);
 		if(t.getDeclared()>1) {
@@ -396,7 +455,7 @@ public class ParserExpr extends Parser {
 			System.err.println("ERROR :procedure or function declared twice  " + sa );
 			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
 		}
-		
+		//Set the new information about declaration of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -416,8 +475,7 @@ public class ParserExpr extends Parser {
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
-			lionel.add( new TypeFeature(func,x.getType()));
-			stackEnvironment.putVariable(x.getName(),x.getType());
+			lionel.add( new TypeFeature(x.getName(),x.getType()));
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
@@ -439,10 +497,8 @@ public class ParserExpr extends Parser {
 		TypeTuple lionel = new TypeTuple();
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
-			NodeId x = (NodeId) it.next();		
-			//System.out.println("coucou -------> + " + x.getType());
-			lionel.add( new TypeFeature(func,x.getType()));
-			stackEnvironment.putVariable(x.getName(),x.getType());
+			NodeId x = (NodeId) it.next();	
+			lionel.add( new TypeFeature(x.getName(),x.getType()));
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
@@ -483,7 +539,8 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 4];
 					final Node l = (Node) _symbol_l.value;
-					return l;
+					
+		return l;
 				}
 			},
 			new Action() {	// [56] statement_list = statement_list.list statement.stm
@@ -499,7 +556,7 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 1];
 					final Node stm = (Node) _symbol_stm.value;
-					 NodeList list = new NodeList(); list.add(stm); System.out.println(list.toString()); return list;
+					 NodeList list = new NodeList(); list.add(stm); return list;
 				}
 			},
 			Action.RETURN,	// [58] statement = simple_statement
@@ -518,13 +575,51 @@ public class ParserExpr extends Parser {
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 
+					 	
 		
-		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())) {
-			semanticError("Type error in affectation", e);
-			System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
-			Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+		TypeArray tab = null;
+		TypeArray tab2 = null;
+		if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray) {
+			tab = (TypeArray) stm.getType();
+			tab2 = (TypeArray) e.getType();
 		}
+		
+		if(stm.getType() instanceof TypeArray && !(e.getType() instanceof TypeArray)){
+			semanticError(" Accessible variable expected", stm);
+			System.err.println(new String("ERROR  :  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));	
+		}
+		
+		else if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getFirst()!= ((TypeArrayRange)tab2.getRangeOREnum()).getFirst())
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getLast()!= ((TypeArrayRange)tab2.getRangeOREnum()).getLast())){
+			
+			semanticError(" ERROR  : Type error in affectation", stm);
+			System.err.println(new String("ERROR  : Type error in affectation (i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR  : Type error in affectation  ( i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+		}
+		
+		else if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
+			if(stm.getType() instanceof TypeNamed){
+				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
+				if(t instanceof TypePointer ) {
+					return new NodeAssign(stm, e);
+				}
+			}
+			else {	
+				if(stm.getType() instanceof TypePointer && e.getType() instanceof TypePointer ) {
+					TypeComplex ptr = (TypeComplex)e.getType();
+					if(ptr.size()==0)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) stm.getType()).get(0)),0));
+					else if(ptr.size()==1)
+						return new NodeAssign(stm, new NodeLiteral((new TypePointer((TypePointer) e.getType()).get(0)),0));
+				}
+				semanticError("Type error in affectation", e);
+				System.err.println(new String("ERROR  : Type error in affectation " + stm.getType() + "  : " + e.getType()));
+				Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
+			}
+		}
+	
 		return new NodeAssign(stm, e);
 				}
 			},
@@ -543,11 +638,8 @@ public class ParserExpr extends Parser {
 					final NodeList list = (NodeList) _symbol_list.value;
 					 	
 		TypeFunct lionel_le_boss = (TypeFunct)procedureEnvironment.getFunction(func);
-		System.out.println("Etape 126 : " + lionel_le_boss);
-		System.out.println("Etape 127 : " + list);
 		//Case Nb params differents
 		if(lionel_le_boss.getParams().size() != list.size()) {
-			
 			semanticError("Type error in calling expression",list);
 			System.err.println("ERROR : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list);
 			Main.add_error_type(new String("ERROR NodeCallFct : Type error in calling expression <NB_PARAM>" + lionel_le_boss + "  : " + list));
@@ -592,14 +684,37 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 2];
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
-					return new NodeNew(stm);
+						
+		NodeId ID = (NodeId) stm;
+		if(ID.getType() instanceof TypePointer)
+			return new NodeNew(stm);
+		else if ( ID.getType() instanceof TypeNamed) {
+			TypeNamed name_type = (TypeNamed) ID.getType();
+			if(typeEnvironment.getVariableValue(name_type.get_name()) instanceof TypePointer);
+				return new NodeNew(stm);
+		}
+		
+		semanticError(" Type error in pointer access expression ",stm);
+		System.err.println("ERROR : Type error in pointer access expression " + stm);
+		Main.add_error_type(new String("ERROR NodeNew : Type error in pointer access expression " + stm));
+		return new NodeNew(new NodeId("ERROR",new TypeVoid()));
 				}
 			},
 			new Action() {	// [76] dispose_statement = DISPOSE variable_access.stm SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 2];
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
-					 return new NodeDispose(stm);
+					 
+		NodeId id = (NodeId) stm;
+		if(id.getType() instanceof TypePointer)
+			return new NodeDispose(stm);
+		else
+		{
+			semanticError(" Type error in pointer access expression ",stm);
+			System.err.println("ERROR : Type error in pointer access expression " + stm);
+			Main.add_error_type(new String("ERROR NodeDispose : Type error in pointer access expression " + stm));
+			return new NodeDispose(new NodeId("ERROR",new TypeVoid()));
+		}
 				}
 			},
 			new Action() {	// [77] print_statement = PRINT expression.e SEMI
@@ -690,7 +805,10 @@ public class ParserExpr extends Parser {
 					final NodeList case1 = (NodeList) _symbol_case1.value;
 					final Symbol _symbol_case2 = _symbols[offset + 3];
 					final NodeCase case2 = (NodeCase) _symbol_case2.value;
-					 list.add(case1);if(case2!=null)list.add(case2); return list;
+					
+		list.add(case1);
+		if(case2!=null) list.add(case2);
+		return list;
 				}
 			},
 			new Action() {	// [90] case_statement_list = case_statement.case1 case_default.case2
@@ -700,7 +818,8 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_case2 = _symbols[offset + 2];
 					final NodeCase case2 = (NodeCase) _symbol_case2.value;
 					 
-		NodeCaseList list = new NodeCaseList(); list.add(case1); if(case2!=null)list.add(case2);															
+		NodeCaseList list = new NodeCaseList(); list.add(case1); 
+		if(case2!=null) list.add(case2);															
 		return list;
 				}
 			},
@@ -725,7 +844,7 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_stm = _symbols[offset + 3];
 					final Node stm = (Node) _symbol_stm.value;
-					 System.out.println("coucou");return new NodeCase(stm);
+					 return new NodeCase(stm);
 				}
 			},
 			new Action() {	// [94] variable_access = IDENTIFIER.name
@@ -734,17 +853,16 @@ public class ParserExpr extends Parser {
 					final String name = (String) _symbol_name.value;
 					  
 		int x = 0;
-	
-		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
-			System.out.println("COUCOCUCOCUCOCUCOCYUCOCYC");
-			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
-			return new NodeId("ERROR",new TypeVoid());
-		}
-		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
-			
+
+		if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
 		}
+		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeNamed) {
+			TypeNamed named =  (TypeNamed) stackEnvironment.getVariableValue(name) ;
+			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
+		}
+		
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 				}
 			},
@@ -755,44 +873,75 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
-		return new NodeArrayAccess(e1, e2) ; 
-		
-		
-		
-		
-		
-		
-		/* ****************************** */
-		/*if(e1 instanceof NodeArrayAccess) {
-		System.out.println("coucou :: " + e1 + "::" + e2);
-		NodeArrayAccess id = (NodeArrayAccess) e1;
-		Node id2 = (Node) e2;
-		if(e2 instanceof NodeId) {
-				is_id = true; 
+		NodeId err = null;
+		NodeId err_tab= null;
+		//Case when it's a malformed expression as z = integer ; a = z[4] except z isn't an array -> error
+		if (e1 instanceof NodeId) {
+			err_tab = (NodeId) e1;
+			if(!(err_tab.getType() instanceof TypeArray)) {
+				System.out.println("ERROR TypeArrayRange : Type error in affection  " +e1 + " : " +e2.getType() );
+				Main.add_error_type(new String("ERROR TypeArrayRange : Type error in affection , " + err_tab + " isn't an array "));
+				return new NodeArrayAccess(new NodeId("ERROR",new TypeArray(new TypeArrayRange(new TypeInt(-1), new TypeInt(-1)),new TypeInt(-1))), e2) ;
+			}
 		}
-		TypeArray array = (TypeArray) id.getType();
-		if(!((TypeArrayRange)array.getRangeOREnum()).getFrom_enum()) {
-		Type type = null;
-		System.out.println("ccccc " +((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() );
-		if(is_id) {
-			NodeId id3 = (NodeId) id2;
-			type = (Type)id3.getType();
-		if(type==null || ((TypeArrayRange)array.getRangeOREnum()).getFrom_enum() && array.getRangeOREnum().getFirst().equals(type)) {
-			semanticError(" Type error in array access ",e1);
-			System.err.println("ERROR :Type error in array access " + id +" : " + id3 );
-			Main.add_error_type(new String("ERROR NodeArrayAccess : Type error in array access " + id +" : " + new NodeId("Error",new TypeInt())));
-			return new NodeArrayAccess(e1, new NodeId("Error",new TypeInt())) ;
+		
+		if(e2 instanceof NodeId ) {
+			err = (NodeId)e2;
+			if(e1 instanceof NodeId) {
+				err_tab = (NodeId)e1;
+				if(err_tab.getType() instanceof TypeArray) {
+					TypeArray t = (TypeArray) err_tab.getType();
+					if(typeEnvironment.get_enum_value(err.getName())!=null && !((TypeArrayRange)t.getRangeOREnum()).getFrom_enum()) {
+						System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName() + "  : " + typeEnvironment.get_enum_value(err.getName()) );
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+						return new NodeArrayAccess(e1, e2) ;
+					}
+					if(typeEnvironment.get_enum_value(err.getName())==null) {
+						System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName());
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+						return new NodeArrayAccess(e1, new NodeId("ERROR",new TypeVoid())) ;
+					}
+				}
+			}
 		}
+		if (e2 instanceof NodeLiteral) {
+			NodeLiteral x = (NodeLiteral)e2;
+			if(e1 instanceof NodeId) {
+				NodeId y = (NodeId)e1;
+				if(y.getType() instanceof TypeArray) {
+					Type type1 = x.getType();
+					TypeArray type2 = (TypeArray) y.getType();
+					if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
+						return new NodeArrayAccess(e1, e2) ;
+					}
+	
+					if( !(type1.equals(type2.getRangeOREnum().getFirst())))
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + type1));
+				}
+			}
 		}
-		}
-		}*/
+		return new NodeArrayAccess(e1, e2) ;
 				}
 			},
 			new Action() {	// [96] variable_access = expression.e CIRCUMFLEX
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return new NodePtrAccess(e);
+					 
+		NodeId ID=null;
+		if(e instanceof NodeId) {
+			ID = (NodeId) e;
+			if(ID.getType() instanceof TypePointer)
+				return new NodePtrAccess(e);
+			else {
+				semanticError(" Type error in pointer access expression ",e);
+				System.err.println("ERROR : Type error in pointer access expression " + e);
+				Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
+				return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+			}
+		}
+		return new NodePtrAccess(e);
 				}
 			},
 			new Action() {	// [97] expression = expression.e1 PLUS expression.e2
@@ -801,13 +950,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
-										+ e1.getType() + " + " + e2.getType()));
-														}
-													}
-													return new NodeOp("+", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+					+ e1.getType() + " + " + e2.getType()));
+			}
+		}
+		return new NodeOp("+", e1, e2);
 				}
 			},
 			new Action() {	// [98] expression = expression.e1 MINUS expression.e2
@@ -816,26 +966,28 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
-										+ e1.getType() + " - " + e2.getType()));
-														}
-													}
-													return new NodeOp("-", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ e1.getType() + " - " + e2.getType()));
+			}
+		}
+		return new NodeOp("-", e1, e2);
 				}
 			},
 			new Action() {	// [99] expression = MINUS expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 if(e.getType()!=null) {
-														if(!e.getType().equals(new TypeInt())) {
-								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
-										+ "-" + e.getType()));
-														}
-													}
-													return new NodeOp("-", e);
+					 
+		if(e.getType()!=null) {
+			if(!e.getType().equals(new TypeInt())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ "-" + e.getType()));
+			}
+		}
+		return new NodeOp("-", e);
 				}
 			},
 			new Action() {	// [100] expression = expression.e1 TIMES expression.e2
@@ -844,13 +996,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
-										+ e1.getType() + " * " + e2.getType()));
-														}
-													}
-													return new NodeOp("*", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+					+ e1.getType() + " * " + e2.getType()));
+			}
+		}
+		return new NodeOp("*", e1, e2);
 				}
 			},
 			new Action() {	// [101] expression = expression.e1 DIV expression.e2
@@ -859,13 +1012,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
-										+ e1.getType() + " / " + e2.getType()));
-														}
-													}
-													return new NodeOp("/", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeOp : Type error in arithmetic expression"
+						+ e1.getType() + " / " + e2.getType()));
+			}
+		}
+		return new NodeOp("/", e1, e2);
 				}
 			},
 			new Action() {	// [102] expression = expression.e1 AND expression.e2
@@ -874,13 +1028,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
-										+ e1.getType() + " && " + e2.getType()));
-														}
-													}
-													return new NodeRel("&&", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { 
+				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+						+ e1.getType() + " && " + e2.getType()));
+			}
+		}
+		return new NodeRel("&&", e1, e2);
 				}
 			},
 			new Action() {	// [103] expression = expression.e1 OR expression.e2
@@ -889,24 +1044,26 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
-										+ e1.getType() + " || " + e2.getType()));
-														}		
-													}
-														return new NodeRel("||", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { 
+				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+						+ e1.getType() + " || " + e2.getType()));
+			}		
+		}
+		return new NodeRel("||", e1, e2);
 				}
 			},
 			new Action() {	// [104] expression = NOT expression.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 if(!e.getType().equals(new TypeBoolean())) {
-								Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
-											+ "!" + e.getType()));
-													}
-													return new NodeRel("!", e);
+					
+		if(!e.getType().equals(new TypeBoolean())) {
+			Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
+					+ "!" + e.getType()));
+		}
+		return new NodeRel("!", e);
 				}
 			},
 			new Action() {	// [105] expression = expression.e1 INFERIOR expression.e2
@@ -915,13 +1072,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " < " + e2.getType()));
-														}
-													}
-													return new NodeRel("<", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+						+ e1.getType() + " < " + e2.getType()));
+			}
+		}
+		return new NodeRel("<", e1, e2);
 				}
 			},
 			new Action() {	// [106] expression = expression.e1 INFERIOR_EQ expression.e2
@@ -930,13 +1088,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " <= " + e2.getType()));
-														}
-													}
-													return new NodeRel("<=", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+						+ e1.getType() + " <= " + e2.getType()));
+			}
+		}
+		return new NodeRel("<=", e1, e2);
 				}
 			},
 			new Action() {	// [107] expression = expression.e1 SUPERIOR expression.e2
@@ -945,13 +1104,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) { //OK
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " > " + e2.getType()));
-														}
-													}												
-													return new NodeRel(">", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) { 
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) {
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " > " + e2.getType()));
+			}
+		}												
+		return new NodeRel(">", e1, e2);
 				}
 			},
 			new Action() {	// [108] expression = expression.e1 SUPERIOR_EQ expression.e2
@@ -960,13 +1120,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " >= " + e2.getType()));
-														}
-													}
-													return new NodeRel(">=", e1, e2);
+					
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) { //OK
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " >= " + e2.getType()));
+			}
+		}
+		return new NodeRel(">=", e1, e2);
 				}
 			},
 			new Action() {	// [109] expression = expression.e1 EQUALS expression.e2
@@ -975,13 +1136,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) {
-														if(!e1.getType().equals(e2.getType())) { //OK
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " == " + e2.getType()));
-														}
-													}
-													return new NodeRel("==", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) {
+			if(!e1.getType().equals(e2.getType())) { 
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " == " + e2.getType()));
+			}
+		}
+		return new NodeRel("==", e1, e2);
 				}
 			},
 			new Action() {	// [110] expression = expression.e1 DIFF expression.e2
@@ -990,13 +1152,14 @@ public class ParserExpr extends Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 if(e1.getType()!=null && e2.getType()!=null) { //OK
-														if(!e1.getType().equals(e2.getType())) {
-								Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
-										+ e1.getType() + " != " + e2.getType()));
-														}
-													}
-													return new NodeRel("!=", e1, e2);
+					 
+		if(e1.getType()!=null && e2.getType()!=null) { 
+			if(!e1.getType().equals(e2.getType())) {
+				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
+					+ e1.getType() + " != " + e2.getType()));
+			}
+		}
+		return new NodeRel("!=", e1, e2);
 				}
 			},
 			new Action() {	// [111] expression = LPAR expression.e RPAR
