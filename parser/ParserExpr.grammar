@@ -785,17 +785,19 @@ variable_access =
 		}
 		if (e2 instanceof NodeLiteral) {
 			NodeLiteral x = (NodeLiteral)e2;
-			NodeId y = (NodeId)e1;
-			if(y.getType() instanceof TypeArray) {
-				Type type1 = x.getType();
-				TypeArray type2 = (TypeArray) y.getType();
-				if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
-					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
-					return new NodeArrayAccess(e1, e2) ;
+			if(e1 instanceof NodeId) {
+				NodeId y = (NodeId)e1;
+				if(y.getType() instanceof TypeArray) {
+					Type type1 = x.getType();
+					TypeArray type2 = (TypeArray) y.getType();
+					if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
+						return new NodeArrayAccess(e1, e2) ;
+					}
+	
+					if( !(type1.equals(type2.getRangeOREnum().getFirst())))
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + type1));
 				}
-
-				if( !(type1.equals(type2.getRangeOREnum().getFirst())))
-					Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + type1));
 			}
 		}
 		return new NodeArrayAccess(e1, e2) ; 
