@@ -1,48 +1,47 @@
-*** Fichier data/progr1.lea
+*** Fichier data/progr4.lea
+*** //
+*** // Structure de contrôle
+*** //
+*** //
 *** var
 Stack PUSH
-*** a
+*** x
+*** ,
+*** y
 *** :
 *** integer
-*** ;
-*** b
-Create class NodeList
-Create class NodeId
-Enregistre dans stack   a TypeInt_null
-Create class NodeList
-*** :
-*** boolean
 *** ;
 *** begin
 Create class NodeList
 Create class NodeId
-Enregistre dans stack   b TypeBoolean
-*** a
-*** =
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
+Enregistre dans stack   x TypeInt_null
 Create class NodeId
-*** 100
+Enregistre dans stack   y TypeInt_null
+Create class NodeList
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
 *** ;
 Create class NodeLiteral
 *** while
 Create class NodeAssign
 Create class NodeList
 *** (
-*** a
-*** >=
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
+*** x
+*** <=
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
 Create class NodeId
-*** 0
+*** 10
 *** )
 Create class NodeLiteral
 Create class NodeRel
@@ -51,97 +50,151 @@ Create class NodeRel
 Stack PUSH
 *** println
 *** (
-*** a
+*** x
 *** )
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
 Create class NodeId
 *** ;
-*** a
+*** if
 Create class NodeList
 Create class NodeCallFct
 Create class NodeList
-*** =
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Create class NodeId
-*** a
-*** -
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Create class NodeId
-*** 1
-*** ;
-Create class NodeLiteral
-Create class NodeOp
-*** if
-Create class NodeAssign
 *** (
-*** a
+*** x
 *** ==
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
 Create class NodeId
-*** 0
+*** 10
 *** )
 Create class NodeLiteral
 Create class NodeRel
 *** then
 *** begin
 Stack PUSH
-*** println
-*** (
-*** a
-*** )
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
-Retrouve dans stack   a TypeInt_null
+*** y
+*** =
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
 Create class NodeId
-*** ;
-*** return
-Create class NodeList
-Create class NodeCallFct
-Create class NodeList
 *** 1
 *** ;
 Create class NodeLiteral
-*** end
-Create class NodeReturn
-*** else
+*** while
+Create class NodeAssign
+Create class NodeList
+*** (
+*** y
+*** <=
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
+*** 5
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** do
+*** begin
 Stack PUSH
-*** return
-*** 0
+*** println
+*** (
+*** -
+*** 1000
+*** -
+Create class NodeLiteral
+Create class NodeOp
+*** y
+*** )
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
+Create class NodeOp
+*** ;
+*** y
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+*** =
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
+*** y
+*** +
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
+*** 1
 *** ;
 Create class NodeLiteral
+Create class NodeOp
 *** end
-Create class NodeReturn
-Create class NodeIf
+Create class NodeAssign
 *** end
 Stack PUSH
 Create class NodeWhile
-While ici NodeWhile(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeAssign(NodeId#a:TypeInt_null#, NodeOp(NodeId#a:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeIf(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeReturn(NodeLiteral#1:TypeInt_1#)), NodeReturn(NodeLiteral#0:TypeInt_0#))))
+While ici NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))
+*** else
+Stack PUSH
+*** println
+*** (
+*** "X"
+*** )
+Create class NodeLiteral
+*** ;
+*** x
+Create class NodeList
+Create class NodeCallFct
+Create class NodeIf
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** x
+*** +
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+Create class NodeOp
+*** end
+Create class NodeAssign
+*** end
+Stack PUSH
+Create class NodeWhile
+While ici NodeWhile(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), NodeIf(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(NodeAssign(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))), println_NodeCallFct(NodeList(NodeLiteral#"X":TypeString#))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))
 
 Stack PUSH
-NodeList(NodeAssign(NodeId#a:TypeInt_null#, NodeLiteral#100:TypeInt_100#), NodeWhile(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeAssign(NodeId#a:TypeInt_null#, NodeOp(NodeId#a:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeIf(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeReturn(NodeLiteral#1:TypeInt_1#)), NodeReturn(NodeLiteral#0:TypeInt_0#)))))
+NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), NodeIf(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(NodeAssign(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))), println_NodeCallFct(NodeList(NodeLiteral#"X":TypeString#))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
 --- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
@@ -151,82 +204,50 @@ NodeList(NodeAssign(NodeId#a:TypeInt_null#, NodeLiteral#100:TypeInt_100#), NodeW
 --- CheckType NodeList
 --- CheckType NodeCallFct
 --- CheckType NodeId
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
 --- CheckType NodeIf
 --- CheckType NodeAssign
 --- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
 --- CheckType NodeLiteral
 --- CheckType NodeId
-Name ( LabelLocation(a) )
+Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
-NodeAssign =>Move ( Mem ( Name ( LabelLocation(a) ) ), Const ( 100 ) )
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
 --- CheckType NodeWhile
 --- CheckType NodeRel
 --- CheckType NodeList
 --- CheckType NodeCallFct
 --- CheckType NodeId
+--- CheckType NodeIf
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeOp
---- CheckType NodeIf
 CI : NodeWhile
 --- CheckType NodeRel
 --- CheckType NodeId
-Name ( LabelLocation(a) )
+Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
-Relop ( GE, Name ( LabelLocation(a) ), Const ( 0 ) )
+Relop ( LE, Name ( LabelLocation(x) ), Const ( 10 ) )
 --- CheckType NodeList
 --- CheckType NodeCallFct
 --- CheckType NodeId
+--- CheckType NodeIf
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeOp
---- CheckType NodeIf
 --- CheckType NodeCallFct
 --- CheckType NodeId
 --- CheckType NodeId
-Name ( LabelLocation(a) )
-Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(a) ) ) )
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
---- CheckType NodeId
-Name ( LabelLocation(a) )
---- CheckType NodeOp
---- CheckType NodeId
-Name ( LabelLocation(a) )
---- CheckType NodeLiteral
-Binop(Name ( LabelLocation(a) ),MINUS,Const ( 1 ))
-NodeAssign =>Move ( Mem ( Name ( LabelLocation(a) ) ), Binop(Name ( LabelLocation(a) ),MINUS,Const ( 1 )) )
+Name ( LabelLocation(x) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(x) ) ) )
 --- CheckType NodeIf
 --- CheckType NodeRel
 --- CheckType NodeId
-Name ( LabelLocation(a) )
+Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
-Relop ( EQ, Name ( LabelLocation(a) ), Const ( 0 ) )
---- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeId
---- CheckType NodeReturn
---- CheckType NodeCallFct
---- CheckType NodeId
---- CheckType NodeId
-Name ( LabelLocation(a) )
-Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(a) ) ) )
---- CheckType NodeReturn
---- CheckType NodeLiteral
-Move ( Temp ( TempValue (0) ), Const ( 1 ) )
-ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm@63fd4873
---- CheckType NodeReturn
---- CheckType NodeLiteral
-Move ( Temp ( TempValue (1) ), Const ( 0 ) )
-Seq ( Seq ( Cjump ( bad relop in CJUMP, Name ( LabelLocation(a) ), Const ( 0 ), LabelLocation(L0), LabelLocation(L1) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L0) ), ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm@63fd4873 ), Jump ( Name ( LabelLocation(L2) ), LabelLocationList ( LabelLocation(L2) ) ) ), Seq ( Seq ( Label ( LabelLocation(L1) ), Move ( Temp ( TempValue (1) ), Const ( 0 ) ) ), Jump ( Name ( LabelLocation(L2) ), LabelLocationList ( LabelLocation(L2) ) ) ) ) ), Label ( LabelLocation(L2) ) )
-ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm@7544a1e4
-NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L4) ), Cjump ( bad relop in CJUMP, Name ( LabelLocation(a) ), Const ( 0 ), LabelLocation(L3), LabelLocation(L5) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L3) ), ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm@7544a1e4 ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ), Label ( LabelLocation(L5) ) ) )
-Move ( Mem ( Name ( LabelLocation(a) ) ), Const ( 100 ) )
-*** Analyse syntaxique ok
+Relop ( EQ, Name ( LabelLocation(x) ), Const ( 10 ) )
 --- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
@@ -235,22 +256,39 @@ Move ( Mem ( Name ( LabelLocation(a) ) ), Const ( 100 ) )
 --- CheckType NodeRel
 --- CheckType NodeList
 --- CheckType NodeCallFct
---- CheckType NodeId
+--- CheckType NodeOp
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeOp
---- CheckType NodeIf
---- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(y) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(y) ) ), Const ( 1 ) )
 --- CheckType NodeWhile
 --- CheckType NodeRel
 --- CheckType NodeList
 --- CheckType NodeCallFct
---- CheckType NodeId
+--- CheckType NodeOp
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeOp
---- CheckType NodeIf
-*** Typage correct
+CI : NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeId
+Name ( LabelLocation(y) )
+--- CheckType NodeLiteral
+Relop ( LE, Name ( LabelLocation(y) ), Const ( 5 ) )
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeCallFct
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeLiteral

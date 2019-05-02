@@ -9,6 +9,7 @@ import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Move;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Temp;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.TempValue;
+import ubordeaux.deptinfo.compilation.project.main.Main;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeArray;
 import ubordeaux.deptinfo.compilation.project.type.TypeComplex;
@@ -18,9 +19,13 @@ public final class NodeArrayAccess extends NodeExp {
 	// t [i]
 	public NodeArrayAccess(NodeExp t, NodeExp i) {
 		super(t, i);
+		if(t.type instanceof TypeComplex) {
 		if ((t!=null) && (((TypeComplex) t.type).size() == 2))
 			type = ((TypeComplex) t.type).get(1);
-	}
+		}
+	
+		}
+		
 
 	@Override
 	public boolean checksType() {

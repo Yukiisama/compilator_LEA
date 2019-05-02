@@ -92,7 +92,8 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 6];
 					final Node l = (Node) _symbol_l.value;
-					 return l;
+					 
+		return l;
 				}
 			},
 			new Action() {	// [1] push_stack = 
@@ -133,6 +134,8 @@ public class ParserExpr extends Parser {
 		if(!t.equals(new TypeInt()) && !t.equals(new TypeBoolean()) 
 				&& !t.equals(new TypeString())) {
 				if(t instanceof TypeNamed) {
+					
+					//We want to check if the TypeNamed exists.
 					if(typeEnvironment.getVariableValue(((TypeNamed)t).get_name())==null) {
 						semanticError("Error : Named type assigned doesn't exist " + name + ": " + t,t);
 						System.err.println("ERROR :Named type assigned doesn't exist  " + name + ": " + t);
@@ -141,8 +144,19 @@ public class ParserExpr extends Parser {
 				}
 		}
 		typeEnvironment.putVariable(name.get_name(),t);
-		System.out.println("PARLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + t);
-		//typeEnvironment.putEnumToName((TypeEnumRange) t,name.get_name());
+		
+		//Enum case register the name of the enumeration into his members as 3rd argument
+		TypeEnumRange enu = null;
+		if (t instanceof TypeEnumRange) {
+			enu = (TypeEnumRange) t;
+			int i = 0 ;
+			for(String s : enu.getList()) {
+				typeEnvironment.put_enum_value(s,new TypeItemEnum(i,s,name.get_name()));
+				stackEnvironment.putVariable(s,new TypeItemEnum(i,s,name.get_name()));
+				i++;
+			}
+		}
+
 		return new TypeFeature(name.get_name(),t);
 				}
 			},
@@ -191,14 +205,15 @@ public class ParserExpr extends Parser {
 					final IdentifierList t_list = (IdentifierList) _symbol_t_list.value;
 					 
 			TypeEnumRange enum_range = new TypeEnumRange(new TypeItemEnum(0,t_list.first()),new TypeItemEnum(t_list.size()-1,t_list.last()));
-			//String name = typeEnvironment.getEnumToName(enum_range);
 			Iterator<String> it = t_list.iterator();
 			int i = 0;
+			//Register all ItemEnum 
 			while(it.hasNext()) {
 				String x =  it.next();
 				typeEnvironment.put_enum_value(x,new TypeItemEnum(i,x));
 				stackEnvironment.putVariable(x,new TypeItemEnum(i,x));
-				//typeEnvironment.putIDtoName(x,name);
+				//List of name for later use 
+				enum_range.setListName(i,x);
 				i++;
 			}
 			return enum_range;
@@ -218,11 +233,11 @@ public class ParserExpr extends Parser {
 					 
 		boolean test_range_type = true;
 		if(min > max) {
-			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid" + min + " > " + max));
+			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + min + " > " + max));
 			test_range_type = false;
 		}
 		TypeArrayRange type_range = new TypeArrayRange(new TypeInt(min), new TypeInt(max));
-		//type_range.setRange_type(test_range_type);
+		type_range.setFrom_enum(false);
 		return type_range;
 				}
 			},
@@ -236,23 +251,29 @@ public class ParserExpr extends Parser {
 		boolean test_range_type = true;
 		TypeItemEnum x = typeEnvironment.get_enum_value(min);
 		TypeItemEnum y = typeEnvironment.get_enum_value(max);
+		
+		//Case ItemEnum doesn't exist
+		if(x==null || y ==null) {
+			Main.add_error_type(new String("ERROR ItemEnum : enum don't exist "));
+			return new TypeArrayRange(new TypeInt(-1), new TypeInt(-1));
+		}
+		//We get the values for the typeArrayRange
 		int v_min = x.getValue();
 		int v_max = y.getValue();
 		if(v_min > v_max) {
 			Main.add_error_type(new String("ERROR TypeArrayRange : range not valid " + v_min + " > " + v_max));
 			test_range_type = false;
 		}
-		//if(typeEnvironment.getIDtoName(min)==null || typeEnvironment.getIDtoName(max)==null) {
-			//Main.add_error_type(new String("ERROR TypeArrayRange : enum doesn't exist " + v_min + " > " + v_max));
-			//test_range_type = false;
-		//}
-		//if(!typeEnvironment.getIDtoName(min).equals(typeEnvironment.getIDtoName(max))) {
-			//Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + v_min + " > " + v_max));
-			//test_range_type = false;
-		//}
+		//Incoherent range (not from the same Enum)
+		if(x.getEnum_name()!= y.getEnum_name()){
+			semanticError("Error TypeArrayRange : incoherent range " + x + " : " + y,x);
+			System.err.println("ERROR TypeArrayRange : incoherent range   " + x + " : " + y);
+			Main.add_error_type(new String("ERROR TypeArrayRange : incoherent range " + x + " : " + y));
+		}
+		
 		TypeArrayRange one = new TypeArrayRange(new TypeInt(v_min), new TypeInt(v_max));
+		//Range is an enumeration 
 		one.setFrom_enum(true);
-		//one.setRange_type(test_range_type);
 		return one;
 				}
 			},
@@ -263,14 +284,16 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_t2 = _symbols[offset + 6];
 					final Type t2 = (Type) _symbol_t2.value;
 					
-						
-										TypeArray array = new TypeArray(t1,t2);
-										/*TypeRange test_range_type = array.getRangeOREnum();
-										if(test_range_type.isRange_type()==false || test_range_type == null){
-		Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
-															}
-													*/		
-															return array;
+
+		TypeArray array = new TypeArray(t1,t2);
+		if(t1 instanceof TypeNamed) {
+			if(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name())==null)
+				Main.add_error_type(new String("ERROR TypeArray : range type expected " + t1 + "   " + t2));
+			else 
+				array = new TypeArray(typeEnvironment.getVariableValue(((TypeNamed)t1).get_name()),t2);
+				
+		}
+		return array;
 				}
 			},
 			Action.RETURN,	// [26] range_type = enumerated_type
@@ -346,7 +369,14 @@ public class ParserExpr extends Parser {
 			String x =  it.next();
 			
 			list_2.add(new NodeId(x,t));
-			stackEnvironment.putVariable(x,t);
+			//If variable is already declared
+			if(stackEnvironment.getVariableValue(x)!=null) {
+				semanticError("Error VARIABLE Declaration : Variable " + x  + " yet declared " ,list);
+				System.err.println("ERROR VARIABLE Declaration  : Variable " + x  + " yet declared "  );
+				Main.add_error_type(new String("ERROR VARIABLE Declaration  : Variable " + x  +"  yet declared " ));
+			}
+			else
+				stackEnvironment.putVariable(x,t);
 		}
 		return list_2;
 				}
@@ -392,9 +422,10 @@ public class ParserExpr extends Parser {
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		
 		if(t2.getDefined()==false) {
 			t.setDefined(true);
-			t.setDeclared(0);
+			t.setDeclared(1);
 		}
 		else {
 			semanticError(" function already defined  ",s);
@@ -402,7 +433,7 @@ public class ParserExpr extends Parser {
 			Main.add_error_type(new String("ERROR NodeCallFct : function already defined  " + sa ));
 			
 		}
-		
+		//Set the new information about definition of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -416,6 +447,7 @@ public class ParserExpr extends Parser {
 		NodeCallFct sa = (NodeCallFct)s;
 		TypeFunct t = (TypeFunct) sa.getTypeFUNC();
 		TypeFunct t2 = (TypeFunct) procedureEnvironment.getFunction(sa.getName());
+		//Must be only declared once
 		int x = t2.getDeclared();
 		t.setDeclared(++x);
 		if(t.getDeclared()>1) {
@@ -423,7 +455,7 @@ public class ParserExpr extends Parser {
 			System.err.println("ERROR :procedure or function declared twice  " + sa );
 			Main.add_error_type(new String("ERROR NodeCallFct : procedure or function declared twice  " + sa ));
 		}
-		
+		//Set the new information about declaration of function into the nodeCallFct
 		sa.setTypeFUNC(t);
 		procedureEnvironment.putFunction(sa.getName(),sa.getTypeFUNC());
 		
@@ -443,8 +475,7 @@ public class ParserExpr extends Parser {
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();		
-			lionel.add( new TypeFeature(func,x.getType()));
-			stackEnvironment.putVariable(x.getName(),x.getType());
+			lionel.add( new TypeFeature(x.getName(),x.getType()));
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, new TypeVoid());
@@ -467,8 +498,7 @@ public class ParserExpr extends Parser {
 		Iterator<Node> it = list.iterator();
 		while(it.hasNext()) {
 			NodeId x = (NodeId) it.next();	
-			lionel.add( new TypeFeature(func,x.getType()));
-			stackEnvironment.putVariable(x.getName(),x.getType());
+			lionel.add( new TypeFeature(x.getName(),x.getType()));
 		}
 
 		TypeFunct lionel_le_boss = new TypeFunct(func, lionel, t);
@@ -509,7 +539,8 @@ public class ParserExpr extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 4];
 					final Node l = (Node) _symbol_l.value;
-					return l;
+					
+		return l;
 				}
 			},
 			new Action() {	// [56] statement_list = statement_list.list statement.stm
@@ -544,9 +575,31 @@ public class ParserExpr extends Parser {
 					final NodeExp stm = (NodeExp) _symbol_stm.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 
-
-		if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
+					 	
+		
+		TypeArray tab = null;
+		TypeArray tab2 = null;
+		if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray) {
+			tab = (TypeArray) stm.getType();
+			tab2 = (TypeArray) e.getType();
+		}
+		
+		if(stm.getType() instanceof TypeArray && !(e.getType() instanceof TypeArray)){
+			semanticError(" Accessible variable expected", stm);
+			System.err.println(new String("ERROR  :  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR NodeAssign:  Accessible variable expected " + stm.getType() + "  : " + stm.getType()));	
+		}
+		
+		else if(stm.getType() instanceof TypeArray && e.getType() instanceof TypeArray
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getFirst()!= ((TypeArrayRange)tab2.getRangeOREnum()).getFirst())
+			&&(((TypeArrayRange)tab.getRangeOREnum()).getLast()!= ((TypeArrayRange)tab2.getRangeOREnum()).getLast())){
+			
+			semanticError(" ERROR  : Type error in affectation", stm);
+			System.err.println(new String("ERROR  : Type error in affectation (i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+			Main.add_error_type(new String("ERROR  : Type error in affectation  ( i.e range not same) " + stm.getType() + "  : " + stm.getType()));
+		}
+		
+		else if(stm.getType()!=null && e.getType()!=null && !stm.getType().equals(e.getType())){
 			if(stm.getType() instanceof TypeNamed){
 				Type t = typeEnvironment.getVariableValue(((TypeNamed)stm.getType()).get_name());
 				if(t instanceof TypePointer ) {
@@ -566,6 +619,7 @@ public class ParserExpr extends Parser {
 				Main.add_error_type(new String("ERROR NodeAssign: Type error in affectation " + stm.getType() + "  : " + e.getType()));
 			}
 		}
+	
 		return new NodeAssign(stm, e);
 				}
 			},
@@ -800,13 +854,8 @@ public class ParserExpr extends Parser {
 					final String name = (String) _symbol_name.value;
 					  
 		int x = 0;
-		
-		if(stackEnvironment.getVariableValue(name)==null && typeEnvironment.get_enum_value(name)== null ) {
-			Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access "));
-			return new NodeId("ERROR",new TypeVoid());
-		}
-		else if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
-			
+
+		if(stackEnvironment.getVariableValue(name)!=null && stackEnvironment.getVariableValue(name) instanceof TypeItemEnum) {
 			x = ((TypeItemEnum)stackEnvironment.getVariableValue(name)).getValue();
 			return new NodeId(name,new TypeInt(x));
 		}
@@ -814,7 +863,6 @@ public class ParserExpr extends Parser {
 			TypeNamed named =  (TypeNamed) stackEnvironment.getVariableValue(name) ;
 			return new NodeId(name,typeEnvironment.getVariableValue(named.get_name()));
 		}
-		
 		
 		return new NodeId(name, stackEnvironment.getVariableValue(name));
 				}
@@ -826,6 +874,54 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
+		NodeId err = null;
+		NodeId err_tab= null;
+		//Case when it's a malformed expression as z = integer ; a = z[4] except z isn't an array -> error
+		if (e1 instanceof NodeId) {
+			err_tab = (NodeId) e1;
+			if(!(err_tab.getType() instanceof TypeArray)) {
+				System.out.println("ERROR TypeArrayRange : Type error in affection  " +e1 + " : " +e2.getType() );
+				Main.add_error_type(new String("ERROR TypeArrayRange : Type error in affection , " + err_tab + " isn't an array "));
+				return new NodeArrayAccess(new NodeId("ERROR",new TypeArray(new TypeArrayRange(new TypeInt(-1), new TypeInt(-1)),new TypeInt(-1))), e2) ;
+			}
+		}
+		
+		if(e2 instanceof NodeId ) {
+			err = (NodeId)e2;
+			if(e1 instanceof NodeId) {
+				err_tab = (NodeId)e1;
+				if(err_tab.getType() instanceof TypeArray) {
+					TypeArray t = (TypeArray) err_tab.getType();
+					if(typeEnvironment.get_enum_value(err.getName())!=null && !((TypeArrayRange)t.getRangeOREnum()).getFrom_enum()) {
+						System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName() + "  : " + typeEnvironment.get_enum_value(err.getName()) );
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+						return new NodeArrayAccess(e1, e2) ;
+					}
+					if(typeEnvironment.get_enum_value(err.getName())==null) {
+						System.out.println("ERROR TypeArrayRange : Type error in array access " + err.getName());
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + " : " + err.getName()));
+						return new NodeArrayAccess(e1, new NodeId("ERROR",new TypeVoid())) ;
+					}
+				}
+			}
+		}
+		if (e2 instanceof NodeLiteral) {
+			NodeLiteral x = (NodeLiteral)e2;
+			if(e1 instanceof NodeId) {
+				NodeId y = (NodeId)e1;
+				if(y.getType() instanceof TypeArray) {
+					Type type1 = x.getType();
+					TypeArray type2 = (TypeArray) y.getType();
+					if(((TypeArrayRange)type2.getRangeOREnum()).getFrom_enum()) {
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access indice isn't an Enumeration  "+ type2 + " : " + type1));
+						return new NodeArrayAccess(e1, e2) ;
+					}
+	
+					if( !(type1.equals(type2.getRangeOREnum().getFirst())))
+						Main.add_error_type(new String("ERROR TypeArrayRange : Type error in array access " + type1));
+				}
+			}
+		}
 		return new NodeArrayAccess(e1, e2) ;
 				}
 			},
@@ -834,16 +930,19 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final NodeExp e = (NodeExp) _symbol_e.value;
 					 
-		NodeId ID = (NodeId) e;
-
-		if(ID.getType() instanceof TypePointer)
-			return new NodePtrAccess(e);
-		else {
-		semanticError(" Type error in pointer access expression ",e);
-		System.err.println("ERROR : Type error in pointer access expression " + e);
-		Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
-		return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+		NodeId ID=null;
+		if(e instanceof NodeId) {
+			ID = (NodeId) e;
+			if(ID.getType() instanceof TypePointer)
+				return new NodePtrAccess(e);
+			else {
+				semanticError(" Type error in pointer access expression ",e);
+				System.err.println("ERROR : Type error in pointer access expression " + e);
+				Main.add_error_type(new String("ERROR NodePtrAccess : Type error in pointer access expression " + e));
+				return new NodePtrAccess(new NodeId("Error",new TypeVoid())); 
+			}
 		}
+		return new NodePtrAccess(e);
 				}
 			},
 			new Action() {	// [97] expression = expression.e1 PLUS expression.e2
@@ -932,7 +1031,7 @@ public class ParserExpr extends Parser {
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
 						+ e1.getType() + " && " + e2.getType()));
 			}
@@ -948,7 +1047,7 @@ public class ParserExpr extends Parser {
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in logical expression"
 						+ e1.getType() + " || " + e2.getType()));
 			}		
@@ -1007,7 +1106,7 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					
-		if(e1.getType()!=null && e2.getType()!=null) { //OK
+		if(e1.getType()!=null && e2.getType()!=null) { 
 			if(!e1.getType().equals(e2.getType()) || (e1.getType().equals(new TypeBoolean()) || e2.getType().equals(new TypeBoolean()) ) ) {
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " > " + e2.getType()));
@@ -1040,7 +1139,7 @@ public class ParserExpr extends Parser {
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
 		if(e1.getType()!=null && e2.getType()!=null) {
-			if(!e1.getType().equals(e2.getType())) { //OK
+			if(!e1.getType().equals(e2.getType())) { 
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " == " + e2.getType()));
 			}
@@ -1055,7 +1154,7 @@ public class ParserExpr extends Parser {
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
 					 
-		if(e1.getType()!=null && e2.getType()!=null) { //OK
+		if(e1.getType()!=null && e2.getType()!=null) { 
 			if(!e1.getType().equals(e2.getType())) {
 				Main.add_error_type(new String("ERROR NodeRel : Type error in comparison"
 					+ e1.getType() + " != " + e2.getType()));
