@@ -26,7 +26,7 @@ public class Main {
 					Node result = (Node) parser.parse(input);
 					System.out.println(result.toString());
 					System.out.println("Créer code intermédiaire");
-					result.generateIntermediateCode();
+					//result.generateIntermediateCode();
 					
 					System.err.println("*** Analyse syntaxique ok");
 					if (checksType) {
@@ -37,9 +37,12 @@ public class Main {
 						else if (!result.checksType()) {
 							System.err.println("*** Erreur de typage");
 						}
-						else
+						else {
 							System.err.println("*** Typage correct");
-					}
+							result.generateIntermediateCode();
+						}
+						}
+					
 				} catch (beaver.Parser.Exception e) {
 					System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 				}

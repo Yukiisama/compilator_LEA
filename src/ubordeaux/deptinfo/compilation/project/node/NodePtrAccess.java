@@ -1,6 +1,7 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Mem;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Name;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeComplex;
@@ -41,8 +42,9 @@ public final class NodePtrAccess extends NodeExp {
 		//Generer les codes intermédiaires pour ses fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
-		NodeId name = (NodeId) this.get(0);
-		super.exp = new Name(new LabelLocation (name.getName()));
+		System.out.println("333333" + this.get(0));
+		
+		super.exp = new Mem(((NodeExp)this.get(0)).getExp());
 		System.out.println("NodePtrAcces => " + super.exp.toString());
 	}
 }

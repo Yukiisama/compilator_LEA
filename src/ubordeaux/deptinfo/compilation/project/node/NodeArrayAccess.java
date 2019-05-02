@@ -1,18 +1,23 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.type.TypeRange;
+import ubordeaux.deptinfo.compilation.project.type.TypeString;
 import ubordeaux.deptinfo.compilation.project.type.TypeItemEnum;
+import ubordeaux.deptinfo.compilation.project.type.TypePointer;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Binop;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Const;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Eseq;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Mem;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Move;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Temp;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.TempValue;
 import ubordeaux.deptinfo.compilation.project.main.Main;
 import ubordeaux.deptinfo.compilation.project.type.Type;
 import ubordeaux.deptinfo.compilation.project.type.TypeArray;
+import ubordeaux.deptinfo.compilation.project.type.TypeBoolean;
 import ubordeaux.deptinfo.compilation.project.type.TypeComplex;
+import ubordeaux.deptinfo.compilation.project.type.TypeInt;
 
 public final class NodeArrayAccess extends NodeExp {
 
@@ -68,14 +73,20 @@ public final class NodeArrayAccess extends NodeExp {
 		//Generer les codes intermédiaires pour ses fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
-		NodeExp name = (NodeExp) this.get(0);
-		NodeExp index = (NodeExp) this.get(1);
-		Temp tmp = new Temp(new TempValue());
 		
-		super.exp = new Eseq(
-				new Move(tmp,index.getExp()),
-				name.getExp()
-				);
+		
+		int eltSize = 0;
+		if(this.getType() instanceof TypeInt) eltSize = 4;
+		if(this.getType() instanceof TypeBoolean) eltSize = 1;
+		if(this.getType() instanceof TypeString) eltSize = 64;
+		if(this.getType() instanceof TypePointer) eltSize = 4;
+		
+		super.exp = new Mem(
+				new Binop(Binop.PLUS, 
+						((NodeExp) this.get(0)).getExp(), 
+						new Binop (Binop.MUL,
+								new Const (eltSize), 
+								((NodeExp) this.get(0)).getExp())));
 		
 		System.out.println("NodeArrayAcces => " + super.exp.toString());
 	}

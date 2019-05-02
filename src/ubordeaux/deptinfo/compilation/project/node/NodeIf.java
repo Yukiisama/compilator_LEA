@@ -1,6 +1,7 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Const;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
@@ -62,29 +63,6 @@ public final class NodeIf extends NodeStm {
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
 		
-		NodeRel rel = (NodeRel) getExpNode();
-		int rel_val=-1;
-		if(rel.getName() == "&&")
-			rel_val = Relop.AND;
-		if(rel.getName() == "||")
-			rel_val = Relop.OR;
-		if(rel.getName() == "<")
-			rel_val = Relop.LT;
-		if(rel.getName() == "<=")
-			rel_val = Relop.LE;
-		if(rel.getName() == ">")
-			rel_val = Relop.GT;
-		if(rel.getName() == ">=")
-			rel_val = Relop.GE;
-		if(rel.getName() == "==")
-			rel_val = Relop.EQ;
-		if(rel.getName() == "!=")
-			rel_val = Relop.NE;
-		if(rel.getName() == "!")
-			rel_val = Relop.NOT;
-		
-		
-		
 		//Label T
 		LabelLocation t = new LabelLocation();
 		Label labelT =  new Label(t);
@@ -92,7 +70,7 @@ public final class NodeIf extends NodeStm {
 		LabelLocation f = new LabelLocation();
 		Label labelF = new Label(f);
 		//Cjump 
-		Cjump c1 =  new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		Cjump c1 =  new Cjump(Relop.NE, ((NodeExp)this.get(0)).getExp(), new Const (0), t, f);
 		//Then stm
 		NodeStm stmT = (NodeStm) this.getThenNode();
 		if(getElseNode()!=null) {

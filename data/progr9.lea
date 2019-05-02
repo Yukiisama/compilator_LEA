@@ -70,6 +70,7 @@ end
 
 begin
 	b = false;
+	
 	//b = 2; // error "Type error in affectation"
 	//l = m2; // error "Type error in affectation"
 	l = l;
@@ -94,7 +95,7 @@ begin
 	
 
 	if (l [ Monday ]) then x = 1;
-	if (l [ Monday ]) then x = 1; else x = 2;
+/*	if (l [ Monday ]) then x = 1; else x = 2;
 	if (z2 [ 7 ]) then x = 1;
 	while (z2 [ 7 ]) do x = 1;
 	while (z2 [ 7 ]) do 
@@ -103,7 +104,7 @@ begin
 			println x;
 			readln y;
 		end
-		
+	
 	switch (month) 
 		begin
 		case March, April, May:
@@ -137,5 +138,6 @@ begin
 	x = p^;
 	dispose p;
 	//dispose x;  // error "Type error in pointer access expression"
+	*/
 
 end
