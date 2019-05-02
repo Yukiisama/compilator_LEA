@@ -26,7 +26,6 @@ public class LabelLocationList {
 	        String string1="LabelLocationList ( " +head.toString() +", ";
 	        LabelLocationList args_clone = this;
 
-	        System.out.println("qjdlfjqsdjflqjsdfljqklsdfjlqsjdfljsd=============" );
 	        while(args_clone.getTail()!=null) {
 	            string1 = string1 + args_clone.getHead().toString() +", ";
 	            args_clone = args_clone.getTail();

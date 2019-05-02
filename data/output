@@ -1,0 +1,183 @@
+*** Fichier data/progr1.lea
+*** var
+Stack PUSH
+*** a
+*** :
+*** integer
+*** ;
+*** b
+Create class NodeList
+Create class NodeId
+Enregistre dans stack   a TypeInt_null
+Create class NodeList
+*** :
+*** boolean
+*** ;
+*** begin
+Create class NodeList
+Create class NodeId
+Enregistre dans stack   b TypeBoolean
+*** a
+*** =
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Create class NodeId
+*** 100
+*** ;
+Create class NodeLiteral
+*** while
+Create class NodeAssign
+Create class NodeList
+*** (
+*** a
+*** >=
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Create class NodeId
+*** 0
+*** )
+Create class NodeLiteral
+Create class NodeRel
+*** do
+*** begin
+Stack PUSH
+*** println
+*** (
+*** a
+*** )
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Create class NodeId
+*** ;
+*** a
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+*** =
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Create class NodeId
+*** a
+*** -
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Retrouve dans stack   a TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+Create class NodeOp
+*** //if (a==0) then
+*** //return 1;
+*** //else
+*** //return 0;
+*** end
+Create class NodeAssign
+*** end
+Stack PUSH
+Create class NodeWhile
+While ici NodeWhile(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeAssign(NodeId#a:TypeInt_null#, NodeOp(NodeId#a:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))
+
+Stack PUSH
+NodeList(NodeAssign(NodeId#a:TypeInt_null#, NodeLiteral#100:TypeInt_100#), NodeWhile(NodeRel(NodeId#a:TypeInt_null#, NodeLiteral#0:TypeInt_0#), NodeList(println_NodeCallFct(NodeList(NodeId#a:TypeInt_null#)), NodeAssign(NodeId#a:TypeInt_null#, NodeOp(NodeId#a:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(a) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(a) ) ), Const ( 100 ) )
+--- CheckType NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+CI : NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeId
+Name ( LabelLocation(a) )
+--- CheckType NodeLiteral
+Relop ( GE, Name ( LabelLocation(a) ), Const ( 0 ) )
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeId
+Name ( LabelLocation(a) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(a) ) ) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeId
+Name ( LabelLocation(a) )
+--- CheckType NodeOp
+--- CheckType NodeId
+Name ( LabelLocation(a) )
+--- CheckType NodeLiteral
+Binop(Name ( LabelLocation(a) ),MINUS,Const ( 1 ))
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(a) ) ), Binop(Name ( LabelLocation(a) ),MINUS,Const ( 1 )) )
+NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L1) ), Cjump ( bad relop in CJUMP, Name ( LabelLocation(a) ), Const ( 0 ), LabelLocation(L0), LabelLocation(L2) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L0) ), ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm@f8908f6 ), Jump ( Name ( LabelLocation(L1) ), LabelLocationList ( LabelLocation(L1) ) ) ), Label ( LabelLocation(L2) ) ) )
+*** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeRel
+--- CheckType NodeList
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+*** Typage correct

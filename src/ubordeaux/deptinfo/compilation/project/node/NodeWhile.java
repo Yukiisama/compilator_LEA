@@ -65,22 +65,12 @@ public final class NodeWhile extends NodeStm {
 			rel_val = Relop.NOT;
 		//Seq T
 		LabelLocation t = new LabelLocation();
-		System.out.println("dsqfffffffffffffffq======================================dsfqqqqqqqqqqqq" +this.get(1).toString() );
 		
 		
-		//add alls stms in NodeList to stmList
-		StmList  slist = new StmList(null,null);
-		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
-		/*
-		for(int i = this.get(1).size()-1; i>=0; i--) {
-			NodeStm nstm = 
-			Stm stm = this.get(1).get(i).getStm();
-			slist.add(stm);
-		}
-		*/
+		Stm stm = ((NodeList)this.get(1)).getStm();
+	
 		
-		System.out.println("this is stm de while---------" + stm.toString() );
-		Seq seqT = new Seq(new Label(t),slist);
+		Seq seqT = new Seq(new Label(t),stm);
 		//Label while
 		LabelLocation label_while = new LabelLocation();
 		Jump jmp_while = new Jump(label_while);
