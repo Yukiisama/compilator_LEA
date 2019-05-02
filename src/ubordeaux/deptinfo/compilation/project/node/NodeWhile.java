@@ -1,6 +1,7 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Const;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
@@ -46,32 +47,12 @@ public final class NodeWhile extends NodeStm {
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
 		
-		
-		NodeRel rel = (NodeRel) getExp();
-		int rel_val=-1;
-		if(rel.getName() == "&&")
-			rel_val = Relop.AND;
-		if(rel.getName() == "||")
-			rel_val = Relop.OR;
-		if(rel.getName() == "<")
-			rel_val = Relop.LT;
-		if(rel.getName() == "<=")
-			rel_val = Relop.LE;
-		if(rel.getName() == ">")
-			rel_val = Relop.GT;
-		if(rel.getName() == ">=")
-			rel_val = Relop.GE;
-		if(rel.getName() == "==")
-			rel_val = Relop.EQ;
-		if(rel.getName() == "!=")
-			rel_val = Relop.NE;
-		if(rel.getName() == "!")
-			rel_val = Relop.NOT;
+
 		//Seq T
 		LabelLocation t = new LabelLocation();
 		
 		
-		Stm stm = ((NodeList)this.get(1)).getStm();
+		Stm stm = ((NodeStm)this.get(1)).getStm();
 	
 		
 		Seq seqT = new Seq(new Label(t),stm);
@@ -84,7 +65,7 @@ public final class NodeWhile extends NodeStm {
 		LabelLocation f = new LabelLocation();
 		Seq seqF = new Seq(seq_jmp,new Label(f));
 		//Seq Cjmp
-		Cjump c = new Cjump(rel_val,rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		Cjump c =  new Cjump(Relop.NE, ((NodeExp)this.get(0)).getExp(), new Const (0), t, f);
 		Seq seq_Cjmp = new Seq(new Label(label_while),c);
 		
 		//Seq final

@@ -32,17 +32,18 @@ public final class NodeSwitch extends NodeStm {
 	}
 	
 	public void generateIntermediateCode() {
-		if(!this.checksType()) {
+		/*if(!this.checksType()) {
 			System.out.println("NodeSwitch failed on generateIntermediateCode");
 			return;
 		}
 		//Generer les codes intermédiaires pour ses fils.
+		
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
 		
 		//super.stm = new ExpStm(this.getNodeStm().getStm(), this.getNodeExp().getExp());
 		
 		System.out.println(super.stm.toString());
-	}
+	*/}
 	
 }

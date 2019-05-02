@@ -722,58 +722,416 @@ Create class NodeId
 *** 1
 *** ;
 Create class NodeLiteral
-*** /*	if (l [ Monday ]) then x = 1; else x = 2;
-	if (z2 [ 7 ]) then x = 1;
-	while (z2 [ 7 ]) do x = 1;
-	while (z2 [ 7 ]) do 
-		begin
-			if (l [ Monday ]) then x = 1; else x = 2;
-			println x;
-			readln y;
-		end
-	
-	switch (month) 
-		begin
-		case March, April, May:
-			println ("spring");
-		
-		case June, July, August:
-			println("summer");
-		
-		case September, October, November:
-			println("autumn");
-		
-		case February, December, January:
-			println("winter");
-			
-		default:
-			println("none");
-		end
-
-	x = -(36 + 45 / 7);
-	//b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
-	//b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
-	//b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
-
-	p = null;
-	//p = 0; // error "Type error in affectation"
-	new p;
-	//new x; // error "Type error in pointer access expression"
-	p^ = 36;
-	//p^ = false; //error "TypeInt != TypeBoolean"
-	//x^ = null; // error "Type error in pointer access expression"
-	x = p^;
-	dispose p;
-	//dispose x;  // error "Type error in pointer access expression"
-	*/
-*** end
+*** if
 Create class NodeAssign
 Create class NodeIf
+*** (
+*** l
+*** [
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Create class NodeId
+*** Monday
+*** ]
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Create class NodeId
+*** )
+Retrouve3 Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve3 Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Create class NodeArrayAccess
+*** then
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+*** else
+Create class NodeAssign
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 2
+*** ;
+Create class NodeLiteral
+*** if
+Create class NodeAssign
+Create class NodeIf
+*** (
+*** z2
+*** [
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Create class NodeId
+*** 7
+*** ]
+Create class NodeLiteral
+*** )
+Create class NodeArrayAccess
+*** then
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+*** while
+Create class NodeAssign
+Create class NodeIf
+*** (
+*** z2
+*** [
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Create class NodeId
+*** 7
+*** ]
+Create class NodeLiteral
+*** )
+Create class NodeArrayAccess
+*** do
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+*** while
+Create class NodeAssign
+Create class NodeWhile
+While ici NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#))
+*** (
+*** z2
+*** [
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Retrouve dans stack   z2 TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)
+Create class NodeId
+*** 7
+*** ]
+Create class NodeLiteral
+*** )
+Create class NodeArrayAccess
+*** do
+*** begin
+Stack PUSH
+*** if
+*** (
+*** l
+*** [
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Retrouve dans stack   l TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)
+Create class NodeId
+*** Monday
+*** ]
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve dans stack   Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Create class NodeId
+*** )
+Retrouve3 Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Retrouve3 Monday TypeItemEnum@Monday=1 nom :DaysOfWeek
+Create class NodeArrayAccess
+*** then
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 1
+*** ;
+Create class NodeLiteral
+*** else
+Create class NodeAssign
+*** x
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** 2
+*** ;
+Create class NodeLiteral
+*** println
+Create class NodeAssign
+Create class NodeIf
+Create class NodeList
+*** x
+*** ;
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** readln
+Create class NodeList
+Create class NodeCallFct
+*** y
+*** ;
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Retrouve dans stack   y TypeInt_null
+Create class NodeId
+*** end
+Create class NodeList
+Create class NodeCallFct
+*** switch
+Stack PUSH
+Create class NodeWhile
+While ici NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeList(NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), readln_NodeCallFct(NodeList(NodeId#y:TypeInt_null#))))
+*** (
+*** month
+*** )
+Retrouve dans stack   month TypeNamed_Months
+Retrouve dans stack   month TypeNamed_Months
+Retrouve dans stack   month TypeNamed_Months
+Retrouve dans stack   month TypeNamed_Months
+Retrouve dans stack   month TypeNamed_Months
+Retrouve1 Months TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1
+Create class NodeId
+*** begin
+*** case
+*** March
+*** ,
+*** April
+*** ,
+*** May
+*** :
+*** println
+*** (
+*** "spring"
+*** )
+Create class NodeLiteral
+*** ;
+*** case
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+Create class NodeCase
+Create class NodeCase
+Create class NodeCase
+Create class NodeCaseList
+*** June
+*** ,
+*** July
+*** ,
+*** August
+*** :
+*** println
+*** (
+*** "summer"
+*** )
+Create class NodeLiteral
+*** ;
+*** case
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+Create class NodeCase
+Create class NodeCase
+Create class NodeCase
+*** September
+*** ,
+*** October
+*** ,
+*** November
+*** :
+*** println
+*** (
+*** "autumn"
+*** )
+Create class NodeLiteral
+*** ;
+*** case
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+Create class NodeCase
+Create class NodeCase
+Create class NodeCase
+*** February
+*** ,
+*** December
+*** ,
+*** January
+*** :
+*** println
+*** (
+*** "winter"
+*** )
+Create class NodeLiteral
+*** ;
+*** default
+Create class NodeList
+Create class NodeCallFct
+Create class NodeList
+Create class NodeCase
+Create class NodeCase
+Create class NodeCase
+*** :
+*** println
+*** (
+*** "none"
+*** )
+Create class NodeLiteral
+*** ;
+*** end
+Create class NodeList
+Create class NodeCallFct
+Create class NodeCase
+*** x
+Create class NodeSwitch
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** -
+*** (
+*** 36
+*** +
+Create class NodeLiteral
+*** 45
+*** /
+Create class NodeLiteral
+Create class NodeOp
+*** 7
+*** )
+Create class NodeLiteral
+Create class NodeOp
+*** ;
+Create class NodeOp
+*** //b = !(2 < false) && (x == 1) && (p == null); // // error "Type error in comparison"
+*** //b = !(2 < x) && (x == 1) && p ; // // error "Type error in logical expression"
+*** //b = !(2 < x) && (x == 1 + false) && p ; // // error "Type error in arithmetic expression"
+*** p
+Create class NodeAssign
+*** =
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve1 ptr1 TypePointer(TypeInt_null)
+Create class NodeId
+*** null
+*** ;
+Create class NodeLiteral
+*** //p = 0; // error "Type error in affectation"
+*** new
+Create class NodeLiteral
+Create class NodeAssign
+*** p
+*** ;
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve1 ptr1 TypePointer(TypeInt_null)
+Create class NodeId
+*** //new x; // error "Type error in pointer access expression"
+*** p
+Create class NodeNew
+*** ^
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve1 ptr1 TypePointer(TypeInt_null)
+Create class NodeId
+*** =
+Create class NodePtrAccess
+*** 36
+*** ;
+Create class NodeLiteral
+*** //p^ = false; //error "TypeInt != TypeBoolean"
+*** //x^ = null; // error "Type error in pointer access expression"
+*** x
+Create class NodeAssign
+*** =
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Retrouve dans stack   x TypeInt_null
+Create class NodeId
+*** p
+*** ^
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve1 ptr1 TypePointer(TypeInt_null)
+Create class NodeId
+*** ;
+Create class NodePtrAccess
+*** dispose
+Create class NodeAssign
+*** p
+*** ;
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve dans stack   p TypeNamed_ptr1
+Retrouve1 ptr1 TypePointer(TypeInt_null)
+Create class NodeId
+*** //dispose x;  // error "Type error in pointer access expression"
+*** end
+Create class NodeDispose
 
 Stack PUSH
-NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeAssign(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#), NodeAssign(NodeId#b:TypeBoolean#, NodePtrAccess(foo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#)))), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#)), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#1:TypeInt_1#))), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))
+NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeAssign(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#), NodeAssign(NodeId#b:TypeBoolean#, NodePtrAccess(foo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#)))), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#)), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#1:TypeInt_1#))), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), NodeIf(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeList(NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), readln_NodeCallFct(NodeList(NodeId#y:TypeInt_null#)))), NodeSwitch(NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeCaseList(NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeOp(NodeOp(NodeLiteral#36:TypeInt_36#, NodeLiteral#45:TypeInt_45#), NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeId#p:TypePointer(TypeInt_null)#, NodeLiteral#0:TypePointer(TypeInt_null)#), NodeNew(NodeId#p:TypePointer(TypeInt_null)#), NodeAssign(NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#)), NodeDispose(NodeId#p:TypePointer(TypeInt_null)#))
 Créer code intermédiaire
-*** Analyse syntaxique ok
 --- CheckType NodeList
 --- CheckType NodeAssign
 --- CheckType NodeId
@@ -801,61 +1159,38 @@ Créer code intermédiaire
 --- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
 --- CheckType NodeIf
---- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeIf
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeSwitch
+--- CheckType NodeId
+--- CheckType NodeCaseList
 --- CheckType NodeAssign
 --- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeAssign
 --- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodePtrAccess
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeArrayAccess
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeCallFct
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeIf
-*** Typage correct
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodePtrAccess
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeArrayAccess
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeCallFct
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeIf
+--- CheckType NodeDispose
 --- CheckType NodeAssign
 --- CheckType NodeId
 --- CheckType NodeLiteral
@@ -966,4 +1301,284 @@ Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
 Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L0), LabelLocation(L1) ), Seq ( Seq ( Label ( LabelLocation(L0) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L1) ) ) )
+--- CheckType NodeIf
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(l) )
+--- CheckType NodeId
+Name ( LabelLocation(Monday) )
+NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) )
+Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L2), LabelLocation(L3) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L2) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ), Seq ( Seq ( Label ( LabelLocation(L3) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ) ) ), Label ( LabelLocation(L4) ) )
+--- CheckType NodeIf
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(z2) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
+Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L5), LabelLocation(L6) ), Seq ( Seq ( Label ( LabelLocation(L5) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L6) ) ) )
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+CI : NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(z2) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
+NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L8) ), Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L7), LabelLocation(L9) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L7) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L8) ), LabelLocationList ( LabelLocation(L8) ) ) ), Label ( LabelLocation(L9) ) ) )
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+CI : NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(z2) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) )
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeIf
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(l) )
+--- CheckType NodeId
+Name ( LabelLocation(Monday) )
+NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) )
+Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+ExpStm ( Name ( LabelLocation(x) ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(x) ) ) )
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+Name ( LabelLocation(y) )
+ExpStm ( Name ( LabelLocation(y) ) )
+Callfct =>Call( Name ( LabelLocation(readln) ), ExpList ( Name ( LabelLocation(y) ) ) )
+Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
+NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L14) ), Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L13), LabelLocation(L15) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L13) ), Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) ) ), Jump ( Name ( LabelLocation(L14) ), LabelLocationList ( LabelLocation(L14) ) ) ), Label ( LabelLocation(L15) ) ) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+Binop(Const ( 36 ),PLUS,Const ( 45 ))
+--- CheckType NodeLiteral
+Binop(Binop(Const ( 36 ),PLUS,Const ( 45 )),DIV,Const ( 7 ))
+Binop(Const ( 0 ),MINUS,Binop(Binop(Const ( 36 ),PLUS,Const ( 45 )),DIV,Const ( 7 )))
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Binop(Const ( 0 ),MINUS,Binop(Binop(Const ( 36 ),PLUS,Const ( 45 )),DIV,Const ( 7 ))) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeId
+Name ( LabelLocation(p) )
+--- CheckType NodeLiteral
+NodeAssign =>
+TODO: NodeNew.generateIntermediateCode()
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
+--- CheckType NodePtrAccess
+--- CheckType NodeId
+Name ( LabelLocation(p) )
+333333NodeId#p:TypePointer(TypeInt_null)#
+NodePtrAcces => Mem ( Name ( LabelLocation(p) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Mem ( Name ( LabelLocation(p) ) ) ), Const ( 36 ) )
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodePtrAccess
+--- CheckType NodeId
+Name ( LabelLocation(x) )
+--- CheckType NodePtrAccess
+--- CheckType NodeId
+Name ( LabelLocation(p) )
+333333NodeId#p:TypePointer(TypeInt_null)#
+NodePtrAcces => Mem ( Name ( LabelLocation(p) ) )
+NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Mem ( Name ( LabelLocation(p) ) ) )
+TODO: NodeDispose.generateIntermediateCode()
 Move ( Mem ( Name ( LabelLocation(b) ) ), Const ( 0 ) )
+*** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodePtrAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeIf
+--- CheckType NodeIf
+--- CheckType NodeIf
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeSwitch
+--- CheckType NodeId
+--- CheckType NodeCaseList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodePtrAccess
+--- CheckType NodeDispose
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodePtrAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeIf
+--- CheckType NodeIf
+--- CheckType NodeIf
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeArrayAccess
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeId
+--- CheckType NodeSwitch
+--- CheckType NodeId
+--- CheckType NodeCaseList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodePtrAccess
+--- CheckType NodeDispose
+*** Typage correct
