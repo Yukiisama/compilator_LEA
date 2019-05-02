@@ -11,14 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-
-
-
 public class StackEnvironment {
 
 	private String str;
 
 	private Stack<Map<String, Type>> stack;
+
 	
 	public StackEnvironment(String str) {
 		//this.table = new HashMap<String, Type>();

@@ -1,14 +1,16 @@
 var
 a: integer;
-
+b: boolean;
 begin
 a = 100;
 while (a >= 0) do 
 	begin
 	println (a);
 	a = a - 1;
-	if (a==0) then
+	if (a==0) then begin
+	println (a);
 	return 1;
+	end
 	else
 	return 0;
 	end

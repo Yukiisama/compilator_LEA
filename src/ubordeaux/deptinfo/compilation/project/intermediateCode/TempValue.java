@@ -10,7 +10,8 @@ public class TempValue {
 	}
 
 	public String toString() {
-		return "t" + num;
+		return "TempValue (" + num + ")";
 	}
+	
 
 }

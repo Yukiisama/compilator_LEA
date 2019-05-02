@@ -1,8 +1,11 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Relop;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Seq;
 
 public final class NodeIf extends NodeStm {
 
@@ -48,10 +51,14 @@ public final class NodeIf extends NodeStm {
 	
 	public void generateIntermediateCode() {
 		if(!this.checksType()) {
-			System.out.println("NodeIf failed on generateIntermediateCode");
+			System.out.println("NodeIf fai\n" + 
+					"									led on generateIntermediateCode");
 			return;
 		}
 
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
 		NodeRel rel = (NodeRel) getExpNode();
 		int rel_val=-1;
 		if(rel.getName() == "&&")
@@ -72,10 +79,51 @@ public final class NodeIf extends NodeStm {
 			rel_val = Relop.NE;
 		if(rel.getName() == "!")
 			rel_val = Relop.NOT;
+		
+		
+		
+		//Label T
 		LabelLocation t = new LabelLocation();
+		Label labelT =  new Label(t);
+		//Label F
 		LabelLocation f = new LabelLocation();
-		super.stm= new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		Label labelF = new Label(f);
+		//Cjump 
+		Cjump c1 =  new Cjump(rel_val, rel.getOp1().getExp(), rel.getOp2().getExp(), t, f);
+		//Then stm
+		NodeStm stmT = (NodeStm) this.getThenNode();
+		if(getElseNode()!=null) {
+			//label end
+			LabelLocation end = new LabelLocation();
+			//Jump end
+			Jump jmpEnd = new Jump(end);
+			//Seq T
+			Seq seqT = new Seq(labelT,stmT.getStm());
+			//Seq F
+			NodeStm stmF = (NodeStm) this.getElseNode();
+			Seq seqF = new Seq(labelF,stmF.getStm());
+			//seq4
+			Seq seq4 = new Seq(seqT,jmpEnd);
+			//seq4
+			Seq seq5 = new Seq(seqF,jmpEnd);
+			//seq3
+			Seq seq3 = new Seq(seq4,seq5);
 
+			//seq2
+			Seq seq2 = new Seq(c1,seq3);
+			
+			super.stm = new Seq(seq2,new Label(end));
+		}else {
+			super.stm = new Seq (
+					c1,
+					new Seq(
+							new Seq(
+									labelT,
+									stmT.getStm()),
+							labelF)
+					);
+		}
+		System.out.println(super.stm.toString());
 	}
 
 }

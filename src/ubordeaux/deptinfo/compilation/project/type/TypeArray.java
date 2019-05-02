@@ -3,7 +3,7 @@ package ubordeaux.deptinfo.compilation.project.type;
 import ubordeaux.deptinfo.compilation.project.main.ClonableSymbol;
 
 public class TypeArray extends TypeComplex {
-
+	
 	public TypeArray(Type t1, Type t2) {
 		super(t1, t2);
 	}
@@ -30,5 +30,5 @@ public class TypeArray extends TypeComplex {
 		Type result = new TypeArray((Type) this.get(0).clone(), (Type) this.get(1).clone());
 		return result;
 	}
-
+	
 }

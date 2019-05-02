@@ -1,8 +1,10 @@
 package ubordeaux.deptinfo.compilation.project.main;
 
 import java.io.FileReader;
+import java.util.Iterator;
 
 import ubordeaux.deptinfo.compilation.project.node.Node;
+import ubordeaux.deptinfo.compilation.project.node.NodeList;
 
 public class Main {
 	private static boolean checksType;
@@ -23,6 +25,17 @@ public class Main {
 					System.err.println("*** Fichier " + arg);
 					Node result = (Node) parser.parse(input);
 					System.out.println(result.toString());
+					/*
+					if(result instanceof NodeList) {
+					Iterator<Node> it = ((NodeList)result).iterator();
+					while(it.hasNext()) {
+
+						Node k = (Node) it.next();	
+						k.generateIntermediateCode();
+						}
+					}*/
+					result.generateIntermediateCode();
+					
 					System.err.println("*** Analyse syntaxique ok");
 					if (checksType) {
 						

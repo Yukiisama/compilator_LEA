@@ -44,7 +44,7 @@
 		</path>
 		<java classname="ubordeaux.deptinfo.compilation.project.main.Main" classpath="bin" classpathref="beaverclasspath" output="data/output">
 			<arg value="-checkType" />
-			<arg value="data/progr9.lea" />
+			<arg value="data/progr1.lea" />
 			
 		</java>
 	</target>

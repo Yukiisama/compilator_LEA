@@ -21,6 +21,7 @@ public class LabelLocation {
 	public LabelLocation() {
 		this("L" + count++);
 	}
+	
 
 	/**
 	 * Makes a new label whose name is the same as a symbol.
@@ -33,6 +34,6 @@ public class LabelLocation {
 	 * a printable representation of the label, for use in assembly language output.
 	 */
 	public String toString() {
-		return name;
+		return "LabelLocation(" + name + ")";
 	}
 }

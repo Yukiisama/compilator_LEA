@@ -8,4 +8,11 @@ public class Temp extends Exp {
 		this.temp = temp;
 	}
 
+	@Override
+	public String toString() {
+		return "Temp ( " + temp.toString() + " )";
+	}
+	
+	
+
 }

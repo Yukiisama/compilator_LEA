@@ -75,5 +75,7 @@ public class NodeRel extends NodeExp {
 			super.exp = new Relop(Relop.NE,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "!")
 			super.exp = new Relop(Relop.NOT,this.getOp1().getExp(),this.getOp2().getExp());
+		
+		System.out.println(super.exp.toString());
 	}
 }

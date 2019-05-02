@@ -15,8 +15,40 @@ public class Binop extends Exp {
 			XOR = 9;
 
 	public String toString() {
-		String result = new String();
-		return result;
+		String BOP="";
+		switch(binop) {
+		case 0 :
+			BOP ="PLUS";
+			break;
+		case 1:
+			BOP="MINUS";
+			break;
+		case 2:
+			BOP="MUL";
+			break;
+		case 3:
+			BOP="DIV";
+			break;
+		case 4:
+			BOP="AND";
+			break;
+		case 5:
+			BOP="OR";
+			break;
+		case 6:
+			BOP="LSHIFT";
+			break;
+		case 7:
+			BOP="RSHIFT";
+			break;
+		case 8:
+			BOP="ARSHIFT";
+			break;
+		case 9:
+			BOP="XOR";
+			break;
+		default: break;
+		}
+		return "Binop(" + left.toString() +","+ BOP +","+ right.toString()+")";
 	}
-
 }

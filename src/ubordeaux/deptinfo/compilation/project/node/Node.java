@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Stm;
 import ubordeaux.deptinfo.compilation.project.main.ClonableSymbol;
 
@@ -14,6 +15,7 @@ public abstract class Node extends ClonableSymbol implements NodeInterface {
 	protected List<Node> elts;
 	protected int uniqId;
 	private static int staticUniqId;
+	protected ExpStm ci;
 
 	public Node() {
 		super();
@@ -99,5 +101,9 @@ public abstract class Node extends ClonableSymbol implements NodeInterface {
 	public void generateIntermediateCode() {
 		// TODO Auto-generated method stub
 		System.err.println("TODO: " + this.getClass().getSimpleName() + ".generateIntermediateCode()");
+	}
+	
+	public ExpStm getCi() {
+		return ci;
 	}
 }
