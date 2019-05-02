@@ -42,7 +42,6 @@ public final class NodePtrAccess extends NodeExp {
 		//Generer les codes intermédiaires pour ses fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
-		System.out.println("333333" + this.get(0));
 		
 		super.exp = new Mem(((NodeExp)this.get(0)).getExp());
 		System.out.println("NodePtrAcces => " + super.exp.toString());

@@ -30,8 +30,11 @@ public final class NodeCaseList extends NodeStm {
 		}
 		
 		//Genère le code intermédiaire des noeuds fils.
-		for (int i = 0; i<this.size(); i++)
+		for (int i = 0; i<this.size(); i++) {
 			this.get(i).generateIntermediateCode();
+			System.out.println("3333333 fils CaseList" +this.get(i));
+		}
+			
 		
 		
 		
