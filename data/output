@@ -1,294 +1,620 @@
-*** Fichier data/progr4.lea
+*** Fichier data/progr8.lea
 *** //
-*** // Structure de contrôle
-*** //
-*** //
-*** var
+*** // tableaux et enumérés
+*** // 
+*** type
 Stack PUSH
-*** x
+*** days
+*** =
+*** (
+*** SUNDAY
 *** ,
-*** y
+*** MONDAY
+*** ,
+*** TUESDAY
+*** ,
+*** WEDNESDAY
+*** ,
+*** THURSDAY
+*** ,
+*** FRIDAY
+*** ,
+*** SATURDAY
+*** )
+*** ;
+Enregistre SUNDAY TypeItemEnum@SUNDAY=0 nom :
+Enregistre dans stack   SUNDAY TypeItemEnum@SUNDAY=0 nom :
+Enregistre MONDAY TypeItemEnum@MONDAY=1 nom :
+Enregistre dans stack   MONDAY TypeItemEnum@MONDAY=1 nom :
+Enregistre TUESDAY TypeItemEnum@TUESDAY=2 nom :
+Enregistre dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :
+Enregistre WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :
+Enregistre dans stack   WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :
+Enregistre THURSDAY TypeItemEnum@THURSDAY=4 nom :
+Enregistre dans stack   THURSDAY TypeItemEnum@THURSDAY=4 nom :
+Enregistre FRIDAY TypeItemEnum@FRIDAY=5 nom :
+Enregistre dans stack   FRIDAY TypeItemEnum@FRIDAY=5 nom :
+Enregistre SATURDAY TypeItemEnum@SATURDAY=6 nom :
+Enregistre dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :
+*** months
+Enregistre days TypeEnumRange[TypeItemEnum@SUNDAY=0 nom :..TypeItemEnum@SATURDAY=6 nom :]_1
+Enregistre SUNDAY TypeItemEnum@SUNDAY=0 nom :days
+Enregistre dans stack   SUNDAY TypeItemEnum@SUNDAY=0 nom :days
+Enregistre MONDAY TypeItemEnum@MONDAY=1 nom :days
+Enregistre dans stack   MONDAY TypeItemEnum@MONDAY=1 nom :days
+Enregistre TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Enregistre dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Enregistre WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Enregistre dans stack   WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Enregistre THURSDAY TypeItemEnum@THURSDAY=4 nom :days
+Enregistre dans stack   THURSDAY TypeItemEnum@THURSDAY=4 nom :days
+Enregistre FRIDAY TypeItemEnum@FRIDAY=5 nom :days
+Enregistre dans stack   FRIDAY TypeItemEnum@FRIDAY=5 nom :days
+Enregistre SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Enregistre dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+*** =
+*** (
+*** JANUARY
+*** ,
+*** FEBRUARY
+*** ,
+*** MARCH
+*** ,
+*** APRIL
+*** ,
+*** MAY
+*** ,
+*** JUNE
+*** ,
+*** JULY
+*** ,
+*** AUGUST
+*** ,
+*** SEPTEMBER
+*** ,
+*** OCTOBER
+*** ,
+*** NOVEMBER
+*** ,
+*** DECEMBER
+*** )
+*** ;
+Enregistre JANUARY TypeItemEnum@JANUARY=0 nom :
+Enregistre dans stack   JANUARY TypeItemEnum@JANUARY=0 nom :
+Enregistre FEBRUARY TypeItemEnum@FEBRUARY=1 nom :
+Enregistre dans stack   FEBRUARY TypeItemEnum@FEBRUARY=1 nom :
+Enregistre MARCH TypeItemEnum@MARCH=2 nom :
+Enregistre dans stack   MARCH TypeItemEnum@MARCH=2 nom :
+Enregistre APRIL TypeItemEnum@APRIL=3 nom :
+Enregistre dans stack   APRIL TypeItemEnum@APRIL=3 nom :
+Enregistre MAY TypeItemEnum@MAY=4 nom :
+Enregistre dans stack   MAY TypeItemEnum@MAY=4 nom :
+Enregistre JUNE TypeItemEnum@JUNE=5 nom :
+Enregistre dans stack   JUNE TypeItemEnum@JUNE=5 nom :
+Enregistre JULY TypeItemEnum@JULY=6 nom :
+Enregistre dans stack   JULY TypeItemEnum@JULY=6 nom :
+Enregistre AUGUST TypeItemEnum@AUGUST=7 nom :
+Enregistre dans stack   AUGUST TypeItemEnum@AUGUST=7 nom :
+Enregistre SEPTEMBER TypeItemEnum@SEPTEMBER=8 nom :
+Enregistre dans stack   SEPTEMBER TypeItemEnum@SEPTEMBER=8 nom :
+Enregistre OCTOBER TypeItemEnum@OCTOBER=9 nom :
+Enregistre dans stack   OCTOBER TypeItemEnum@OCTOBER=9 nom :
+Enregistre NOVEMBER TypeItemEnum@NOVEMBER=10 nom :
+Enregistre dans stack   NOVEMBER TypeItemEnum@NOVEMBER=10 nom :
+Enregistre DECEMBER TypeItemEnum@DECEMBER=11 nom :
+Enregistre dans stack   DECEMBER TypeItemEnum@DECEMBER=11 nom :
+*** var
+Enregistre months TypeEnumRange[TypeItemEnum@JANUARY=0 nom :..TypeItemEnum@DECEMBER=11 nom :]_3
+Enregistre JANUARY TypeItemEnum@JANUARY=0 nom :months
+Enregistre dans stack   JANUARY TypeItemEnum@JANUARY=0 nom :months
+Enregistre FEBRUARY TypeItemEnum@FEBRUARY=1 nom :months
+Enregistre dans stack   FEBRUARY TypeItemEnum@FEBRUARY=1 nom :months
+Enregistre MARCH TypeItemEnum@MARCH=2 nom :months
+Enregistre dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Enregistre APRIL TypeItemEnum@APRIL=3 nom :months
+Enregistre dans stack   APRIL TypeItemEnum@APRIL=3 nom :months
+Enregistre MAY TypeItemEnum@MAY=4 nom :months
+Enregistre dans stack   MAY TypeItemEnum@MAY=4 nom :months
+Enregistre JUNE TypeItemEnum@JUNE=5 nom :months
+Enregistre dans stack   JUNE TypeItemEnum@JUNE=5 nom :months
+Enregistre JULY TypeItemEnum@JULY=6 nom :months
+Enregistre dans stack   JULY TypeItemEnum@JULY=6 nom :months
+Enregistre AUGUST TypeItemEnum@AUGUST=7 nom :months
+Enregistre dans stack   AUGUST TypeItemEnum@AUGUST=7 nom :months
+Enregistre SEPTEMBER TypeItemEnum@SEPTEMBER=8 nom :months
+Enregistre dans stack   SEPTEMBER TypeItemEnum@SEPTEMBER=8 nom :months
+Enregistre OCTOBER TypeItemEnum@OCTOBER=9 nom :months
+Enregistre dans stack   OCTOBER TypeItemEnum@OCTOBER=9 nom :months
+Enregistre NOVEMBER TypeItemEnum@NOVEMBER=10 nom :months
+Enregistre dans stack   NOVEMBER TypeItemEnum@NOVEMBER=10 nom :months
+Enregistre DECEMBER TypeItemEnum@DECEMBER=11 nom :months
+Enregistre dans stack   DECEMBER TypeItemEnum@DECEMBER=11 nom :months
+*** d
 *** :
-*** integer
+*** SUNDAY
+*** ..
+*** SATURDAY
+*** ;
+Retrouve3 SUNDAY TypeItemEnum@SUNDAY=0 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+*** week
+Create class NodeList
+Create class NodeId
+Enregistre dans stack   d TypeArrayRange[TypeInt_0..TypeInt_6]
+Create class NodeList
+*** :
+*** array
+*** [
+*** MONDAY
+*** ..
+*** FRIDAY
+*** ]
+Retrouve3 MONDAY TypeItemEnum@MONDAY=1 nom :days
+Retrouve3 FRIDAY TypeItemEnum@FRIDAY=5 nom :days
+*** of
+*** string
+*** ;
+*** year
+Create class NodeList
+Create class NodeId
+Enregistre dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+*** :
+*** array
+*** [
+*** SUNDAY
+*** ..
+*** SATURDAY
+*** ]
+Retrouve3 SUNDAY TypeItemEnum@SUNDAY=0 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+*** of
+*** array
+*** [
+*** 1
+*** ..
+*** 31
+*** ]
+*** of
+*** array
+*** [
+*** JANUARY
+*** ..
+*** DECEMBER
+*** ]
+Retrouve3 JANUARY TypeItemEnum@JANUARY=0 nom :months
+Retrouve3 DECEMBER TypeItemEnum@DECEMBER=11 nom :months
+*** of
+*** string
 *** ;
 *** begin
 Create class NodeList
 Create class NodeId
-Enregistre dans stack   x TypeInt_null
+Enregistre dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+*** week
+*** [
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
 Create class NodeId
-Enregistre dans stack   y TypeInt_null
-Create class NodeList
-*** x
+*** MONDAY
+*** ]
+Retrouve dans stack   MONDAY TypeItemEnum@MONDAY=1 nom :days
+Retrouve dans stack   MONDAY TypeItemEnum@MONDAY=1 nom :days
+Retrouve dans stack   MONDAY TypeItemEnum@MONDAY=1 nom :days
+Create class NodeId
 *** =
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Create class NodeId
-*** 1
+Retrouve3 MONDAY TypeItemEnum@MONDAY=1 nom :days
+Retrouve3 MONDAY TypeItemEnum@MONDAY=1 nom :days
+Create class NodeArrayAccess
+*** "M"
 *** ;
 Create class NodeLiteral
-*** while
+*** week
 Create class NodeAssign
 Create class NodeList
-*** (
-*** x
-*** <=
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
+*** [
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
 Create class NodeId
-*** 10
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** do
-*** begin
-Stack PUSH
-*** println
-*** (
-*** x
-*** )
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
+*** TUESDAY
+*** ]
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
 Create class NodeId
-*** ;
-*** if
-Create class NodeList
-Create class NodeCallFct
-Create class NodeList
-*** (
-*** x
-*** ==
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Create class NodeId
-*** 10
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** then
-*** begin
-Stack PUSH
-*** y
 *** =
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Create class NodeId
-*** 1
+Retrouve3 TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve3 TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Create class NodeArrayAccess
+*** "T"
 *** ;
 Create class NodeLiteral
-*** while
+*** week
 Create class NodeAssign
-Create class NodeList
-*** (
-*** y
-*** <=
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
+*** [
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
 Create class NodeId
-*** 5
-*** )
-Create class NodeLiteral
-Create class NodeRel
-*** do
-*** begin
-Stack PUSH
-*** println
-*** (
-*** -
-*** 1000
-*** -
-Create class NodeLiteral
-Create class NodeOp
-*** y
-*** )
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
+*** WEDNESDAY
+*** ]
+Retrouve dans stack   WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Retrouve dans stack   WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Retrouve dans stack   WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
 Create class NodeId
-Create class NodeOp
-*** ;
-*** y
-Create class NodeList
-Create class NodeCallFct
-Create class NodeList
 *** =
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Create class NodeId
-*** y
-*** +
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Retrouve dans stack   y TypeInt_null
-Create class NodeId
-*** 1
+Retrouve3 WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Retrouve3 WEDNESDAY TypeItemEnum@WEDNESDAY=3 nom :days
+Create class NodeArrayAccess
+*** "W"
 *** ;
 Create class NodeLiteral
-Create class NodeOp
-*** end
+*** year
 Create class NodeAssign
-*** end
-Stack PUSH
-Create class NodeWhile
-While ici NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))
-*** else
-Stack PUSH
-*** println
-*** (
+*** [
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Create class NodeId
+*** SATURDAY
+*** ]
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeId
+*** [
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeArrayAccess
+*** 17
+*** ]
+Create class NodeLiteral
+*** [
+Create class NodeArrayAccess
+*** MARCH
+*** ]
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Create class NodeId
+*** =
+Create class NodeArrayAccess
 *** "X"
-*** )
-Create class NodeLiteral
 *** ;
-*** x
+Create class NodeLiteral
+*** year
+Create class NodeAssign
+*** [
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Create class NodeId
+*** SATURDAY
+*** ]
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeId
+*** [
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeArrayAccess
+*** 1
+*** ]
+Create class NodeLiteral
+*** [
+Create class NodeArrayAccess
+*** MARCH
+*** ]
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Create class NodeId
+*** =
+Create class NodeArrayAccess
+*** "V"
+*** ;
+Create class NodeLiteral
+*** println
+Create class NodeAssign
+*** (
+*** year
+*** [
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Create class NodeId
+*** SATURDAY
+*** ]
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeId
+*** [
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeArrayAccess
+*** 1
+*** ]
+Create class NodeLiteral
+*** [
+Create class NodeArrayAccess
+*** MARCH
+*** ]
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Create class NodeId
+*** )
+Create class NodeArrayAccess
+*** ;
+*** println
 Create class NodeList
 Create class NodeCallFct
-Create class NodeIf
-*** =
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
+*** (
+*** year
+*** [
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
+Retrouve dans stack   year TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))
 Create class NodeId
-*** x
-*** +
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
-Retrouve dans stack   x TypeInt_null
+*** SATURDAY
+*** ]
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve dans stack   SATURDAY TypeItemEnum@SATURDAY=6 nom :days
 Create class NodeId
-*** 1
-*** ;
+*** [
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Retrouve3 SATURDAY TypeItemEnum@SATURDAY=6 nom :days
+Create class NodeArrayAccess
+*** 17
+*** ]
 Create class NodeLiteral
-Create class NodeOp
+*** [
+Create class NodeArrayAccess
+*** MARCH
+*** ]
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Retrouve dans stack   MARCH TypeItemEnum@MARCH=2 nom :months
+Create class NodeId
+*** )
+Create class NodeArrayAccess
+*** ;
+*** println
+Create class NodeList
+Create class NodeCallFct
+*** (
+*** week
+*** [
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Retrouve dans stack   week TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)
+Create class NodeId
+*** TUESDAY
+*** ]
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve dans stack   TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Create class NodeId
+*** )
+Retrouve3 TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Retrouve3 TUESDAY TypeItemEnum@TUESDAY=2 nom :days
+Create class NodeArrayAccess
+*** ;
 *** end
-Create class NodeAssign
-*** end
-Stack PUSH
-Create class NodeWhile
-While ici NodeWhile(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), NodeIf(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(NodeAssign(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))), println_NodeCallFct(NodeList(NodeLiteral#"X":TypeString#))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))
+Create class NodeList
+Create class NodeCallFct
 
 Stack PUSH
-NodeList(NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), NodeIf(NodeRel(NodeId#x:TypeInt_null#, NodeLiteral#10:TypeInt_10#), NodeList(NodeAssign(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeWhile(NodeRel(NodeId#y:TypeInt_null#, NodeLiteral#5:TypeInt_5#), NodeList(println_NodeCallFct(NodeList(NodeOp(NodeOp(NodeLiteral#1000:TypeInt_1000#), NodeId#y:TypeInt_null#))), NodeAssign(NodeId#y:TypeInt_null#, NodeOp(NodeId#y:TypeInt_null#, NodeLiteral#1:TypeInt_1#))))), println_NodeCallFct(NodeList(NodeLiteral#"X":TypeString#))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)))))
+NodeList(NodeAssign(NodeArrayAccess(NodeId#week:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)#, NodeId#MONDAY:TypeInt_1#), NodeLiteral#"M":TypeString#), NodeAssign(NodeArrayAccess(NodeId#week:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)#, NodeId#TUESDAY:TypeInt_2#), NodeLiteral#"T":TypeString#), NodeAssign(NodeArrayAccess(NodeId#week:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)#, NodeId#WEDNESDAY:TypeInt_3#), NodeLiteral#"W":TypeString#), NodeAssign(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#17:TypeInt_17#), NodeId#MARCH:TypeInt_2#), NodeLiteral#"X":TypeString#), NodeAssign(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#1:TypeInt_1#), NodeId#MARCH:TypeInt_2#), NodeLiteral#"V":TypeString#), println_NodeCallFct(NodeList(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#1:TypeInt_1#), NodeId#MARCH:TypeInt_2#))), println_NodeCallFct(NodeList(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#17:TypeInt_17#), NodeId#MARCH:TypeInt_2#))), println_NodeCallFct(NodeList(NodeArrayAccess(NodeId#week:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)#, NodeId#TUESDAY:TypeInt_2#))))
+Créer code intermédiaire
 --- CheckType NodeList
 --- CheckType NodeAssign
---- CheckType NodeId
+--- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
---- CheckType NodeWhile
---- CheckType NodeRel
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(week) )
+--- CheckType NodeId
+Name ( LabelLocation(MONDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (0) ), Name ( LabelLocation(MONDAY) ) ), Name ( LabelLocation(week) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Eseq ( Move ( Temp ( TempValue (0) ), Name ( LabelLocation(MONDAY) ) ), Name ( LabelLocation(week) ) ) ), Name ( LabelLocation("M") ) )
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(week) )
+--- CheckType NodeId
+Name ( LabelLocation(TUESDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (1) ), Name ( LabelLocation(TUESDAY) ) ), Name ( LabelLocation(week) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Eseq ( Move ( Temp ( TempValue (1) ), Name ( LabelLocation(TUESDAY) ) ), Name ( LabelLocation(week) ) ) ), Name ( LabelLocation("T") ) )
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(week) )
+--- CheckType NodeId
+Name ( LabelLocation(WEDNESDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (2) ), Name ( LabelLocation(WEDNESDAY) ) ), Name ( LabelLocation(week) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Eseq ( Move ( Temp ( TempValue (2) ), Name ( LabelLocation(WEDNESDAY) ) ), Name ( LabelLocation(week) ) ) ), Name ( LabelLocation("W") ) )
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(year) )
+--- CheckType NodeId
+Name ( LabelLocation(SATURDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (3) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (4) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (3) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) )
+--- CheckType NodeId
+Name ( LabelLocation(MARCH) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (5) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (4) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (3) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Eseq ( Move ( Temp ( TempValue (5) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (4) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (3) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) ), Name ( LabelLocation("X") ) )
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(year) )
+--- CheckType NodeId
+Name ( LabelLocation(SATURDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (6) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (7) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (6) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) )
+--- CheckType NodeId
+Name ( LabelLocation(MARCH) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (8) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (7) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (6) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) )
+--- CheckType NodeLiteral
+NodeAssign =>Move ( Mem ( Eseq ( Move ( Temp ( TempValue (8) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (7) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (6) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) ), Name ( LabelLocation("V") ) )
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+333333NodeList(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#1:TypeInt_1#), NodeId#MARCH:TypeInt_2#))
 --- CheckType NodeList
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeId
+Name ( LabelLocation(year) )
+--- CheckType NodeId
+Name ( LabelLocation(SATURDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (9) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) )
+--- CheckType NodeLiteral
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (10) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (9) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) )
+--- CheckType NodeId
+Name ( LabelLocation(MARCH) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (11) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (10) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (9) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) )
+ExpStm ( Eseq ( Move ( Temp ( TempValue (11) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (10) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (9) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Eseq ( Move ( Temp ( TempValue (11) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (10) ), Const ( 1 ) ), Eseq ( Move ( Temp ( TempValue (9) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) ) )
 --- CheckType NodeCallFct
---- CheckType NodeId
---- CheckType NodeIf
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeId
-Name ( LabelLocation(x) )
---- CheckType NodeLiteral
-NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
---- CheckType NodeWhile
---- CheckType NodeRel
+--- CheckType NodeArrayAccess
+333333NodeList(NodeArrayAccess(NodeArrayAccess(NodeArrayAccess(NodeId#year:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_0..TypeInt_11], TypeString)))#, NodeId#SATURDAY:TypeInt_6#), NodeLiteral#17:TypeInt_17#), NodeId#MARCH:TypeInt_2#))
 --- CheckType NodeList
---- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
 --- CheckType NodeId
---- CheckType NodeIf
---- CheckType NodeAssign
+Name ( LabelLocation(year) )
 --- CheckType NodeId
---- CheckType NodeOp
-CI : NodeWhile
---- CheckType NodeRel
---- CheckType NodeId
-Name ( LabelLocation(x) )
+Name ( LabelLocation(SATURDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (12) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) )
 --- CheckType NodeLiteral
-Relop ( LE, Name ( LabelLocation(x) ), Const ( 10 ) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (13) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (12) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) )
+--- CheckType NodeId
+Name ( LabelLocation(MARCH) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (14) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (13) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (12) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) )
+ExpStm ( Eseq ( Move ( Temp ( TempValue (14) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (13) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (12) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Eseq ( Move ( Temp ( TempValue (14) ), Name ( LabelLocation(MARCH) ) ), Eseq ( Move ( Temp ( TempValue (13) ), Const ( 17 ) ), Eseq ( Move ( Temp ( TempValue (12) ), Name ( LabelLocation(SATURDAY) ) ), Name ( LabelLocation(year) ) ) ) ) ) )
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+333333NodeList(NodeArrayAccess(NodeId#week:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeString)#, NodeId#TUESDAY:TypeInt_2#))
 --- CheckType NodeList
---- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeArrayAccess
 --- CheckType NodeId
---- CheckType NodeIf
---- CheckType NodeAssign
+Name ( LabelLocation(week) )
 --- CheckType NodeId
---- CheckType NodeOp
---- CheckType NodeCallFct
---- CheckType NodeId
---- CheckType NodeId
-Name ( LabelLocation(x) )
-Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(x) ) ) )
---- CheckType NodeIf
---- CheckType NodeRel
---- CheckType NodeId
-Name ( LabelLocation(x) )
---- CheckType NodeLiteral
-Relop ( EQ, Name ( LabelLocation(x) ), Const ( 10 ) )
+Name ( LabelLocation(TUESDAY) )
+NodeArrayAcces => Eseq ( Move ( Temp ( TempValue (15) ), Name ( LabelLocation(TUESDAY) ) ), Name ( LabelLocation(week) ) )
+ExpStm ( Eseq ( Move ( Temp ( TempValue (15) ), Name ( LabelLocation(TUESDAY) ) ), Name ( LabelLocation(week) ) ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Eseq ( Move ( Temp ( TempValue (15) ), Name ( LabelLocation(TUESDAY) ) ), Name ( LabelLocation(week) ) ) ) )
+Move ( Mem ( Eseq ( Move ( Temp ( TempValue (0) ), Name ( LabelLocation(MONDAY) ) ), Name ( LabelLocation(week) ) ) ), Name ( LabelLocation("M") ) )
+*** Analyse syntaxique ok
 --- CheckType NodeList
 --- CheckType NodeAssign
---- CheckType NodeId
+--- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
---- CheckType NodeWhile
---- CheckType NodeRel
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
 --- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeOp
 --- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
 --- CheckType NodeAssign
---- CheckType NodeId
+--- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
---- CheckType NodeId
-Name ( LabelLocation(y) )
---- CheckType NodeLiteral
-NodeAssign =>Move ( Mem ( Name ( LabelLocation(y) ) ), Const ( 1 ) )
---- CheckType NodeWhile
---- CheckType NodeRel
---- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeOp
 --- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
-CI : NodeWhile
---- CheckType NodeRel
---- CheckType NodeId
-Name ( LabelLocation(y) )
+--- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
-Relop ( LE, Name ( LabelLocation(y) ), Const ( 5 ) )
---- CheckType NodeList
---- CheckType NodeCallFct
---- CheckType NodeOp
 --- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
---- CheckType NodeCallFct
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
+--- CheckType NodeArrayAccess
 --- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+--- CheckType NodeCallFct
+--- CheckType NodeArrayAccess
+*** Typage correct

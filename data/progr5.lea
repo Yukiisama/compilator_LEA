@@ -20,6 +20,6 @@ end
 begin
 x = 5;
 x = sum(3, 5);
-println sum(3, 5);
-println(pgcd(78, 90));
+println (sum(3, 5));
+println (pgcd(78, 90));
 end

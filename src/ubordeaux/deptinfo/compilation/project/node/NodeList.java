@@ -58,7 +58,8 @@ public final class NodeList extends NodeStm {
 	
 	public Stm createSeq (int index) {
 		Node n = this.get(index);
-		if(index<=this.size()-2) {
+		if(index<this.size())  {
+		//if(index<=Math.abs(this.size()-2) ) {
 			Stm stm;
 			if(NodeExp.class.isAssignableFrom(n.getClass()) ) {
 				stm = new ExpStm (((NodeExp)this.get(index)).getExp());
@@ -68,7 +69,7 @@ public final class NodeList extends NodeStm {
 			return stm;
 		}
 		Stm stm;
-		if(n.getClass().isAssignableFrom(NodeExp.class) ) {
+		if(NodeExp.class.isAssignableFrom(n.getClass())) {
 			stm = new ExpStm (((NodeExp)this.get(index)).getExp());
 		}else {
 			stm = ((NodeStm)this.get(index)).getStm();
@@ -86,6 +87,7 @@ public final class NodeList extends NodeStm {
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
+
 		super.stm=this.createSeq(0);
 		
 		

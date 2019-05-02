@@ -9,6 +9,9 @@ public class ExpStm extends Stm {
 		this.exp = exp;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "ExpStm ( " + this.exp.toString() + " )";
+	}
 
 }

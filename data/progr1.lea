@@ -11,8 +11,10 @@ while (a >= 0) do
 	println (a);
 	return 1;
 	end
-	else
+	else begin
+	println(a);
 	return 0;
+	end
 	end
 end
 

@@ -1,11 +1,13 @@
 package ubordeaux.deptinfo.compilation.project.node;
 
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Cjump;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.ExpStm;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Jump;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Label;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.LabelLocation;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Relop;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Seq;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Stm;
 
 public final class NodeIf extends NodeStm {
 
@@ -55,10 +57,11 @@ public final class NodeIf extends NodeStm {
 					"									led on generateIntermediateCode");
 			return;
 		}
-
+		
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
+		
 		NodeRel rel = (NodeRel) getExpNode();
 		int rel_val=-1;
 		if(rel.getName() == "&&")
@@ -100,8 +103,14 @@ public final class NodeIf extends NodeStm {
 			//Seq T
 			Seq seqT = new Seq(labelT,stmT.getStm());
 			//Seq F
-			NodeStm stmF = (NodeStm) this.getElseNode();
-			Seq seqF = new Seq(labelF,stmF.getStm());
+			Stm stmF;
+			if(NodeExp.class.isAssignableFrom(this.getElseNode().getClass())) {
+				stmF = new ExpStm (((NodeExp)this.getElseNode()).getExp());
+			}else {
+				stmF = ((NodeStm)this.getElseNode()).getStm();
+			}
+	
+			Seq seqF = new Seq(labelF,stmF);
 			//seq4
 			Seq seq4 = new Seq(seqT,jmpEnd);
 			//seq4

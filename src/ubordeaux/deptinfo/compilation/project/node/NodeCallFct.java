@@ -116,10 +116,12 @@ public final class NodeCallFct extends NodeExp {
 		}
 		ExpList args = new ExpList(null,null);
 
+		//Genère le code intermédiaire des noeuds fils.
+		System.out.println("333333" + this.get(0));
+		this.get(0).generateIntermediateCode();
 		//On commence par le dernier élément, on rajoute petit à petit càd en tête de la liste.
-		for(int i = this.size()-1; i>=0; i--) {
+		for(int i = (this.get(0)).size()-1; i>=0; i--) {
 			NodeExp exp = (NodeExp) this.getArgs().get(i);
-			exp.generateIntermediateCode();//Genère le code intermédiaire des noeuds fils.
 			args.add(exp.getExp());
 		}
 		

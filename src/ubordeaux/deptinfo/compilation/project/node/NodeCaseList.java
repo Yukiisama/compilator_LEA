@@ -28,11 +28,11 @@ public final class NodeCaseList extends NodeStm {
 			System.out.println("NodeCaseList failed on generateIntermediateCode");
 			return;
 		}
-		System.out.println("NodeCaseList =>(");
+		
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
-		System.out.println(" )");
+		
 		
 		
 	}

@@ -25,15 +25,7 @@ public class Main {
 					System.err.println("*** Fichier " + arg);
 					Node result = (Node) parser.parse(input);
 					System.out.println(result.toString());
-					/*
-					if(result instanceof NodeList) {
-					Iterator<Node> it = ((NodeList)result).iterator();
-					while(it.hasNext()) {
-
-						Node k = (Node) it.next();	
-						k.generateIntermediateCode();
-						}
-					}*/
+					System.out.println("Créer code intermédiaire");
 					result.generateIntermediateCode();
 					
 					System.err.println("*** Analyse syntaxique ok");

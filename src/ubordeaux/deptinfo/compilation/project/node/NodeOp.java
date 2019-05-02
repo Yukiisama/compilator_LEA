@@ -1,5 +1,6 @@
 package ubordeaux.deptinfo.compilation.project.node;
 import ubordeaux.deptinfo.compilation.project.intermediateCode.Binop;
+import ubordeaux.deptinfo.compilation.project.intermediateCode.Const;
 
 
 public class NodeOp extends NodeExp {
@@ -62,8 +63,14 @@ public class NodeOp extends NodeExp {
 
 		if(this.name == "+")
 			super.exp = new Binop(Binop.PLUS,this.getOp1().getExp(),this.getOp2().getExp());
-		if(this.name == "-")
-			super.exp = new Binop(Binop.MINUS,this.getOp1().getExp(),this.getOp2().getExp());
+		if(this.name == "-") {
+			if(this.size()<2) {
+				super.exp = new Binop(Binop.MINUS,new Const(0),this.getOp1().getExp());
+			}else {
+				super.exp = new Binop(Binop.MINUS,this.getOp1().getExp(),this.getOp2().getExp());
+			}
+		}
+			
 		if(this.name == "*")
 			super.exp = new Binop(Binop.MUL,this.getOp1().getExp(),this.getOp2().getExp());
 		if(this.name == "/")

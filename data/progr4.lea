@@ -13,13 +13,16 @@ begin
       if (x==10) then begin
 	 y = 1;
 	 while (y <= 5) do begin
-	    println (-1000-y);
+	    println (-1000-500);
 	    y = y + 1;
 	    end
          end
-      else
-	 println ("X");
+      else begin
+	  //println ("X");
       x = x + 1;
+      x = x + 2;
+      x = x + 1;
+      end
    end
    
 end
