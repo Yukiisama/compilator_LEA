@@ -88,6 +88,8 @@ public final class NodeList extends NodeStm {
 			this.get(i).generateIntermediateCode();
 		super.stm=this.createSeq(0);
 		
+		
+		System.out.println(super.stm.toString());
 			
 	}
 	

@@ -29,7 +29,7 @@ public class StmList extends Stm{
     public String toString() {
 		if(head != null) {
 	        String string="StmList ( " +head.toString() +", ";
-	        StmList args_clone = tail;
+	        StmList args_clone = this;
 	        while(args_clone.getTail()!=null) {
 	            string = string + args_clone.getHead().toString() +", ";
 	            args_clone = args_clone.getTail();

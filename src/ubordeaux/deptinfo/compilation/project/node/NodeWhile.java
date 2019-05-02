@@ -39,10 +39,14 @@ public final class NodeWhile extends NodeStm {
 			System.out.println("NodeWhile failed on generateIntermediateCode");
 			return;
 		}
+		
+		
 		System.out.println("CI : NodeWhile");
 		//Genère le code intermédiaire des noeuds fils.
 		for (int i = 0; i<this.size(); i++)
 			this.get(i).generateIntermediateCode();
+		
+		
 		NodeRel rel = (NodeRel) getExp();
 		int rel_val=-1;
 		if(rel.getName() == "&&")
