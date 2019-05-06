@@ -61,22 +61,10 @@ public final class NodeCase extends NodeStm {
 			System.out.println("NodeCase failed on generateIntermediateCode");
 			return;
 		}
-		
 
-		NodeStm stm_cast = (NodeStm) this.get(0);
-		
-		if(isDefaultValue()) {
-			LabelLocation c = new LabelLocation(this.getNameValue());
-			super.stm = new ExpStm(
-					new Eseq(stm_cast.getStm(),
-							new Mem(new Name(c))
-							)
-					);
-		}else {
-			LabelLocation c = new LabelLocation(nameValue);
-			super.stm = new Seq(new Label(c), stm_cast.getStm());
-		}
-		System.out.println(super.stm.toString());
+		//Genère le code intermédiaire des noeuds fils.
+		for (int i = 0; i<this.size(); i++)
+			this.get(i).generateIntermediateCode();
 	}
 
 }

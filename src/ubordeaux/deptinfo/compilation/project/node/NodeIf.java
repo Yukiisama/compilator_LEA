@@ -72,14 +72,21 @@ public final class NodeIf extends NodeStm {
 		//Cjump 
 		Cjump c1 =  new Cjump(Relop.NE, ((NodeExp)this.get(0)).getExp(), new Const (0), t, f);
 		//Then stm
-		NodeStm stmT = (NodeStm) this.getThenNode();
+		//NodeStm stmT = (NodeStm) this.getThenNode();
+		
+		Stm stmT;
+		if(NodeExp.class.isAssignableFrom(this.getThenNode().getClass())) {
+			stmT = new ExpStm (((NodeExp)this.getThenNode()).getExp());
+		}else {
+			stmT = ((NodeStm)this.getThenNode()).getStm();
+		}
 		if(getElseNode()!=null) {
 			//label end
 			LabelLocation end = new LabelLocation();
 			//Jump end
 			Jump jmpEnd = new Jump(end);
 			//Seq T
-			Seq seqT = new Seq(labelT,stmT.getStm());
+			Seq seqT = new Seq(labelT,stmT);
 			//Seq F
 			Stm stmF;
 			if(NodeExp.class.isAssignableFrom(this.getElseNode().getClass())) {
@@ -87,7 +94,6 @@ public final class NodeIf extends NodeStm {
 			}else {
 				stmF = ((NodeStm)this.getElseNode()).getStm();
 			}
-	
 			Seq seqF = new Seq(labelF,stmF);
 			//seq4
 			Seq seq4 = new Seq(seqT,jmpEnd);
@@ -106,7 +112,7 @@ public final class NodeIf extends NodeStm {
 					new Seq(
 							new Seq(
 									labelT,
-									stmT.getStm()),
+									stmT),
 							labelF)
 					);
 		}

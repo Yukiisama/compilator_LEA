@@ -33,12 +33,23 @@ public final class NodeSwitch extends NodeStm {
 		return (NodeStm)this.get(1);
 	}
 	
-	private Stm switch_create (int index, NodeList caselist) {
-		NodeCase c = (NodeCase) caselist.get(index);
-		if(index<caselist.size()-1) {
-			
+	public Node switchCreate (int index) {
+		NodeCase c = (NodeCase) this.get(1).get(index);
+		System.out.println("========+++++++++>>>>> "+c.get(0)+" cristiano "+this.get(0));
+		if(index==this.get(1).size()-1) {
+			System.out.println("========+++++++++>>>>> "+c.get(0));
+			return c.get(0);
 		}
-		return switch_create(new NodeIf(new Relop(Relop.EQ, this.getNodeExp().getExp(), c.getExpr())));
+		index = index+1;
+		return new NodeIf(
+					new NodeRel(
+							"==",//,
+							new NodeId(c.getNameValue(),this.getNodeExp().getType()),
+							this.get(0)),
+					c.get(0),
+					switchCreate(index));
+		
+
 	}
 	
 	public void generateIntermediateCode() {
@@ -54,9 +65,13 @@ public final class NodeSwitch extends NodeStm {
 		}
 			
 			
-		//super.stm = new ExpStm(this.getNodeStm().getStm(), this.getNodeExp().getExp());
+		NodeStm sw = (NodeStm) switchCreate(0);
+		System.out.println("sw ========================" + sw);
+		sw.generateIntermediateCode();
 		
-		System.out.println(super.stm.toString());
+		super.stm = sw.getStm();
+		
+		//System.out.println(super.stm.toString());
 	}
 	
 }

@@ -82,8 +82,9 @@ public class Cjump extends Stm {
 		if(right==null) {
 			System.out.println("RIGHT IS NULL"+right.toString());
 		}
-		return "Cjump ( "+srelop +", " + left.toString() + ", " +right.toString() + ", "
-				+ iftrue.toString() + ", " + iffalse.toString() + " )";
+		//return "Cjump ( "+srelop +", " + left.toString() + ", " +right.toString() + ", "
+		//		+ iftrue.toString() + ", " + iffalse.toString() + " )";
+		return "Cjump";
 	}
 	
 	

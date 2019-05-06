@@ -1130,7 +1130,7 @@ Create class NodeId
 Create class NodeDispose
 
 Stack PUSH
-NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeAssign(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#), NodeAssign(NodeId#b:TypeBoolean#, NodePtrAccess(foo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#)))), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#)), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#1:TypeInt_1#))), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), NodeIf(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeList(NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), readln_NodeCallFct(NodeList(NodeId#y:TypeInt_null#)))), NodeSwitch(NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeCaseList(NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeOp(NodeOp(NodeLiteral#36:TypeInt_36#, NodeLiteral#45:TypeInt_45#), NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeId#p:TypePointer(TypeInt_null)#, NodeLiteral#0:TypePointer(TypeInt_null)#), NodeNew(NodeId#p:TypePointer(TypeInt_null)#), NodeAssign(NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#)), NodeDispose(NodeId#p:TypePointer(TypeInt_null)#))
+NodeList(NodeAssign(NodeId#b:TypeBoolean#, NodeLiteral#false:TypeBoolean#), NodeAssign(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#), NodeAssign(NodeId#b:TypeBoolean#, NodePtrAccess(foo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#)))), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeLiteral#3:TypeInt_3#, NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#)), NodeAssign(NodeId#b:TypeBoolean#, goo_NodeCallFct(NodeList(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#1:TypeInt_1#), NodeLiteral#1:TypeInt_1#))), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), NodeIf(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#)), NodeWhile(NodeArrayAccess(NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#, NodeLiteral#7:TypeInt_7#), NodeList(NodeIf(NodeArrayAccess(NodeId#l:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_5], TypeBoolean)#, NodeId#Monday:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#1:TypeInt_1#), NodeAssign(NodeId#x:TypeInt_null#, NodeLiteral#2:TypeInt_2#)), println_NodeCallFct(NodeList(NodeId#x:TypeInt_null#)), readln_NodeCallFct(NodeList(NodeId#y:TypeInt_null#)))), NodeSwitch(NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeCaseList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))), NodeAssign(NodeId#x:TypeInt_null#, NodeOp(NodeOp(NodeOp(NodeLiteral#36:TypeInt_36#, NodeLiteral#45:TypeInt_45#), NodeLiteral#7:TypeInt_7#))), NodeAssign(NodeId#p:TypePointer(TypeInt_null)#, NodeLiteral#0:TypePointer(TypeInt_null)#), NodeNew(NodeId#p:TypePointer(TypeInt_null)#), NodeAssign(NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#), NodeLiteral#36:TypeInt_36#), NodeAssign(NodeId#x:TypeInt_null#, NodePtrAccess(NodeId#p:TypePointer(TypeInt_null)#)), NodeDispose(NodeId#p:TypePointer(TypeInt_null)#))
 Créer code intermédiaire
 --- CheckType NodeList
 --- CheckType NodeAssign
@@ -1299,7 +1299,7 @@ NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),M
 Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
-Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L0), LabelLocation(L1) ), Seq ( Seq ( Label ( LabelLocation(L0) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L1) ) ) )
+Seq ( Cjump, Seq ( Seq ( Label ( LabelLocation(L0) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L1) ) ) )
 --- CheckType NodeIf
 --- CheckType NodeArrayAccess
 --- CheckType NodeId
@@ -1321,7 +1321,7 @@ NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
 Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) )
-Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L2), LabelLocation(L3) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L2) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ), Seq ( Seq ( Label ( LabelLocation(L3) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ) ) ), Label ( LabelLocation(L4) ) )
+Seq ( Seq ( Cjump, Seq ( Seq ( Seq ( Label ( LabelLocation(L2) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ), Seq ( Seq ( Label ( LabelLocation(L3) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L4) ), LabelLocationList ( LabelLocation(L4) ) ) ) ) ), Label ( LabelLocation(L4) ) )
 --- CheckType NodeIf
 --- CheckType NodeArrayAccess
 --- CheckType NodeId
@@ -1335,7 +1335,7 @@ NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),
 Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
-Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L5), LabelLocation(L6) ), Seq ( Seq ( Label ( LabelLocation(L5) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L6) ) ) )
+Seq ( Cjump, Seq ( Seq ( Label ( LabelLocation(L5) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Label ( LabelLocation(L6) ) ) )
 --- CheckType NodeWhile
 --- CheckType NodeArrayAccess
 --- CheckType NodeAssign
@@ -1354,7 +1354,7 @@ NodeArrayAcces => Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),
 Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
-NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L8) ), Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L7), LabelLocation(L9) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L7) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L8) ), LabelLocationList ( LabelLocation(L8) ) ) ), Label ( LabelLocation(L9) ) ) )
+NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L8) ), Cjump ), Seq ( Seq ( Seq ( Label ( LabelLocation(L7) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L8) ), LabelLocationList ( LabelLocation(L8) ) ) ), Label ( LabelLocation(L9) ) ) )
 --- CheckType NodeWhile
 --- CheckType NodeArrayAccess
 --- CheckType NodeList
@@ -1396,7 +1396,7 @@ NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) )
 Name ( LabelLocation(x) )
 --- CheckType NodeLiteral
 NodeAssign =>Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) )
-Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
+Seq ( Seq ( Cjump, Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
 --- CheckType NodeCallFct
 --- CheckType NodeId
 --- CheckType NodeList
@@ -1413,8 +1413,8 @@ Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation(
 Name ( LabelLocation(y) )
 ExpStm ( Name ( LabelLocation(y) ) )
 Callfct =>Call( Name ( LabelLocation(readln) ), ExpList ( Name ( LabelLocation(y) ) ) )
-Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
-NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L14) ), Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(z2) ),PLUS,Binop(Const ( 4 ),MUL,Name ( LabelLocation(z2) ))) ), Const ( 0 ), LabelLocation(L13), LabelLocation(L15) ) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L13) ), Seq ( Seq ( Cjump ( bad relop in CJUMP, Mem ( Binop(Name ( LabelLocation(l) ),PLUS,Binop(Const ( 1 ),MUL,Name ( LabelLocation(l) ))) ), Const ( 0 ), LabelLocation(L10), LabelLocation(L11) ), Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) ) ), Jump ( Name ( LabelLocation(L14) ), LabelLocationList ( LabelLocation(L14) ) ) ), Label ( LabelLocation(L15) ) ) )
+Seq ( Seq ( Cjump, Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) )
+NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L14) ), Cjump ), Seq ( Seq ( Seq ( Label ( LabelLocation(L13) ), Seq ( Seq ( Cjump, Seq ( Seq ( Seq ( Label ( LabelLocation(L10) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 1 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ), Seq ( Seq ( Label ( LabelLocation(L11) ), Move ( Mem ( Name ( LabelLocation(x) ) ), Const ( 2 ) ) ), Jump ( Name ( LabelLocation(L12) ), LabelLocationList ( LabelLocation(L12) ) ) ) ) ), Label ( LabelLocation(L12) ) ) ), Jump ( Name ( LabelLocation(L14) ), LabelLocationList ( LabelLocation(L14) ) ) ), Label ( LabelLocation(L15) ) ) )
 --- CheckType NodeSwitch
 --- CheckType NodeId
 --- CheckType NodeCaseList
@@ -1422,10 +1422,300 @@ NodeWhile =>Seq ( Seq ( Label ( LabelLocation(L14) ), Cjump ( bad relop in CJUMP
 3333333 fils Switch NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
 --- CheckType NodeId
 Name ( LabelLocation(month) )
-3333333 fils Switch NodeCaseList(NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))), NodeList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))
+3333333 fils Switch NodeCaseList(NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#))), NodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))
 --- CheckType NodeCaseList
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
 --- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))
 --- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))
 --- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)))
 --- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))
 --- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)))
+--- CheckType NodeCase
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("none") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("none") ) ) )
+3333333 fils CaseListNodeCase(println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#)))
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+Create class NodeId
+Create class NodeRel
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#)) cristiano NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#
+========+++++++++>>>>> println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+Create class NodeIf
+sw ========================NodeIf(NodeRel(NodeId#March:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)), NodeIf(NodeRel(NodeId#April:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)), NodeIf(NodeRel(NodeId#May:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"spring":TypeString#)), NodeIf(NodeRel(NodeId#June:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)), NodeIf(NodeRel(NodeId#July:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)), NodeIf(NodeRel(NodeId#August:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"summer":TypeString#)), NodeIf(NodeRel(NodeId#September:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)), NodeIf(NodeRel(NodeId#October:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)), NodeIf(NodeRel(NodeId#November:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"autumn":TypeString#)), NodeIf(NodeRel(NodeId#February:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)), NodeIf(NodeRel(NodeId#December:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)), NodeIf(NodeRel(NodeId#January:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#, NodeId#month:TypeEnumRange[TypeItemEnum@January=0 nom :..TypeItemEnum@December=11 nom :]_1#), println_NodeCallFct(NodeList(NodeLiteral#"winter":TypeString#)), println_NodeCallFct(NodeList(NodeLiteral#"none":TypeString#))))))))))))))
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("spring") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("spring") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("summer") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("summer") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("autumn") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("autumn") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+--- CheckType NodeIf
+--- CheckType NodeRel
+NodeRel failed on generateIntermediateCode
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("winter") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("winter") ) ) )
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeList
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+ExpStm ( Name ( LabelLocation("none") ) )
+Callfct =>Call( Name ( LabelLocation(println) ), ExpList ( Name ( LabelLocation("none") ) ) )

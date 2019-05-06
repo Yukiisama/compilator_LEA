@@ -15,6 +15,12 @@ public class Seq extends Stm {
 
 	@Override
 	public String toString() {
+		if(left==null) {
+			System.out.println("LEFT IS NULL"+left.toString());
+		}
+		if(right==null) {
+			System.out.println("RIGHT IS NULL"+right.toString());
+		}
 		return "Seq ( " + left.toString() + ", " + right.toString() + " )";
 	}
 	

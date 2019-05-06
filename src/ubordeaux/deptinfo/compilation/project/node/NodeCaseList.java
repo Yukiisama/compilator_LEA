@@ -17,6 +17,16 @@ public final class NodeCaseList extends NodeStm {
 		super.checksType();
 		return true;
 	}
+	
+	public void add(Node elt) {
+		if(elt.size()<2) {
+			this.elts.add(elt);
+		}
+		else {
+			for(int i = 0; i<elt.size(); i++)
+				this.elts.add(elt.get(i));
+		}
+	}
 
 	@Override
 	public NodeCaseList clone() {
@@ -34,9 +44,6 @@ public final class NodeCaseList extends NodeStm {
 			this.get(i).generateIntermediateCode();
 			System.out.println("3333333 fils CaseList" +this.get(i));
 		}
-			
-		
-		
 		
 	}
 }
